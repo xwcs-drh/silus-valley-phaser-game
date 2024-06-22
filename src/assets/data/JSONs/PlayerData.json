@@ -1,0 +1,21 @@
+[{
+  "id": "player1",
+  "inventory": {
+  	"r1": 0,
+    "r2": 0
+   },
+  "biomes": ["b1", "b3"],
+  "unlockedTraditionalActivities": ["ta1", "ta2"],
+  "vocabEncounters": [
+	{
+      "vocabId": "v2",
+      "timesEncountered": 1,
+      "timesCorrect": 0
+    },
+    {
+      "vocabId": "v1",
+      "timesEncountered": 1,
+      "timesCorrect": 1
+    }
+  ]
+}]

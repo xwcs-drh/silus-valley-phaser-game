@@ -1,0 +1,141 @@
+[{
+  "id": "r1",
+  "nameE": "plant",
+  "nameH": "pən’əm",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the plant",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta1": 1,
+  	"ta3": 3
+  },
+  "traditionalActivitiesRequire": {
+  	"ta1": 4,
+  	"ta3": 5
+  },
+  "audioFilename": "plant.wav",
+  "imageFilename": "plant.svg"
+},
+{
+  "id": "r2",
+  "nameE": "fish",
+  "nameH": "st̓ᶿqʷay",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the plant",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta2": 1
+  },
+  "traditionalActivitiesRequire": {
+  	"ta6": 1,
+  	"ta7": 1,
+  	"ta8": 1
+  },
+  "audioFilename": "fish.wav",
+  "imageFilename": "fish.svg"
+},
+{
+  "id": "r3",
+  "nameE": "tea",
+  "nameH": "...",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the tea",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta3": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "tea.wav",
+  "imageFilename": "tea.svg"
+},
+{
+  "id": "r4",
+  "nameE": "devils club beads",
+  "nameH": "qʷáʔpəłp beads",
+  "vocabID": "vo13",
+  "quantity": 0,
+  "descriptionE": "Something about the devils club beads",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta4": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "devils_club_beads.wav",
+  "imageFilename": "devils_club_beads.svg"
+},
+{
+  "id": "r5",
+  "nameE": "salve",
+  "nameH": "...",
+  "vocabID": "20",
+  "quantity": 0,
+  "descriptionE": "Something about the salve",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta5": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "salve.wav",
+  "imageFilename": "salve.svg"
+},
+{
+  "id": "r6",
+  "nameE": "fish bone beads",
+  "nameH": "...",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the fish bone beads",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta6": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "fishBoneBeads.wav",
+  "imageFilename": "fishBoneBeads.svg"
+},
+{
+  "id": "r7",
+  "nameE": "fish leather",
+  "nameH": "...",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the fish leather",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta7": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "fishLeather.wav",
+  "imageFilename": "fishLeather.svg"
+},
+{
+  "id": "r8",
+  "nameE": "smoked fish",
+  "vocabID": "",
+  "nameH": "...",
+  "quantity": 0,
+  "descriptionE": "Something about the fish leather",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta8": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "fishLeather.wav",
+  "imageFilename": "fishLeather.svg"
+}
+]

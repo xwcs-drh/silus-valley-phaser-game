@@ -1,0 +1,311 @@
+[{
+  "sceneConstructor_identifier": "OpeningIntroductionScene",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "Welcome, grandchild!",
+      "textH": "...",
+      "conditions": "",
+      "function":{
+      	"sequence": "",
+      	"functionReference": ""
+      }
+ 	  },
+    {
+      "order": 2,
+      "textE": " Something about visiting silə",
+      "textH": "...",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": ""
+      }
+    },    
+    {
+      "order": 3,
+      "textE": "Something about silə teaching granchild",
+      "textH": "...",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": ""
+      }
+    },
+    {
+      "order": 4,
+      "textE": "Grandchild will work with cedar",
+      "textH": "...",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": ""
+      }
+    },
+    {
+      "order": 5,
+      "textE": "Grandchild will work with fish",
+      "textH": "...",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": ""
+      }
+    },
+    {
+      "order": 6,
+      "textE": "Grandchild will work with medicine",
+      "textH": "...",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": ""
+      }
+    },
+    {
+      "order": 7,
+      "textE": "Grandchild will learn/practice their hən̓q̓əmin̓əm̓ ",
+      "textH": "...",
+      "conditions": "",
+      "function":{
+        "sequence": "after",
+        "functionReference": ["ClickToMainMap"]
+      }
+    }
+  ]
+},
+{
+  "sceneConstructor_identifier": "Map",
+  "dialogues": [
+    {
+      "order": 1,
+      "text": " click on each area to explore these activities",
+      "conditions": "not returningPlayer",
+      "function":{
+      	"sequence": "during",
+      	"functionReference": ["arrow,bench", "arrow,signPost"]
+      }
+    },
+    {
+      "order": 2,
+      "text": "Grandchild will work with cedar in silə's backyard/little forest",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,littleForest_area"]
+      }
+    },
+    {
+      "order": 3,
+      "text": "Grandchild will get fish from the river",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,river_area"]
+      }
+    },    
+    {
+      "order": 4,
+      "text": "Grandchild will work with medicine in silə's backyard/garden/little forest",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,river_area"]
+      }
+    },
+    {
+      "order": 5,
+      "text": "Grandchild will get fish from the river",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,river_area"]
+      }
+    },
+    {
+      "order": 6,
+      "text": "ENG - you will practice your hən̓q̓əmin̓əm̓ through x/y/z",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "",
+        "functionReference": [""]
+      }
+    },
+    {
+      "order": 7,
+      "text": "now go to little forest",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["arrow,littForest_area"]
+      }
+    }   
+  ]
+},
+{
+  "sceneConstructor_identifier": "littleForest",
+  "dialogues": [
+    {
+      "order": 1,
+      "text": "Welcome to silə's backyard",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "",
+        "functionReference": []
+      }
+    },
+    {
+      "order": 2,
+      "text": "ENG- in silə's backyard, you can do traditional activities with cedar, fish, and medicine",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,workbench"]
+      }
+    },
+    {
+      "order": 3,
+      "text": "ENG- and practice the vocab that is centered around them",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,signpost"]
+      }
+    },    
+    {
+      "order": 4,
+      "text": "ENG-  As you finish traditional activities, you get materials for the other activities",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,workbench"]
+      }
+    },
+    {
+      "order": 5,
+      "text": "Let's play",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["arrow,workbench"]
+      }
+    }
+  ]
+},
+{
+  "sceneConstructor_identifier": "vocabBase",
+  "dialogues": [
+    {
+      "order": 1,
+      "text": "lets practice hən̓q̓əmin̓əm̓",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": []
+      }
+    },
+    {
+      "order": 2,
+      "text": "lets practice hən̓q̓əmin̓əm̓",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": [""]
+      }
+    },
+    {
+      "order": 3,
+      "text": "ENG - you'll play vocabulary games centered around the game vocab such as plants, tools, fish, etc. ",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "",
+        "functionReference": [""]
+      }
+    },    
+    {
+      "order": 4,
+      "text": "ENG- click a category",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,semantic_category_select"]
+      }
+    },
+    {
+      "order": 5,
+      "text": "Choose a game",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,game_type_select"]
+      }
+    },
+    {
+      "order": 6,
+      "text": "Let's Work",
+      "conditions": "",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,play_button"]
+      }
+    }
+  ]
+},
+{
+  "sceneConstructor_identifier": "traditionalActivitiesBase",
+  "dialogues": [
+    {
+      "order": 1,
+      "text": "This is where you do your traditional activities!",
+      "conditions": "",
+      "function":{
+        "sequence": "",
+        "functionReference": []
+      }
+    },
+    {
+      "order": 2,
+      "text": "This is where you can choose an activity",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "",
+        "functionReference": [""]
+      }
+    },
+    {
+      "order": 3,
+      "text": "ENG- Need help? Click here for a walk-through on how to use the workbench!",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,manual"]
+      }
+    },    
+    {
+      "order": 4,
+      "text": "ENG- Your completed how-to guides are here",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,recipe_book"]
+      }
+    },
+    {
+      "order": 5,
+      "text": "ENG-  As you finish traditional activities, you get materials for the other activities",
+      "conditions": "not returningPlayer",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,inventory_basket"]
+      }
+    },
+    {
+      "order": 6,
+      "text": "ENG- This is where your materials are after you complete an activity",
+      "conditions": "",
+      "function":{
+        "sequence": "during",
+        "functionReference": ["highlight,inventory_basket"]
+      }
+    }
+  ]
+}]
