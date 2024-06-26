@@ -117,6 +117,7 @@ export default class OpeningIntroductionScene extends BaseScene {
         // console.log("All Dialogue Data: ", allDialogueData);
         this.dialogueManager = new DialogueManager(this, allDialogueData);
         this.dialogueManager.initDialogue();
+        this.dialogueManager.create();
         // console.log("OpeningIntroductionScene: Dialogue Manager created: ", this.dialogueManager ? "true" : "false");
     }
 
