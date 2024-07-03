@@ -77,7 +77,10 @@ class DialogueManager {
     }
 
     /*
-    Return next line of dialogue or "no more lines"
+    Displays the next line of text if passes conditions associated with the dialogue line object.
+    Processes any functions associated with the dialogue line object based on sequence.
+
+    Return next line of dialogue or "no more text" if the last line of dialogue
     - "no more lines" will be replaced with something else after debugging
     */
     processNextEntry() {
@@ -90,11 +93,23 @@ class DialogueManager {
             // console.log('dialogue manager - passing length');
             const entry = this.sceneDialogue.dialogues[this.currentEntryIndex]; //current line of dialogue being shown
 
-            if (this.checkConditions(entry.conditions)) {
+            if (this.checkConditions(entry.conditions)){
                 // console.log('dialogue manager - passing dialogue conditions');
-                    this.showDialogueText(entry.textE);
-                    this.currentEntryIndex++;  
-                };
+
+                // Execute "during" functions
+                this.executeFunctions(entry.functions, 'during');
+
+                this.showDialogueText(entry.textE);
+                
+                this.scene.time.delayedCall(2000, () => {
+                    // Execute "after" functions with 2 second delay
+                    this.executeFunctions(entry.functions, 'after');
+                });
+
+                this.currentEntryIndex++;
+
+            };
+
             //if the last line of dialogue, destroy 'next line' button
             if(this.currentEntryIndex === this.sceneDialogue.dialogues.length){
                 console.log("destroy the next dialogue button");
@@ -110,7 +125,6 @@ class DialogueManager {
         }
     }
     
-
     /*
     Checks any conditions for the current line of dialogue, returns bool
         cross-references (sceneDialogue[currentEntryIndex].conditions).. need to work out more
@@ -122,15 +136,51 @@ class DialogueManager {
 
     /*
     Execute any functions assocaiated with the line of dialogue
+    Paramaters:
+        - function (array[function object]): 
+            [{
+              "sequence": "after",
+              "functionReference": "showMapButton",
+              "args": [""]
+            }]
+        - sequence (string): sequence status to run. ie. run all functions identified as "before"
     */
-    processFunctionReferences(functionRef) {
-        if (functionRef && functionRef.functionReference) {
-            functionRef.functionReference.forEach(ref => {
-                const [funcName, param] = ref.split(',');
-                if (this.scene[funcName]) {
-                    this.scene[funcName](param);
-                }
-            });
+    executeFunctions(functions, sequence) {
+        if (functions) {
+          functions.forEach(func => {
+            if (func.sequence === sequence) {
+              this.executeFunctionByName(func.functionReference, ...func.args);
+            }
+          });
+        }
+    }
+
+    /*
+    Executes a function based on its name and arguments
+    Paramaters:
+        - function name (string): name of the function being called, and potentially an associated object
+            assumes the function exists in the scene in which the dialoguemanager instance was created, or an imported object.
+            e.g. highlightService.highlight; showMapButton
+        - arguments (various): any arguments required by the function to be executed
+    */
+    executeFunctionByName(functionName, ...args) {
+        //split functionName into object and function. 
+            //Object would be a service like HighlightService or ArrowService.   
+        const [object, func] = functionName.split('.');
+        
+        //if there's an object and function indicated, execute the function associated with that object as imported into the scene passed into DialogueManager.
+        if (func && this.scene[object] && typeof this.scene[object][func] === 'function') {
+          return this.scene[object][func](...args);
+        } 
+
+        //if there isn't an object and function indicated, execute the function associated with the scene passed into the DialogueManager.
+        else if (typeof this.scene[functionName] === 'function') {
+          return this.scene[functionName](...args);
+        } 
+
+        //throw error if functionName cannot be located
+        else {
+          throw new Error(`Function ${functionName} does not exist in the scene or services`);
         }
     }
 
