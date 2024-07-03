@@ -16,8 +16,8 @@
     "unlockedTraditionalActivities": ["ta1", "ta3"]
   },
   {
-    "constructor_identifier": "Map",
-    "reference_name": "Map",
+    "constructor_identifier": "MainMapScene",
+    "reference_name": "MainMapScene",
     "description": "This is the scene that includes the Main map with map introduction",
     "background_image": "silu_valley_map.png",
     "UIMenu": "MainUIScene",
