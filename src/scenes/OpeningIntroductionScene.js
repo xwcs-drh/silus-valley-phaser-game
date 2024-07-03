@@ -59,8 +59,8 @@ export default class OpeningIntroductionScene extends BaseScene {
         //Create map button that will be called at the end of dialogue.
         this.createReturnButton();
 
-        //this may be redundant if the mainUI appears. idk.
-        // this.createMapButton();
+        //create button to take player to the Main Map scene
+        this.createMapButton();
 
         //initiate DialogueManager to run the dialogue for the scene
         this.createDialogueAssistant();
@@ -94,8 +94,17 @@ export default class OpeningIntroductionScene extends BaseScene {
     Should be initially set to not visible... will later be called by a dialogue instance
     */
     createMapButton(){
-        // console.log('OpeningIntroductionScene: createmapButton');
+        console.log('OpeningIntroductionScene: createmapButton');
+        //Create Map button => Starts MainMapScene
 
+        this.mainMapButton = new LargeTextButton(this, this.gameWidth*0.5, this.gameHeight*0.8, "Map", () => {
+            // console.log(text,' button clicked');
+            this.arrowService.hideArrow();
+
+            //start OpeningIntroductionScene scene when the button is clicked on. don't need to pass in 'reference' as it will be set by default in BaseScene
+            this.scene.start('MainMapScene', { allScenesData: this.allScenesData});
+        });
+        this.mainMapButton.setVisible(false);
     }   
 
     /*
@@ -103,14 +112,15 @@ export default class OpeningIntroductionScene extends BaseScene {
         This is called by a dialogue instance
     */
     showMapButton(){
-         this.mapButton.setVisible(true);
-         //set animation
+        this.mainMapButton.setVisible(true);
+         
+        //set arrow to point at the map button
+        this.arrowService.pointAtObject(this.mainMapButton);
     }
 
     /*
     DIALOGUE
     This creates an instance of a DialogueManager. 
-    I have not made the dialogue manager (successfully) yet... written the script but not tested.
     */
     createDialogueAssistant(){
         const allDialogueData = this.registry.get('allDialogueData'); // Retrieve from registry
@@ -120,6 +130,5 @@ export default class OpeningIntroductionScene extends BaseScene {
         this.dialogueManager.create();
         // console.log("OpeningIntroductionScene: Dialogue Manager created: ", this.dialogueManager ? "true" : "false");
     }
-
     
 }
