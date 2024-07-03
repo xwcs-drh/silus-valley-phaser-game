@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import ArrowService from '../utils/ArrowService';
+import HighlightService from '../utils/HighlightService';
 
 // import MainUI from './MainUI'; // Import MainUI (the default export) from MainUI.js
 export default class BaseScene extends Phaser.Scene {
@@ -49,10 +51,9 @@ export default class BaseScene extends Phaser.Scene {
         // Background_image is defined in the sceneData for each scene
         // console.log('current scene data: ', this.currentSceneData.background_image);
         const imagePath = `./assets/Images/${this.currentSceneData.background_image}`;
-
+        this.load.image('arrowImage', './assets/UI/arrow.png'); // Load arrow texture
         //console.log('scene background image name: ', this.currentSceneData.background_image);
         // console.log('background image path: ', imagePath);
-
         if (this.currentSceneData && this.currentSceneData.background_image) {
             this.load.image(this.currentSceneData.background_image, imagePath);
         }
@@ -94,6 +95,16 @@ export default class BaseScene extends Phaser.Scene {
                 this.scene.stop("MainUIScene");
             }
         }
+
+        //Create the arrow service in scene
+        this.arrowService = new ArrowService(this);
+        this.arrowService.createArrow('arrowImage', 0xff0000); //(sprite, fill color)
+        console.log(`OpeningIntroductionScene: arrow service: ${this.arrowService}`);
+
+        //Create the highlight service in scene
+        this.highlightService = HighlightService;
+        console.log(`OpeningIntroductionScene: highlight service: ${this.highlightService}`);
+
     }
 
     /*
