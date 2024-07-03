@@ -8,6 +8,7 @@ import ManualPopupScene from './scenes/popups/ManualPopupScene';
 import CreditsPopupScene from './scenes/popups/CreditsPopupScene';
 import OpeningIntroductionScene from './scenes/OpeningIntroductionScene';
 import BiomeHomeScene from './scenes/BiomeHomeScene';
+import MainMapScene from './scenes/MainMapScene';
 import MainUIScene from './scenes/MainUIScene';
 
 // import gameConfig from './config';
@@ -26,6 +27,7 @@ var config = {
 		CreditsPopupScene,
 		OpeningIntroductionScene,
 		BiomeHomeScene,
+		MainMapScene,
 		MainUIScene
 
 	], //list of all scenes used
