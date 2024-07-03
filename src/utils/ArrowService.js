@@ -3,17 +3,23 @@ export default class ArrowService {
         this.scene = scene;
         this.arrow = null;
         this.target = null;
+        this.bounceTween = null;
     }
 
-    createArrow(x, y, texture) {
-        // Create the arrow sprite at a given position
-        this.arrow = this.scene.add.sprite(x, y, texture);
-        this.arrow.setScale(0.5); // Scale down the arrow if needed
+    createArrow(texture, fillColor) {
+        // Create the arrow sprite but don't add it to the scene yet
+        this.arrow = this.scene.add.sprite(0, 0, texture);
+        this.arrow.setScale(0.15); // Scale up the arrow
+        this.setFillColor(fillColor); // Apply the fill color tint
+        this.arrow.setVisible(false); // Initially hide the arrow
+        console.log(`Arrow created with width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
     }
 
     setTarget(target) {
         // Set the target object
         this.target = target;
+        this.updateArrow(); // Update arrow direction immediately
+        console.log(`arrow service: arrow x: ${this.arrow.x}, y: ${this.arrow.y}`);
     }
 
     updateArrow() {
@@ -21,19 +27,61 @@ export default class ArrowService {
 
         // Calculate angle to target
         const angle = Phaser.Math.Angle.Between(
-            this.arrow.x, this.arrow.y,
-            this.target.x, this.target.y
+          this.arrow.x, this.arrow.y,
+          this.target.x, this.target.y
         );
 
-        // Set arrow rotation to point to target
-        this.arrow.rotation = angle;
+        // Set arrow rotation to point 180 degrees (π radians)
+        this.arrow.rotation = Math.PI;
 
-        // Apply a bouncing effect by modifying the arrow's scale or position
+        // Apply the bouncing effect
         this.applyBouncingEffect();
     }
 
+    // This creates a simple bounce effect using Phaser's tween system
     applyBouncingEffect() {
-        // This creates a simple bounce effect by altering the y position in a sine wave pattern
-        this.arrow.y += Math.sin(this.scene.time.now / 100) * 1.5;
+        if (this.bounceTween) {
+          this.bounceTween.stop();
+        }
+
+        this.bounceTween = this.scene.tweens.add({
+          targets: this.arrow,
+          y: this.arrow.y - 10, // Adjust bounce height
+          yoyo: true,
+          repeat: -1,
+          duration: 300,
+          ease: 'Sine.easeInOut'
+        });
+    }
+
+    // Set the fill color of the arrow
+    setFillColor(color) {
+        if (this.arrow) {
+            this.arrow.setTint(color);
+        }
+    }
+
+    //Set the position of the arrow to be relative to the target object, and enable visibility
+    pointAtObject(target) {
+        console.log(`arrow service: target x: ${target.x}, y: ${target.y}`);
+
+        this.setTarget(target);
+        if (this.arrow) {
+            this.arrow.setPosition(target.x, target.y-(target.displayHeight*1.5));//offset y-position of arrow, to be above the target object
+            this.updateArrow(); // Ensure the arrow points to the target immediately
+            this.arrow.setVisible(true);
+        }
+        console.log(`arrow service: target x: ${target.x}, y: ${target.y}`);
+        console.log(`Arrow now has width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
+    }
+
+    //Disable visibility of arrow
+    hideArrow() {
+        if (this.arrow) {
+            this.arrow.setVisible(false);
+            if (this.bounceTween) {
+                this.bounceTween.stop();
+            }
+        }
     }
 }
