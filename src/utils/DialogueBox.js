@@ -23,7 +23,8 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
       fontSize: '20px',
       fill: '#000',
       strokeThickness: 0.5,
-      resolution: window.devicePixelRatio
+      resolution: window.devicePixelRatio,
+      wordWrap: { width: width - 20, useAdvancedWrap: true } // Set word wrap width
     };
 
     // Create the background and border
@@ -39,6 +40,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
 
     //Create the "go" (to next line of dialogue) button
     this.button = this.createButton(scene, buttonOffsetX, buttonOffsetY, '>', this.handleClick.bind(this));
+    this.button.setVisible(false);
 
 
     // Add background, text, and progression button to the container
@@ -143,6 +145,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
       console.log('Button clicked. Setting inactive button state.');
       // Change button to inactive color
       this.changeButtonColor(this.button.buttonGraphics, 0xe4e4e4);
+      this.setButtonVisibility(false);
       this.button.buttonRect.disableInteractive();
     }
     // Execute the callback function before making the button inactive
@@ -155,8 +158,9 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
         console.log('Reactivating button after delay.');
         
           this.changeButtonColor(this.button.buttonGraphics, 0xffffff);
+          // this.setButtonVisibility(true);
           this.button.buttonRect.setInteractive();
-        
+
       });
     }
   }
@@ -182,6 +186,18 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
   setText(newText) {
     if (this.dialogueText) {
       this.dialogueText.setText(newText);
+      this.scene.time.delayedCall(2000, () => {
+        this.setButtonVisibility(true);
+      });
+    }
+  }
+
+  /*
+  Change visibility of the 'go' button
+  */
+  setButtonVisibility(visible) {
+    if (this.button) {
+      this.button.setVisible(visible);
     }
   }
 
