@@ -67,6 +67,7 @@ class DialogueManager {
         
         //add text to dialogue box
         this.dialogueBox = new DialogueBox(this.scene, 400, 200, boundCallback);
+        this.dialogueBox.setDepth(101);
         console.log(this.dialogueBox);
         // this.add(this.dialogueBox);
 
@@ -149,10 +150,22 @@ class DialogueManager {
         if (functions) {
           functions.forEach(func => {
             if (func.sequence === sequence) {
-              this.executeFunctionByName(func.functionReference, ...func.args);
-            }
+                const resolvedArgs = func.args.map(arg => this.resolveArgument(arg));
+                this.executeFunctionByName(func.functionReference, ...resolvedArgs);            }
           });
         }
+    }
+
+    /*
+    Returns value of argument by adding "this.scene..." to argument value if necessary
+    */
+    resolveArgument(arg) {
+        if (typeof arg === 'string' && this.scene[arg]) {
+            console.log(this.scene[arg]);
+          return this.scene[arg];
+        }
+        console.log(arg);
+        return arg;
     }
 
     /*
@@ -167,7 +180,7 @@ class DialogueManager {
         //split functionName into object and function. 
             //Object would be a service like HighlightService or ArrowService.   
         const [object, func] = functionName.split('.');
-        
+        console.log(`object is ${object} and function is ${func}(${args})`);
         //if there's an object and function indicated, execute the function associated with that object as imported into the scene passed into DialogueManager.
         if (func && this.scene[object] && typeof this.scene[object][func] === 'function') {
           return this.scene[object][func](...args);
