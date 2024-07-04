@@ -124,6 +124,8 @@ export default class StartMenuScene extends BaseScene {
         new LargeTextButton(this, x, y, text, () => {
             // console.log(text,' button clicked');
             //start OpeningIntroductionScene scene when the button is clicked on. don't need to pass in 'reference' as it will be set by default in BaseScene
+            // this.scene.start('MainMapScene', { allScenesData: this.allScenesData});
+
             this.scene.start('OpeningIntroductionScene', { allScenesData: this.allScenesData});
         });
     }
