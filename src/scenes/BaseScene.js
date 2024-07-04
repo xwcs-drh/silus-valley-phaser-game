@@ -99,11 +99,11 @@ export default class BaseScene extends Phaser.Scene {
         //Create the arrow service in scene
         this.arrowService = new ArrowService(this);
         this.arrowService.createArrow('arrowImage', 0xff0000); //(sprite, fill color)
-        console.log(`OpeningIntroductionScene: arrow service: ${this.arrowService}`);
+        // console.log(`OpeningIntroductionScene: arrow service: ${this.arrowService}`);
 
         //Create the highlight service in scene
-        this.highlightService = HighlightService;
-        console.log(`OpeningIntroductionScene: highlight service: ${this.highlightService}`);
+        this.highlightService = new HighlightService(this);
+        // console.log(`OpeningIntroductionScene: highlight service: ${this.highlightService}`);
 
     }
 
