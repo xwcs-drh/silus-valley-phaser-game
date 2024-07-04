@@ -10,13 +10,41 @@
  	  },
     {
       "order": 2,
+      "textE": " Something about visiting silə",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },    
+    {
+      "order": 3,
+      "textE": "Something about silə teaching granchild",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 4,
+      "textE": "Grandchild will work with cedar",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 5,
+      "textE": "Grandchild will work with fish",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 6,
       "textE": "Grandchild will work with medicine",
       "textH": "...",
       "conditions": "",
       "functions": []
     },
     {
-      "order": 3,
+      "order": 7,
       "textE": "Grandchild will learn/practice their hən̓q̓əmin̓əm̓ ",
       "textH": "...",
       "conditions": "",
@@ -35,67 +63,73 @@
   "dialogues": [
     {
       "order": 1,
-      "text": "Grandchild will work with cedar in silə's backyard/little forest",
+      "textE": "Grandchild will work with cedar in silə's backyard/little forest",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["littleForest_area.x", "littleForest_area.y", "2"]
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["littleForest_area", 2000]
         }
       ]
     },
     {
       "order": 2,
-      "text": "Grandchild will get fish from the river",
+      "textE": "Grandchild will get fish from the river",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["river_area.x", "river_area.y", "2"]
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["river_area", 2000]
         }
       ]
     },    
     {
       "order": 3,
-      "text": "Grandchild will work with medicine in silə's backyard/garden/little forest",
+      "textE": "Grandchild will work with medicine in silə's backyard/garden/little forest",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["river_area.x", "river_area.y", "2"]
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["littleForest_area", 2000]
         }
       ]
     },
     {
       "order": 4,
-      "text": "Grandchild will get fish from the river",
+      "textE": "Grandchild will get fish from the river",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["river_area"]
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["river_area", 2000]
         }
       ]
     },
     {
       "order": 5,
-      "text": "ENG - you will practice your hən̓q̓əmin̓əm̓ through x/y/z",
+      "textE": "you will practice your hən̓q̓əmin̓əm̓ through x/y/z",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": []
     },
     {
       "order": 6,
-      "text": "now go to little forest",
+      "textE": "now go to little forest",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "after",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["littleForest_area.x", "littleForest_area.y", "2"]
+          "functionReference": "arrowService.pointAtObject",
+          "args": ["littleForest_area"]
         }
       ]
     }   
@@ -106,56 +140,76 @@
   "dialogues": [
     {
       "order": 1,
-      "text": "Welcome to silə's backyard",
+      "textE": "Welcome to silə's backyard",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": []
 
     },
     {
       "order": 2,
-      "text": "ENG- in silə's backyard, you can do traditional activities with cedar, fish, and medicine",
+      "textE": "in silə's backyard, you can do traditional activities with cedar, fish, and medicine",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["workbench"]
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["workbench", 2000]
         }
       ]
     },
     {
       "order": 3,
-      "text": "ENG- and practice the vocab that is centered around them",
+      "textE": "and practice the vocab that is centered around them",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["signpost.x", "signpost.y"]
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["signpost", 2000]
         }
       ]
     },    
     {
       "order": 4,
-      "text": "ENG-  As you finish traditional activities, you get materials for the other activities",
+      "textE": "As you finish traditional activities, you get materials for the other activities",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["workbench.x", "workbench.y","2"]
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["workbench", 2000]
         }
       ]
     },
     {
       "order": 5,
-      "text": "Let's play",
+      "textE": "Let's play",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
           "functionReference": "arrowService.showArrow",
-          "args": ["workbench.x", "workbench.y"]
+          "args": ["workbench", 2000]
         }
       ]
     }
@@ -166,55 +220,71 @@
   "dialogues": [
     {
       "order": 1,
-      "text": "lets practice hən̓q̓əmin̓əm̓",
+      "textE": "lets practice hən̓q̓əmin̓əm̓",
+      "textH": "...",
       "conditions": "",
       "functions": []
     },
     {
       "order": 2,
-      "text": "lets practice hən̓q̓əmin̓əm̓",
+      "textE": "lets practice hən̓q̓əmin̓əm̓",
+      "textH": "...",
       "conditions": "",
       "functions": []
     },
     {
       "order": 3,
-      "text": "ENG - you'll play vocabulary games centered around the game vocab such as plants, tools, fish, etc. ",
+      "textE": "you'll play vocabulary games centered around the game vocab such as plants, tools, fish, etc. ",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": []
     },    
     {
       "order": 4,
-      "text": "ENG- click a category",
+      "textE": "click a category",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["semantic_category_select.x", "semantic_category_select.y", "2"]
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["semantic_category_select", 2000]
         }
       ]
     },
     {
       "order": 5,
-      "text": "Choose a game",
+      "textE": "Choose a game",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["game_type_select.x", "game_type_select.y", "2"]
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["game_type_select", 2000]
         }
       ]
     },
     {
       "order": 6,
-      "text": "Let's Work",
+      "textE": "Let's Work",
+      "textH": "...",
       "conditions": "",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["play_button.x", "play_button.y", "2"]
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["play_button", 2000]
         }
       ]
     }
@@ -225,7 +295,8 @@
   "dialogues": [
     {
       "order": 1,
-      "text": "This is where you do your traditional activities!",
+      "textE": "This is where you do your traditional activities!",
+      "textH": "...",
       "conditions": "",
       "functions": []
     },
@@ -237,49 +308,68 @@
     },
     {
       "order": 3,
-      "text": "ENG- Need help? Click here for a walk-through on how to use the workbench!",
+      "textE": "Need help? Click here for a walk-through on how to use the workbench!",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["manual.x", "manual.y", "2"]
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["manual", 2000]
         }
       ]
     },    
     {
       "order": 4,
-      "text": "ENG- Your completed how-to guides are here",
+      "textE": "Your completed how-to guides are here",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["recipe_book.x", "recipe_book.y", "2"]
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["recipe_book", 2000]
         }
       ]
     },
     {
       "order": 5,
-      "text": "ENG-  As you finish traditional activities, you get materials for the other activities",
+      "textE": "As you finish traditional activities, you get materials for the other activities",
+      "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["inventory_basket.x", "inventory_basket.y", "2"]
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["inventory_basket", 2000]
         }
       ]
     },
     {
       "order": 6,
-      "text": "ENG- This is where your materials are after you complete an activity",
+      "textE": "This is where your materials are after you complete an activity",
+      "textH": "...",
       "conditions": "",
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.highlightObject",
-          "args": ["inventory_basket.x", "inventory_basket.y", "2"]
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["inventory_basket", 2000]
         }
       ]
     }
