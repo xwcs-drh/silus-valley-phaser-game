@@ -11,6 +11,7 @@ export default class ArrowService {
         this.arrow = this.scene.add.sprite(0, 0, texture);
         this.arrow.setScale(0.15); // Scale up the arrow
         this.setFillColor(fillColor); // Apply the fill color tint
+        this.arrow.setDepth(102); //dialogueBox depth +1
         this.arrow.setVisible(false); // Initially hide the arrow
         console.log(`Arrow created with width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
     }
@@ -32,7 +33,7 @@ export default class ArrowService {
         );
 
         // Set arrow rotation to point 180 degrees (π radians)
-        this.arrow.rotation = Math.PI;
+        // this.arrow.rotation = Math.PI;
 
         // Apply the bouncing effect
         this.applyBouncingEffect();
@@ -67,7 +68,9 @@ export default class ArrowService {
 
         this.setTarget(target);
         if (this.arrow) {
-            this.arrow.setPosition(target.x, target.y-(target.displayHeight*1.5));//offset y-position of arrow, to be above the target object
+            const arrowBottomAboveTargetTop = target.y - (target.displayHeight / 2) - (this.arrow.displayHeight / 2) - 10; // Adjust -10 for gap between arrow and target
+
+            this.arrow.setPosition(target.x, arrowBottomAboveTargetTop);//offset y-position of arrow, to be above the target object
             this.updateArrow(); // Ensure the arrow points to the target immediately
             this.arrow.setVisible(true);
         }
