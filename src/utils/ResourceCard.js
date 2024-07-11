@@ -33,6 +33,7 @@ export default class ResourceCard extends Phaser.GameObjects.Container {
         console.log(this.width);
         const background = this.scene.add.rectangle(this.x, this.y, this.cardWidth, this.cardHeight, this.isUnlocked ? 0xffffff : 0x888888).setOrigin(0.5);
         // const thumbnail = this.scene.add.image(0, -20, card_background).setScale(0.5);
+        console.log(`this language in resource card: ${this.language}`);
         const nameText = this.scene.add.text(this.x, this.y, this.resource[`name${this.language}`], this.h3Style).setOrigin(0.5,1);        
         const quantityText = this.scene.add.text(this.x, this.y + this.cardHeight * 0.2, `Qty: ${this.quantity}`, this.h3Style).setOrigin(0.5,0);
 
