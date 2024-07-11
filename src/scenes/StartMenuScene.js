@@ -24,7 +24,6 @@ export default class StartMenuScene extends BaseScene {
     init(data) {
         // console.log("StartMenuScene: init called with data: ", data); // Debugging output
         //Set SceneData array object locally within this scene
-        this.allScenesData = data.allScenesData;
         this.dialogue = data.allDialogue
         super.init(data);
     }
@@ -100,10 +99,11 @@ export default class StartMenuScene extends BaseScene {
 
         // Create the settings button
         new LargeTextButton(this, x, y, text, () => {
-            // console.log(text,' button clicked');
+            console.log(text,' button clicked');
 
             //start or launch indicated scene
-            this.scene.launch(popupToLaunch);
+            console.log("popup to launch: ", popupToLaunch);
+            this.game.sceneManager.showPopupScene(this.scene, popupToLaunch); //pass in scene to enable launching of another scene
         });
     }
 
@@ -124,9 +124,9 @@ export default class StartMenuScene extends BaseScene {
         new LargeTextButton(this, x, y, text, () => {
             // console.log(text,' button clicked');
             //start OpeningIntroductionScene scene when the button is clicked on. don't need to pass in 'reference' as it will be set by default in BaseScene
-            // this.scene.start('MainMapScene', { allScenesData: this.allScenesData});
-
-            this.scene.start('OpeningIntroductionScene', { allScenesData: this.allScenesData});
+            this.game.sceneManager.changeScene('MainMapScene');
+            // this.game.sceneManager.changeScene("BiomeHomeScene", "littleForest");
+            // this.game.sceneManager.changeScene('OpeningIntroductionScene');
         });
     }
 
