@@ -1,0 +1,147 @@
+import Phaser from 'phaser';
+import ResourceCard from './ResourceCard';
+//This is constructed from RecipeBookPopupScene
+export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
+    constructor(scene, x, y, width, height, activity, userLanguage, inventory, dataManager) {
+        super(scene, x, y);
+        this.scene = scene;
+        this.width = width;
+        this.height = height;
+        this.activity = activity;
+        this.userLanguage = userLanguage;
+        this.inventory = inventory; 
+        this.dataManager = dataManager;
+        this.resources = this.dataManager.getAllResources();
+
+        //Style for paragraph text
+        this.h3Style = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: '11px',
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.9, useAdvancedWrap: true } // Set word wrap width
+        };
+        //Style for 2nd level header text
+        this.h2Style = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: '15px',
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.9, useAdvancedWrap: true } // Set word wrap width
+        };
+        
+        //Style for title text
+        this.h1Style = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: '20px',
+            fill: '#000',
+            strokeThickness: 1,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.9, useAdvancedWrap: true } // Set word wrap width
+        };
+
+        //add the ActivitiesLeftPage object to the RecipeBookPopupScene
+        this.scene.add.existing(this);
+        this.initPage();
+    }
+
+    initPage() {
+        // Create the name text
+        this.nameText = this.scene.add.text(this.x + this.width * 0.4, this.y+ this.height * 0.15, '', this.h1Style).setOrigin(1);
+        // Create the biome text
+        this.biomeText = this.scene.add.text(this.x + this.width * 0.08,this. y+ this.height * 0.4, '', this.h3Style).setOrigin(0);
+
+        //create the thumbnail image for the activity
+        this.thumbnail = this.scene.add.image(this.x*1.2, this.height * 0.15, this.activity.thumbnailFilename)
+            .setOrigin(0.5)
+            .setDisplaySize(this.width * 0.22, this.height * 0.22);
+
+        // add the thumbnail to the ActivitiesLeftPage object
+        this.add(this.thumbnail);
+
+        //Populate the object with the current activity passed into the constructor
+        this.updatePage(this.activity);
+    }
+
+    /*
+    Populate the object with the new activity
+    Parameters:
+        - activity (object): activities[currentActivityIndex] from this.game.global.dataManager.allActivityData;
+    */
+    updatePage(activity){
+        this.activity = activity; //set current activity to activity object passed in
+        const name = this.activity[`name${this.userLanguage}`]; //set name variable to correspond to the user's selected language  for the activity passed in
+        const biome = this.dataManager.getBiomeFromID(this.activity.biome)[`name${this.userLanguage}`]; //set name variable to correspond to the user's selected language for the activity passed in
+        // console.log(biome);
+        this.nameText.setText(name); //set the nameText element to correspond to the name string
+        this.biomeText.setText(`Available in the ${biome} biome.`); //set the biomeText element to correspond to the biome string
+        this.addRequiredResources(); //populate with the resourceCards indicated to be required for the activity passed in
+        this.addAwardedResources(); //populate with the resourceCards indicated to be awarded by the activity passed in
+    }
+
+    /*
+    Loop to create `resourceCard`s for the resources required for the current activity
+    Parameters: None
+    */
+    addRequiredResources() {
+        const requiredResourcesHeader = this.scene.add.text(this.x + this.width * 0.1, this.y + this.height * 0.45, 'Resources Required', this.h2Style);
+        // this.add(requiredResourcesHeader);
+
+        const requiredResources = this.activity.requiredResources; //get object of key:value pairs (resourceID:quantity) of resources required for the activity
+        if (requiredResources && typeof requiredResources === 'object') {
+            console.log(requiredResources);
+            // Add resource cards for required resources
+            var yPos = this.height * 0.21; //set y position for the resource cards
+            // console.log(yPos);
+            var xPos = this.x*0.15; //set x position for the first resource card
+            for (const [resourceKey, quantity] of Object.entries(requiredResources)) { //loop through key-pair values of resources required for the activity
+                // console.log(this.dataManager.getResource(resourceKey));
+                const resource = this.dataManager.getResource(resourceKey)
+                const resourceCard = new ResourceCard(this.scene, xPos, yPos,this.width * 0.1, this.height * 0.1, resource, quantity); //construct resourceCard
+                this.add(resourceCard);//add resourceCard to the scene.
+                // yPos += this.height * 0.21; 
+                xPos += this.width * 0.055;  //update x value for next resource card
+            }
+        } else {
+            console.error('requiredResources is not an object:', requiredResources);
+        }
+    }
+
+    /*
+    Loop to create `resourceCard`s for the resources awarded by the current activity
+    Parameters: None
+    */
+    addAwardedResources() {
+        const headerText = this.scene.add.text(this.x + this.width * 0.1, this.y + this.height * 0.65, 'Resources Awarded', this.h2Style);
+        // this.add(headerText);
+        const awardedResources = this.activity.awardedResources;
+        if (awardedResources && typeof awardedResources === 'object') {
+            console.log(awardedResources);
+            // Add resource cards for required resources
+            let yPos = this.height * 0.31;
+            console.log(yPos);
+            let xPos = this.x*0.15;
+            // Add resource cards for awarded resources
+            for (const [resourceKey, quantity] of Object.entries(awardedResources)) {
+                console.log(this.dataManager.getResource(resourceKey));
+                const resource = this.dataManager.getResource(resourceKey)
+                const resourceCard = new ResourceCard(this.scene, xPos, yPos, this.width * 0.1, this.height * 0.1, resource, quantity);
+                this.add(resourceCard);
+                // yPos += this.height * 0.21; 
+                xPos += this.width * 0.055; 
+            }
+        }
+    }
+
+    /*
+    Get the quantity of the resource the player has in their inventory
+    Parameters: 
+        - resourceKey (string): e.g. 'r1' to cross-reference with inventory key
+    */
+    getInventoryResourceQuantity(resourceKey){
+        return this.inventory[resourceKey] || 0;
+    }
+
+}
