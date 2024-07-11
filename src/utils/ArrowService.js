@@ -11,7 +11,7 @@ export default class ArrowService {
         this.arrow = this.scene.add.sprite(0, 0, texture);
         this.arrow.setScale(0.15); // Scale up the arrow
         this.setFillColor(fillColor); // Apply the fill color tint
-        this.arrow.setDepth(102); //dialogueBox depth +1
+        this.arrow.setDepth(130); //dialogueBox depth +1
         this.arrow.setVisible(false); // Initially hide the arrow
         //console.log(`Arrow created with width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
     }
