@@ -3,25 +3,26 @@ export default class PlayerDataManager {
     constructor(dataManager) {
         this.dataManager = dataManager; // Reference to DataManager to access global data
 //
-        this.playerData = {
-            username: '',
-            settings: {
-                language: 'E',
-                audio: true,
-                showDialogue: true
-            },
-            inventory: {
-                "r1": 0,
-                "r2": 0
-            },
-            biomesUnlocked: [],
-            unlockedTraditionalActivities: [],
-            progress: {
-                completedVocabGames: [],
-                completedTraditionalActivities: []
-            },
-            vocabEncounters: []
-        };
+        this.playerData = null;
+        // {
+        //     username: '',
+        //     settings: {
+        //         language: 'E',
+        //         audio: true,
+        //         showDialogue: true
+        //     },
+        //     inventory: {
+        //         "r1": 0,
+        //         "r2": 0
+        //     },
+        //     biomesUnlocked: [],
+        //     unlockedTraditionalActivities: [],
+        //     progress: {
+        //         completedVocabGames: [],
+        //         completedTraditionalActivities: []
+        //     },
+        //     vocabEncounters: []
+        // };
     }
 
     /*
@@ -34,6 +35,7 @@ export default class PlayerDataManager {
     loadPlayerData(data) {
         this.playerData = data[0];
         console.log("playerData manager - player data: ", this.playerData);
+        console.log(this.playerData.settings.language);
     }
 
     /*
@@ -52,6 +54,7 @@ export default class PlayerDataManager {
 
     updateUserLanguage(language){
       this.playerData.settings.language = language;
+      console.log(this.playerData.settings.language);
       this.savePlayerData();
     }
 
@@ -100,9 +103,9 @@ export default class PlayerDataManager {
     Will be concatenated with `name` or `description` based on text type indicated in json data.
     */
     getUserLanguage(){
-      // console.log("getting user language", this.playerData.settings.language);
-      // return this.playerData.settings.language;
-      return "E";
+      console.log("getting user language", this.playerData.settings.language);
+      return this.playerData.settings.language;
+      // return "E";
     }
 
     /*
