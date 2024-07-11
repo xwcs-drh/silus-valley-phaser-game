@@ -1,6 +1,11 @@
 import Phaser from 'phaser';
-import PlayerData from '../managers/PlayerData';
+import PlayerDataManager from '../managers/PlayerDataManager';
+import DataManager from '../managers/DataManager';
+// import UIManager from '../managers/UIManager';
 import SceneManager from '../managers/SceneManager';
+import * as UIScenes from './UI/UIScenes'; // Import all UI scenes from UIScenes.js
+import UserSettingsManager from '../managers/UserSettingsManager';
+import DialogueManager from '../managers/DialogueManager';
 
 export default class BootScene extends Phaser.Scene {
     /*
@@ -8,100 +13,122 @@ export default class BootScene extends Phaser.Scene {
     */
     constructor() {
         super({key: 'BootScene'});
-        this.playerData = null;
-        // console.log('Bootscene: constructor');
+        console.log('Bootscene: constructor');
     }
 
     preload() {
-        // console.log('Bootscene: preload');
+        console.log('Bootscene: preload');
         //Preload and cache JSON data files
         this.load.json('allScenesData', './assets/data/JSONs/Scenes.json');
         this.load.json('allDialogueData', './assets/data/JSONs/Dialogue.json');
         this.load.json('allBiomesData', './assets/data/JSONs/Biomes.json');
         this.load.json('allResourcesData', './assets/data/JSONs/Resources.json');
-        this.load.json('allPlayerData', './assets/data/JSONs/PlayerData.json');
-        this.load.json('allTraditionalActivitiesData', './assets/data/JSONs/TraditionalActivities.json');
+        this.load.json('allTraditionalActivitiesData', './assets/data/JSONs/tempTraditionalActivities.json');
+        this.load.json('playerData', './assets/data/JSONs/PlayerData.json'); // Load player data for testing
     }
 
     create() {
-        // console.log('boot scene: create');
+        console.log('boot scene: create');
         // Initialize global state
         this.game.global = {
-            currentBiome: "none",
-            allScenesData: [],
-            allDialogueData: [],
-            allBiomesData: [],
-            allResources: [],
-            allTraditionalActivities: [],
-            allPlayerData: null, 
-            playerInventory: [], 
-            unlockedTraditionalActivities: [],          
+            currentBiomeID: null,
+            currentSceneKey: null,    
             settings: {},
-            userLang: "textE"
         };
 
-        // Call load game data
-        try {
-          if (this.game) {
-            this.loadGlobalData();
-            // Once data is loaded, move to the start scene with the start menu, passing in scene data
-          } else {
-            console.error('Game object is not available');
-          }
-        } catch (error) {
-          console.error('Error in BootScene create:', error);
-        }
+        //Initialize DataManager object and store it in the global object.; load json data for Biomes, Scenes,Resources and TraditionalActivities
+        this.loadDataManager();
+
+        //Initialize PlayerDataManager and store it in the global object. ; load data from PlayerData.json
+        //move to localstorage after testing
+        this.loadPlayerDataManager();
+
+        //Initialize UserSettingsManager and store it in the global object.
+        this.loadUserSettingsManager();
+        
+        // Initialize UIManager and SceneManager
+        this.initializeManagers();
+
+        //Initialize DialogueManager and store it in the global object.
+        // this.loadDialogueManager();
+
+        //Initialize the scene manager
+        // this.game.sceneManager = new SceneManager(this.game, this.game.dataManager, "BootScene");
 
         //Start the Main User scene - contains "Start" button, and "Credits", "Manual", "Settings" buttons.
-        this.scene.start('StartMenuScene', { allScenesData: this.game.global.allScenesData});
+        this.game.sceneManager.changeScene('StartMenuScene');
+        // this.game.scene.launch("MainUIScene");
+        //Initialize UIManager and register scenes
+        // this.initializeUI();
     }
 
     /*
-    Load each major data item that will be used globally. Most will be used within respective Managers
+    Loads JSON data into Data Manager.
+    JSON data preloaded in BootScene.preload();
+    Data:
+        - Scenes.json : data related to scenes and scene variants
+        - Biomes.json : data related to biomes
+        - Resources.json : data related to all resources set in the game
+        - TraditionalActivities.json : data related to all traditional activities available in the game
     */
-    loadGlobalData(){
-        // console.log('Bootscene: load global data');
-        this.game.global.playerData = ""; //will deal with this later.
-        this.loadResourcesData(); //Objects associated with items that the player will collect/use
-        this.loadPlayerData(); //data associated with the player's game play
-        this.loadSceneData(); //data associated with scenes and scene variations
-        this.loadDialogueData(); //data associated with dialogue that will appear throughout the game
-        this.loadTraditionalActivitiesData(); //data associated with the traditional activities that the player will do throughout the game
+    loadDataManager(){
+        //Initialize DataManager and store it in the global object.
+        this.game.dataManager = new DataManager();
+        console.log(this.game.dataManager);
+        this.game.dataManager.setAllScenesData(this.cache.json.get('allScenesData'));
+        this.game.dataManager.setAllBiomesData(this.cache.json.get('allBiomesData'));
+        this.game.dataManager.setAllResourcesData(this.cache.json.get('allResourcesData')); 
+        this.game.dataManager.setAllTraditionalActivitiesData(this.cache.json.get('allTraditionalActivitiesData')); 
+        this.game.dataManager.setAllDialogueData(this.cache.json.get('allDialogueData')); 
+    }
+
+    //Declare PlayerDataManager - manages variables related to a specific player's status
+    loadPlayerDataManager() {
+        this.game.playerDataManager = new PlayerDataManager(this.game.dataManager);
+        const playerData = this.cache.json.get('playerData');
+        this.game.playerDataManager.loadPlayerData(playerData);
+        console.log(this.game.playerDataManager.getSettings());
     }
 
     /*
-    Declare resource data object - contains objects for each possible resource in the game
-    Contains:
-        - "id": reference to the resource (ie. "r1")
-        - "nameE": English name of the resource
-        - "nameH": Hən̓q̓əmin̓əm̓ name of the resource,
-        - "vocabID": corresponding identifier of vocab, if resource will be used in vocab games
-        - "quantity": the number that the player has,... this may be removed if PlayerData gets properly implemented
-        - "descriptionE": brief explanation of the scene in English
-        - "descriptionH": brief explanation of the Hən̓q̓əmin̓əm̓
-        - "traditionalActivitiesProvide": {traditional activity reference id: quantity of the resource needed for the traditional activity}
-        - "traditionalActivitiesRequire": {traditional activity reference id: quantity of the resource awarded at completion of the traditional activity}
-        - "audioFilename": name of the audio file associated with the resource, with file extension,
-        - "imageFilename": name of the image file associated with the resource, with file extension,
+    Creates UserSettingsManager and loads the user's settings
     */
-    loadResourcesData() {
-        //console.log('Bootscene: load resources data');
-        let allResources = this.cache.json.get('allResourcesData');
+    loadUserSettingsManager(){
+        this.game.userSettingsManager = new UserSettingsManager();
+        this.game.userSettingsManager.loadSettings(this.game.playerDataManager);
     }
 
-    //Declare PlayerData object - contains variables related to a specific player's status
-    //I need to work this out more. its not being used ATM
-    loadPlayerData() {
-        //console.log('BootScene: load player data');
-        this.playerData = new PlayerData(this);
+    initializeManagers() {
+        // this.game.UIManager = new UIManager(this.game);
+        this.game.sceneManager = new SceneManager(this, this.game, this.game.dataManager);
 
-        // Log player inventory
-        this.playerData.inventoryManager.on('inventoryLoaded', inventory => {
-          //console.log('Inventory loaded:', inventory);
-        });
+        // Set dependencies
+        // this.game.UIManager.setSceneManager(this.game.sceneManager);
+        // this.game.sceneManager.setUIManager(this.game.UIManager);
 
-        // Test adding an item to the inventory
-        // this.playerData.inventoryManager.addItem('item1', 10);
+        // Register and launch UI scenes
+        this.game.sceneManager.registerAndLaunchUIScenes(UIScenes);
+
+        this.loadDialogueManager();
+    }
+
+    /*
+    Initialize UIManager and register associated UI scenes
+    Associated scenes:
+        MainUIScene
+        InventoryPopupScene
+        RecipeBookPopupScene
+    */
+    // initializeUI() {
+    //     // Initialize UI Manager
+    //     this.game.UIManager = new UIManager(this.game);
+
+    //     // Register and launch UI scenes
+    //     this.game.UIManager.registerAndLaunchUIScenes(UIScenes);
+    // }
+
+    loadDialogueManager(){
+        this.game.dialogueManager = new DialogueManager(this.game, this.game.dataManager);
     }
 
     /*
@@ -127,17 +154,17 @@ export default class BootScene extends Phaser.Scene {
         - "description": brief explanation of the biome
         - "traditionalActivities": reference ids for the traditional activities that are available within that biome, that the player has access to
     */
-    loadSceneData(){
-        //console.log('Bootscene: load scene data');
-        this.game.global.allScenesData = this.cache.json.get('allScenesData');
+    // loadSceneData(){
+    //     //console.log('Bootscene: load scene data');
+    //     this.game.global.allScenesData = this.cache.json.get('allScenesData');
         
-        // Initialize the SceneManager with the data
-        this.game.sceneManager = new SceneManager(this.game, this.game.global.allScenesData);
+    //     // Initialize the SceneManager with the data
+    //     this.game.sceneManager = new SceneManager(this.game, this.game.global.allScenesData);
 
-        //console.log('Bootscene: AllSceneData: ', this.game.sceneManager);
-        this.game.global.allBiomesData = this.cache.json.get('allBiomesData');
-        //console.log("BootScene- biomes data: ", this.game.global.allBiomesData);
-    }
+    //     //console.log('Bootscene: AllSceneData: ', this.game.sceneManager);
+    //     this.game.global.allBiomesData = this.cache.json.get('allBiomesData');
+    //     //console.log("BootScene- biomes data: ", this.game.global.allBiomesData);
+    // }
 
     /*
     Declare Dialogue data object - contains objects for each scene, with objects for each line of dialogue in that scene
@@ -153,19 +180,19 @@ export default class BootScene extends Phaser.Scene {
             - "sequence": ... does the function run before, during, or after the dialogue appears
             - "functionReference": name of the function that will be run
     */
-    loadDialogueData(){
-        //console.log('Bootscene: load dialogue data');
-        //load data from json cache/preload
-        //store game in global registry
-        /*about registry: acts as a global state manager across different scenes in a game. 
-        It provides a convenient way to store and retrieve data that needs to be accessible across multiple scenes without directly coupling those scenes together. 
-        This feature is particularly useful for sharing configuration settings, player scores, user preferences, 
-        or any other form of data that needs to persist as the player navigates through various parts of the game.
-        */
-        const allDialogueData = this.cache.json.get('allDialogueData');
-        this.registry.set('allDialogueData', allDialogueData);
-        //console.log("BootScene: Loaded Dialogue Data: ", allDialogueData); // Debugging output    
-    }
+    // loadDialogueData(){
+    //     //console.log('Bootscene: load dialogue data');
+    //     //load data from json cache/preload
+    //     //store game in global registry
+    //     /*about registry: acts as a global state manager across different scenes in a game. 
+    //     It provides a convenient way to store and retrieve data that needs to be accessible across multiple scenes without directly coupling those scenes together. 
+    //     This feature is particularly useful for sharing configuration settings, player scores, user preferences, 
+    //     or any other form of data that needs to persist as the player navigates through various parts of the game.
+    //     */
+    //     const allDialogueData = this.cache.json.get('allDialogueData');
+    //     this.registry.set('allDialogueData', allDialogueData);
+    //     //console.log("BootScene: Loaded Dialogue Data: ", allDialogueData); // Debugging output    
+    // }
 
     /*
     Declare traditional activity object data - contains objects for each traditional activity
@@ -185,8 +212,8 @@ export default class BootScene extends Phaser.Scene {
         - "instructionsE": array of English instruction statements, like dialogue,... perhaps exactly like dialogue, we'll see.
         - "instructionsH": array of Hən̓q̓əmin̓əm̓ instruction statements, like dialogue,... perhaps exactly like dialogue, we'll see.
     */
-    loadTraditionalActivitiesData(){
-        //console.log('Bootscene: load traditional activity data');
-        this.game.global.allTraditionalActivities = this.cache.json.get('allTraditionalActivitiesData');
-    }
+    // loadTraditionalActivitiesData(){
+    //     //console.log('Bootscene: load traditional activity data');
+    //     this.game.global.allTraditionalActivities = this.cache.json.get('allTraditionalActivitiesData');
+    // }
 }
