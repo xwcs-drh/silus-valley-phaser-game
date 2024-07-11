@@ -6,66 +6,91 @@ import DialogueManager from '../managers/DialogueManager';
 
 export default class BiomeHomeScene extends BaseScene {
     constructor() {
-        super('BiomeHomeScene');
-        console.log("BiomeHomeScene: constructor called");
+        super({ key: 'BiomeHomeScene' });
+        //console.log("BiomeHomeScene: constructor called");
     }
 
     init(data) {
-        this.allScenesData = data.allScenesData;
-        console.log("BiomeHomeScene init reference: ", data.reference);
         this.reference = data.reference;
-        console.log("BiomeHomeScene: init called with data: ", data); // Debugging output
+        //console.log("BiomeHomeScene: init called with data: ", data); // Debugging output
         super.init(data);
         // this.dialogue = data.allDialogue
     }
 
     preload() {
         super.preload();
-        console.log('BiomeHomeScene: preload');
+        //console.log('BiomeHomeScene: preload');
+        this.load.image('workbench', './assets/UI/workbench.jpeg'); // Load backyard image
+        this.load.image('signpost', './assets/UI/signpost.jpg'); // Load backyard image
     }
 
     create() {
+        // this.game.global.currentBiomeID = this.game.global.allBiomesData.find(b => 
+                // b.biome_reference_name === this.reference).id;
+
         super.create(); //set up base scene's background and border
-        this.scene.launch("MainUIScene", {data: this.allScenesData}); //launch MainUIScene to run in parallel... currently no elements appear, but it debug shows it to be launched
-        
-        // Accessing the scene's key 
-        this.sceneKey = this.sys.settings.key;
-        console.log('Scene key is:', this.sceneKey);
+        this.dataManager.setCurrentBiome(this.reference);
 
-        //sets index to 0, start of scene dialogue
-        //? should this go in dialogue manager?
-        this.currentDialogueIndex = 0;
-
-        //hides dialogue at start
-        this.isDialogueBoxActive = false;
-
-        this.createDialogueAssistant();
+        this.createActionLandmarks();
     }
 
-    update(time, delta) {
-        // game logic
+    /*
+    Creates buttons for:
+        the signpost to access vocabulary minigames base scene
+        the workbench to access traditional activities base scene
+    */
+    createActionLandmarks(){
+        //create signpost button... will replace with interactive sprite probably
+        this.workbenchButton = this.createLandmarkButton(this.canvasWidth*0.2,this.canvasHeight*0.7, "workbench", "traditionalActivitiesBaseScene", this.biomeReference);
+        //create workbench button... will replace with interactive sprite probably
+        this.signpostButton = this.createLandmarkButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "signpost", "vocabBaseScene", this.biomeReference);
     }
 
-    createReturnButton(){
-        console.log('BiomeHomeScene: createReturnButton');
-        const buttonText = "<-";
-        const buttonX = this.canvasWidth*0.2;
-        const buttonY = this.canvasHeight*0.2;
+    /*
+    Create a Landmark button
+    Parameters
+        - x (Number) = x position of center of button
+        - y (Number) = y position of center of button
+        - image (string) = name of the image object that will be set as the background of the button
+        - scene_constructor_identifier (string) = string corresponding to the name of the scene related to the landmark activity (e.g. traditionalActivitiesBaseScene or vocabBaseScene)
+        - biomeReference (string) = string corresponding to the reference_name of the biome scene as indicated in Scenes.json (e.g. river or littleForest)
+    */
+    createLandmarkButton(x, y, image, scene_constructor_identifier, biomeReference) {
+        const textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: '20px',
+            fill: '#fff',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio
+        };
 
-        new BackButton(this, buttonX, buttonY, buttonText,() => {
-            console.log(buttonText,' button clicked');
+        const regionWidth = this.gameWidth * 0.2;
+        const regionHeight = this.gameHeight * 0.2;
 
-            //start or launch indicated scene
-            this.scene.start('StartMenuScene', { allScenesData: this.allScenesData});
-        });
+        // Create a container for the button
+        const buttonContainer = this.add.container(x, y);
+
+        // Load the background image
+        const regionBackground = this.add.image(0, 0, image).setOrigin(0.5);
+        regionBackground.setDisplaySize(regionWidth, regionHeight);
+
+        // Update button width to correspond to image dimensions
+        const buttonWidth = regionBackground.displayWidth;
+        const buttonHeight = regionBackground.displayHeight;
+
+        // Add background and text to the container
+        buttonContainer.add(regionBackground);
+
+        // Make the button interactive
+        buttonContainer.setSize(buttonWidth, buttonHeight);
+        buttonContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains)
+          .on('pointerdown', () => {
+              this.game.sceneManager.changeScene(scene_constructor_identifier, biomeReference);
+          })
+          .on('pointerover', () => regionBackground.setTint(0xAAAAAA))
+          .on('pointerout', () => regionBackground.clearTint());
+
+        return buttonContainer;
     }
 
-    /*DIALOGUE*/
-    createDialogueAssistant(){
-        const allDialogueData = this.registry.get('allDialogueData'); // Retrieve from registry
-        console.log("All Dialogue Data: ", allDialogueData);
-        this.dialogueManager = new DialogueManager(this, allDialogueData);
-        this.dialogueManager.initDialogue();
-        console.log("BiomeHomeScene: Dialogue Manager created: ", this.dialogueManager ? "true" : "false");
-    }
 }
