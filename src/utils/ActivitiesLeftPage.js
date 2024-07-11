@@ -75,10 +75,16 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
         const name = this.activity[`name${this.userLanguage}`]; //set name variable to correspond to the user's selected language  for the activity passed in
         const biome = this.dataManager.getBiomeFromID(this.activity.biome)[`name${this.userLanguage}`]; //set name variable to correspond to the user's selected language for the activity passed in
         // console.log(biome);
+        this.updateThumbnail(this.activity.thumbnailFilename); 
         this.nameText.setText(name); //set the nameText element to correspond to the name string
         this.biomeText.setText(`Available in the ${biome} biome.`); //set the biomeText element to correspond to the biome string
         this.addRequiredResources(); //populate with the resourceCards indicated to be required for the activity passed in
         this.addAwardedResources(); //populate with the resourceCards indicated to be awarded by the activity passed in
+    }
+
+    // Function to update the thumbnail image
+    updateThumbnail(newImageKey) {
+        this.thumbnail.setTexture(newImageKey);
     }
 
     /*
