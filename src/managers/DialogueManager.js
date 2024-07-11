@@ -17,8 +17,6 @@ class DialogueManager {
         this.allDialogueData = this.game.dataManager.getAllDialogueData(); //all dialogueData that the current scene's dialogue will be found in
         this.currentDialogueData = []; //store relevant dialogue for the scene using the DialogueManager
         this.currentEntryIndex = 0;
-        this.userLanguage = this.game.playerDataManager.getUserLanguage();
-
     }
 
     create(){
@@ -100,7 +98,7 @@ class DialogueManager {
         // console.log("Dialogue Manager - Scene Dialogue at current entry index: ", this.currentDialogueData.dialogues[this.currentEntryIndex]);
         // console.log("Dialogue Manager - line should read: ", this.currentDialogueData.dialogues[this.currentEntryIndex].textE);
         // console.log("Dialogue Manager - scene dialogue length: ", this.currentDialogueData.dialogues.length);
-
+        console.log(` current index: ${this.currentEntryIndex}, dialogue length ${ this.currentDialogueData.dialogues.length}`);
         if (this.currentEntryIndex < this.currentDialogueData.dialogues.length) {
             // console.log('dialogue manager - passing length');
             const entry = this.currentDialogueData.dialogues[this.currentEntryIndex]; //current line of dialogue being shown
@@ -125,11 +123,11 @@ class DialogueManager {
 
             //if the last line of dialogue, destroy 'next line' button
             if(this.currentEntryIndex === this.currentDialogueData.dialogues.length){
-                //console.log("destroy the next dialogue button");
+                console.log("destroy the next dialogue button");
                 this.dialogueBox.destroyButton();
 
                 //destroy dialogue box 4 seconds after last line of text is displayed... may change this
-                scene.time.delayedCall(4000, () => {
+                scene.time.delayedCall(6000, () => {
                     //console.log("destroy the dialogue box");
                     this.dialogueBox.destroyBox();
                     this.currentEntryIndex = 0; //reset index for next scene
@@ -230,6 +228,8 @@ class DialogueManager {
     Shows textE or textH based on this.game.playerData.settings.language. (player will be able to edit language in SettingsPopupScene)
     */
     showDialogueText(entry) {
+        this.userLanguage = this.game.playerDataManager.getUserLanguage();
+
         console.log(this.userLanguage);
         const dialogueTextKey = `text${this.userLanguage}`;
         console.log(dialogueTextKey);
