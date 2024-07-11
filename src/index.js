@@ -1,20 +1,19 @@
 //This is the config file for the active version of Silu's Valley, not the draft code.
-//define basic characteristics of the game 
+//define basic characteristics of the game and import scenes
 
 import Phaser from 'phaser';
 import BootScene from './scenes/BootScene';
 import StartMenuScene from './scenes/StartMenuScene';
-import ManualPopupScene from './scenes/popups/ManualPopupScene';
-import CreditsPopupScene from './scenes/popups/CreditsPopupScene';
 import OpeningIntroductionScene from './scenes/OpeningIntroductionScene';
-import BiomeHomeScene from './scenes/BiomeHomeScene';
 import MainMapScene from './scenes/MainMapScene';
-import MainUIScene from './scenes/MainUIScene';
+import BiomeHomeScene from './scenes/BiomeHomeScene';
 
 // import gameConfig from './config';
 
 // console.log('Initializing Phaser game...');
 alert('index.js loaded');
+
+// Create an array of all scenes including the UI scenes
 var config = {
 	width: 800,
 	height: 600,
@@ -23,13 +22,9 @@ var config = {
 	scene: [
 		BootScene, 
 		StartMenuScene,
-		ManualPopupScene,
-		CreditsPopupScene,
 		OpeningIntroductionScene,
-		BiomeHomeScene,
 		MainMapScene,
-		MainUIScene
-
+		BiomeHomeScene,
 	], //list of all scenes used
 	scale: {
 	    mode: Phaser.Scale.FIT,
@@ -42,3 +37,5 @@ var config = {
 var game = new Phaser.Game(config);
 
 console.log('Phaser game initialized:', game);
+console.log('index.js: Phaser game initialized with scenes:', config.scene.map(s => s.name));
+
