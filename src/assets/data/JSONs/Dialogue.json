@@ -1,5 +1,5 @@
 [{
-  "sceneConstructor_identifier": "OpeningIntroductionScene",
+  "scene_reference_name": "OpeningIntroductionScene",
   "dialogues": [
     {
       "order": 1,
@@ -59,7 +59,7 @@
   ]
 },
 {
-  "sceneConstructor_identifier": "MainMapScene",
+  "scene_reference_name": "MainMapScene",
   "dialogues": [
     {
       "order": 1,
@@ -69,8 +69,8 @@
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.tempHighlightObject",
-          "args": ["littleForest_area", 2000]
+          "functionReference": "highlightService.highlightObject",
+          "args": ["littleForest_area"]
         }
       ]
     },
@@ -82,8 +82,13 @@
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.tempHighlightObject",
-          "args": ["river_area", 2000]
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["littleForest_area"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["river_area"]
         }
       ]
     },    
@@ -95,8 +100,8 @@
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.tempHighlightObject",
-          "args": ["littleForest_area", 2000]
+          "functionReference": "highlightService.highlightObject",
+          "args": ["littleForest_area"]
         }
       ]
     },
@@ -108,8 +113,8 @@
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.tempHighlightObject",
-          "args": ["river_area", 2000]
+          "functionReference": "highlightService.highlightObject",
+          "args": ["river_area"]
         }
       ]
     },
@@ -127,6 +132,16 @@
       "conditions": "not returningPlayer",
       "functions": [
         {
+          "sequence": "before",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["river_area"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["littleForest_area"]
+        },
+        {
           "sequence": "after",
           "functionReference": "arrowService.pointAtObject",
           "args": ["littleForest_area"]
@@ -136,7 +151,7 @@
   ]
 },
 {
-  "sceneConstructor_identifier": "littleForest",
+  "scene_reference_name": "littleForest",
   "dialogues": [
     {
       "order": 1,
@@ -154,8 +169,13 @@
       "functions": [
         {
           "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
           "functionReference": "highlightService.tempHighlightObject",
-          "args": ["workbench", 2000]
+          "args": ["workbenchButton", 2000]
         }
       ]
     },
@@ -173,7 +193,7 @@
         {
           "sequence": "during",
           "functionReference": "highlightService.tempHighlightObject",
-          "args": ["signpost", 2000]
+          "args": ["signpostButton", 2000]
         }
       ]
     },    
@@ -208,7 +228,7 @@
         },
         {
           "sequence": "during",
-          "functionReference": "arrowService.showArrow",
+          "functionReference": "arrowService.pointAtObject",
           "args": ["workbench", 2000]
         }
       ]
@@ -216,7 +236,7 @@
   ]
 },
 {
-  "sceneConstructor_identifier": "vocabBase",
+  "scene_reference_name": "vocabBaseScene",
   "dialogues": [
     {
       "order": 1,
@@ -291,7 +311,7 @@
   ]
 },
 {
-  "sceneConstructor_identifier": "traditionalActivitiesBase",
+  "scene_reference_name": "traditionalActivitiesBaseScene",
   "dialogues": [
     {
       "order": 1,
