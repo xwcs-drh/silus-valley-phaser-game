@@ -1,5 +1,4 @@
 import BaseScene from './BaseScene';
-import BackButton from '../utils/BackButton';
 import DialogueManager from '../managers/DialogueManager';
 
 export default class MainMapScene extends BaseScene {
@@ -21,8 +20,6 @@ export default class MainMapScene extends BaseScene {
     */
     init(data) {
         // console.log("MainMapScene: init called with data: ", data); // Debugging output
-        //Set SceneData array object locally within this scene
-        this.allScenesData = data.allScenesData;
         this.dialogue = data.allDialogue //may have to manage this differently??
         super.init(data); //initialize BaseScene with data passed into scene on start, in this case it only contains `allScenesData`.
     }
@@ -45,26 +42,14 @@ export default class MainMapScene extends BaseScene {
     Create dialogue assistant (dialogueManager)
     */
     create() {
-        super.create(); //run BaseScene create()
-
         // Accessing the scene's key 
         this.sceneKey = this.sys.settings.key;
         // console.log('Scene key is:', this.sceneKey);
-
-        //sets index to 0, start of scene dialogue
-        //? should this go in dialogue manager?
-        this.currentDialogueIndex = 0;
-
-        //hides dialogue at start
-        this.isDialogueBoxActive = false;
-
-        //Create map button that will be called at the end of dialogue.
-        this.createReturnButton();
-
-        //initiate DialogueManager to run the dialogue for the scene
-        this.createDialogueAssistant();
+        super.create(); //run BaseScene create()
 
         this.createBiomeRegions();
+        console.log("start mainui scene hopefully");
+        // this.sceneManager.updateUIScene(this, 'MainUIScene');
     }
 
     update(time, delta) {
@@ -78,28 +63,26 @@ export default class MainMapScene extends BaseScene {
     createBiomeRegions(){
         //create little forest area button... will replace with interactive sprite probably
         this.littleForest_area = this.createSceneButton(this.canvasWidth*0.2,this.canvasHeight*0.7, "house_backyard", "littleForest")
+        this.littleForest_area.setName('littleForest_area'); //set name to be recognize as object when searched as function argument
+        //Verify that the object can be found by name
+        const foundObject = this.children.getByName('littleForest_area');
+        if (foundObject) {
+            console.log('Object found:', foundObject);
+        } else {
+            console.error('Object not found with name littleForest_area');
+        }
+
         //create river area... will replace with interactive sprite probably
         this.river_area = this.createSceneButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "river", "river")//create river area
-        
-        console.log(`start menu scene : littleForest_area button ${typeof this.littleForest_area}`);
+        this.river_area.setName('river_area'); //set name to be recognize as object when searched as function argument
+        // foundObject = this.children.getByName('river_area');
+        // if (foundObject) {
+        //     console.log('Object found:', foundObject);
+        // } else {
+        //     console.error('Object not found with name river_area');
+        // }
 
-    }
-
-    //go back to start scene. will have to make dynamic to use across all scenes.
-    //integrate into scenemanager/navigationManager/ MainUIScene
-    createReturnButton(){
-        console.log('MainMapScene: createReturnButton');
-        const buttonText = "<-";
-        const buttonX = this.canvasWidth*0.2;
-        const buttonY = this.canvasHeight*0.2;
-
-        const backButton = new BackButton(this, buttonX, buttonY, buttonText,() => {
-            console.log(buttonText,' button clicked');
-
-            //start or launch indicated scene
-            this.scene.start('OpeningIntroductionScene', { allScenesData: this.allScenesData});
-        });
-        backButton.setDepth(5);
+        // console.log(`start menu scene : littleForest_area button ${typeof this.littleForest_area}`);
     }
 
     /*
@@ -107,8 +90,8 @@ export default class MainMapScene extends BaseScene {
     Parameters
         - x (Number) = x position of center of button
         - y (Number) = y position of center of button
-        - popupToLaunch (string) = name of the popup scene that should be launched on button click
-    !Replace with images.
+        - image (string) = name of the image object that will be set as the background of the button
+        - biomeReference (string) = string corresponding to the reference_name of the biome scene as indicated in Scenes.json
     */
     createSceneButton(x, y, image, biomeReference) {
         const textStyle = {
@@ -140,7 +123,7 @@ export default class MainMapScene extends BaseScene {
         buttonContainer.setSize(buttonWidth, buttonHeight);
         buttonContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains)
           .on('pointerdown', () => {
-              this.sceneManager.changeScene("BiomeHomeScene", biomeReference);
+              this.startBiomeScene(biomeReference);
           })
           .on('pointerover', () => regionBackground.setTint(0xAAAAAA))
           .on('pointerout', () => regionBackground.clearTint());
@@ -148,19 +131,10 @@ export default class MainMapScene extends BaseScene {
         return buttonContainer;
     }
 
-    /*
-    DIALOGUE
-    This creates an instance of a DialogueManager. 
-    I have not made the dialogue manager (successfully) yet... written the script but not tested.
-    */
-    createDialogueAssistant(){
-        console.log(this.highlightService ? "highlight service exists" : "highlight service not found");
-        const allDialogueData = this.registry.get('allDialogueData'); // Retrieve from registry
-        // console.log("All Dialogue Data: ", allDialogueData);
-        this.dialogueManager = new DialogueManager(this, allDialogueData);
-        this.dialogueManager.initDialogue();
-        this.dialogueManager.create();
-        // console.log("OpeningIntroductionScene: Dialogue Manager created: ", this.dialogueManager ? "true" : "false");
-    }
+    startBiomeScene(biomeReference) {
+        console.log(`MainUI - Starting BiomeHomeScene with referenceName: ${biomeReference}`);
+        console.log("MainUI - is sceneManager", this.game.sceneManager);
 
+        this.game.sceneManager.changeScene("BiomeHomeScene", biomeReference);
+    }
 }
