@@ -150,7 +150,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     }
     // Execute the callback function before making the button inactive
     console.log('Executing callback.');
-    this.callback();
+    this.callback(this.scene);
     
     if(this.button){ //if the button exists
       // Reactivate the button after 2 seconds
