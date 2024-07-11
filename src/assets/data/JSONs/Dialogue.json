@@ -100,6 +100,10 @@
       "functions": [
         {
           "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["river_area"]
+        },{
+          "sequence": "during",
           "functionReference": "highlightService.highlightObject",
           "args": ["littleForest_area"]
         }
@@ -113,6 +117,10 @@
       "functions": [
         {
           "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["littleForest_area"]
+        },{
+          "sequence": "during",
           "functionReference": "highlightService.highlightObject",
           "args": ["river_area"]
         }
@@ -123,7 +131,13 @@
       "textE": "you will practice your hən̓q̓əmin̓əm̓ through x/y/z",
       "textH": "...",
       "conditions": "not returningPlayer",
-      "functions": []
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["river_area"]
+        }
+      ]
     },
     {
       "order": 6,
@@ -131,11 +145,6 @@
       "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
-        {
-          "sequence": "before",
-          "functionReference": "highlightService.clearHighlight",
-          "args": ["river_area"]
-        },
         {
           "sequence": "during",
           "functionReference": "highlightService.highlightObject",
@@ -159,7 +168,6 @@
       "textH": "...",
       "conditions": "not returningPlayer",
       "functions": []
-
     },
     {
       "order": 2,
@@ -169,13 +177,8 @@
       "functions": [
         {
           "sequence": "during",
-          "functionReference": "highlightService.clearHighlight",
-          "args": []
-        },
-        {
-          "sequence": "during",
-          "functionReference": "highlightService.tempHighlightObject",
-          "args": ["workbenchButton", 2000]
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
         }
       ]
     },
@@ -188,12 +191,12 @@
         {
           "sequence": "during",
           "functionReference": "highlightService.clearHighlight",
-          "args": []
+          "args": ["workbench"]
         },
         {
           "sequence": "during",
-          "functionReference": "highlightService.tempHighlightObject",
-          "args": ["signpostButton", 2000]
+          "functionReference": "highlightService.highlightObject",
+          "args": ["signpost"]
         }
       ]
     },    
@@ -206,12 +209,12 @@
         {
           "sequence": "during",
           "functionReference": "highlightService.clearHighlight",
-          "args": []
+          "args": ["signpost"]
         },
         {
           "sequence": "during",
-          "functionReference": "highlightService.tempHighlightObject",
-          "args": ["workbench", 2000]
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
         }
       ]
     },
@@ -224,12 +227,7 @@
         {
           "sequence": "during",
           "functionReference": "highlightService.clearHighlight",
-          "args": []
-        },
-        {
-          "sequence": "during",
-          "functionReference": "arrowService.pointAtObject",
-          "args": ["workbench", 2000]
+          "args": ["workbench"]
         }
       ]
     }
