@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 export default class BackButton extends Phaser.GameObjects.Container {
-  constructor(scene, canvasWidth, canvasHeight, text, callback) {
+  constructor(scene, canvasWidth, canvasHeight, text, sceneManager) {
     const x = canvasWidth*0.15;
     const y = canvasHeight*0.1;
     super(scene, x, y);
@@ -35,11 +35,10 @@ export default class BackButton extends Phaser.GameObjects.Container {
     // Make the button interactive
     this.setSize(buttonWidth, buttonHeight);
     this.setInteractive(new Phaser.Geom.Rectangle(x, y, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains)
-      .on('pointerdown', callback)
+      .on('pointerdown',  () => sceneManager.goBack())
       .on('pointerover', () => buttonBackground.setTint(0xAAAAAA))
       .on('pointerout', () => buttonBackground.clearTint());
 
     // Add the button object to the scene
-    scene.add.existing(this);
   }
 }
