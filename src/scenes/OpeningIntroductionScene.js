@@ -1,5 +1,4 @@
 import BaseScene from './BaseScene';
-import BackButton from '../utils/BackButton';
 import DialogueManager from '../managers/DialogueManager';
 import LargeTextButton from '../utils/LargeTextButton';
 
@@ -22,10 +21,8 @@ export default class OpeningIntroductionScene extends BaseScene {
     */
     init(data) {
         // console.log("OpeningIntroductionScene: init called with data: ", data); // Debugging output
-        //Set SceneData array object locally within this scene
-        this.allScenesData = data.allScenesData;
-        this.dialogue = data.allDialogue //may have to manage this differently??
-        super.init(data); //initialize BaseScene with data passed into scene on start, in this case it only contains `allScenesData`.
+        // this.dialogue = data.allDialogue //may have to manage this differently??
+        super.init(data); //?? initialize BaseScene with data passed into scene on start, in this case it only contains `allScenesData`.
     }
 
     //run BaseScene preload
@@ -56,35 +53,13 @@ export default class OpeningIntroductionScene extends BaseScene {
         //hides dialogue at start
         this.isDialogueBoxActive = false;
 
-        //Create map button that will be called at the end of dialogue.
-        this.createReturnButton();
-
         //create button to take player to the Main Map scene
         this.createMapButton();
 
-        //initiate DialogueManager to run the dialogue for the scene
-        this.createDialogueAssistant();
     }
 
     update(time, delta) {
         //potentially use for dialogue function... not sure yet
-    }
-
-    //go back to start scene. will have to make dynamic to use across all scenes.
-    //integrate into scenemanager/navigationManager/ MainUIScene
-    createReturnButton(){
-        // console.log('OpeningIntroductionScene: createReturnButton');
-        const buttonText = "<-";
-        const buttonX = this.canvasWidth*0.2;
-        const buttonY = this.canvasHeight*0.2;
-
-        const backButton = new BackButton(this, buttonX, buttonY, buttonText,() => {
-            console.log(buttonText,' button clicked');
-
-            //start or launch indicated scene
-            this.scene.start('StartMenuScene', { allScenesData: this.allScenesData});
-        });
-        backButton.setDepth(5);
     }
 
     /*
@@ -116,19 +91,6 @@ export default class OpeningIntroductionScene extends BaseScene {
          
         //set arrow to point at the map button
         this.arrowService.pointAtObject(this.mainMapButton);
-    }
-
-    /*
-    DIALOGUE
-    This creates an instance of a DialogueManager. 
-    */
-    createDialogueAssistant(){
-        const allDialogueData = this.registry.get('allDialogueData'); // Retrieve from registry
-        // console.log("All Dialogue Data: ", allDialogueData);
-        this.dialogueManager = new DialogueManager(this, allDialogueData);
-        this.dialogueManager.initDialogue();
-        this.dialogueManager.create();
-        // console.log("OpeningIntroductionScene: Dialogue Manager created: ", this.dialogueManager ? "true" : "false");
     }
     
 }
