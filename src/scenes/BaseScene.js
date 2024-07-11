@@ -26,19 +26,25 @@ export default class BaseScene extends Phaser.Scene {
         - selects the Scene Object pertinent to the content that should be displayed... in BaseScene specifically to load the correct background
     */
     init(data={}) {
-        // console.log("BaseScene init data: ", data);
-        // console.log("BaseScene init reference: ", data.reference);
-        this.allScenesData = data.allScenesData || this.registry.get('allScenesData');
+        console.log("BaseScene init data: ", data);
+        console.log("BaseScene init reference: ", data.reference);
+        
         this.reference = data.reference ? data.reference : this.sceneKey;
+        this.dataManager = this.game.dataManager;
+        console.log(`BaseScene: Data manager? ${this.dataManager}`);
+        const allScenesData = this.dataManager.getAllScenesData();
 
-        // console.log("BaseScene- referenceName: ", this.reference);
-
-        this.currentSceneData = data.allScenesData.find(scene => scene.reference_name === this.reference);
-        if (!this.currentSceneData) {
-            // console.error('No sceneData received in BaseScene.');
-            return;
-        }
-        // console.log("BaseScene: current scene data: ", this.currentSceneData);
+        this.sceneManager = this.game.sceneManager;
+        // console.log(this.sceneManager); 
+        this.currentSceneData = this.sceneManager.currentSceneData;
+        // console.log(`Base Scene: current scene data ${this.currentSceneData}`);
+        // this.currentSceneData = this.allScenesData.find(scene => scene.reference_name === this.reference);
+        // if (!this.currentSceneData) {
+        //     // console.error('No sceneData received in BaseScene.');
+        //     return;
+        // }
+        // console.log(`BaseScene: ui manager? ${this.game.UIManager}`);
+        this.UIManager = this.game.UIManager;
     }
 
     /*
@@ -50,12 +56,13 @@ export default class BaseScene extends Phaser.Scene {
         // console.log("BaseScene: preloading with sceneData: ", this.sceneData);
         // Background_image is defined in the sceneData for each scene
         // console.log('current scene data: ', this.currentSceneData.background_image);
-        const imagePath = `./assets/Images/${this.currentSceneData.background_image}`;
+        const imagePath = `./assets/Images/${this.sceneManager.getSceneBackground()}`;
+        // console.log(`Base Scene background image path: ${imagePath}`);
         this.load.image('arrowImage', './assets/UI/arrow.png'); // Load arrow texture
         //console.log('scene background image name: ', this.currentSceneData.background_image);
         // console.log('background image path: ', imagePath);
-        if (this.currentSceneData && this.currentSceneData.background_image) {
-            this.load.image(this.currentSceneData.background_image, imagePath);
+        if (this.currentSceneData && imagePath) {
+            this.load.image(this.sceneManager.getSceneBackground(), imagePath);
         }
     }
 
@@ -70,6 +77,7 @@ export default class BaseScene extends Phaser.Scene {
     Launches the proper UI scene according to the current SceneData (so they run in parallel)
     */
     create() {
+
         // console.log('BaseScene: create called');
         this.createBackground(); //Create window border, and scene background if a background image is indicated in scenesData.
         this.gameWidth = this.sys.game.config.width;
@@ -80,22 +88,12 @@ export default class BaseScene extends Phaser.Scene {
         this.gameResolution = this.sys.game.config.resolution;
         // Get device pixel ratio
         this.devicePixelRatio = window.devicePixelRatio;
-
-        //Launch UI Scene associated with the current Scene object to run in parallel... if no UI referenced in the Scene object, 
-        if (this.currentSceneData.UIMenu && this.currentSceneData.UIMenu != "") {
-            //only launch a new UI menu if that UI menu isn't already running.
-            if (!this.scene.isActive(this.currentSceneData.UIMenu)) {
-                this.scene.launch(this.currentSceneData.UIMenu);
-            }
-        } else {
-            //only stop MainUIScene if it was already running before the query began
-                //assumes theres only 1 possible UI menu, because right now there is. 
-                //will have to add other UI scenes as they are created
-            if (this.scene.isActive("MainUIScene")) { 
-                this.scene.stop("MainUIScene");
-            }
-        }
-
+        // console.log("Base scene current scene data: ",this.currentSceneData);
+        
+        console.log("base scene - update ui", this.currentSceneData.UIMenu);
+        // this.scene.launch(this.currentSceneData.UIMenu);
+        this.sceneManager.updateUIScene(this.scene, this.currentSceneData.UIMenu);
+        // this.launchUI();
         //Create the arrow service in scene
         this.arrowService = new ArrowService(this);
         this.arrowService.createArrow('arrowImage', 0xff0000); //(sprite, fill color)
@@ -105,6 +103,10 @@ export default class BaseScene extends Phaser.Scene {
         this.highlightService = new HighlightService(this);
         // console.log(`OpeningIntroductionScene: highlight service: ${this.highlightService}`);
 
+        // Delay the call to runDialogueAssistant to ensure extending scene's create() is complete
+        this.time.delayedCall(0, () => {
+            this.runDialogueAssistant();
+        });    
     }
 
     /*
@@ -112,13 +114,13 @@ export default class BaseScene extends Phaser.Scene {
     */
     createBackground(){
         //Add a background image if one is indicated in the sceneData object
-        if (this.currentSceneData && this.currentSceneData.background_image) {        
+        if (this.currentSceneData && this.sceneManager.getSceneBackground()) {        
             // Add the background image at the scene's center
             let bg = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, this.currentSceneData.background_image);
         
             // Scale the image to cover the whole game area
             bg.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
-            bg.setDepth(0);
+            bg.setDepth(-10);
             // console.log(`Debug background depth: ${bg.depth}`);
         }
 
@@ -128,5 +130,16 @@ export default class BaseScene extends Phaser.Scene {
         graphics.strokeRect(0, 0, this.cameras.main.width, this.cameras.main.height)
         graphics.setDepth(0); // Set a lower depth;
         
+    }
+
+    /*
+    Sets dialogueManager variable in this scene
+    Calls for the dialogue to begin being displayed
+    */
+    runDialogueAssistant(){
+        // console.log(" base scene: run dialogue assistant");
+        this.dialogueManager = this.game.dialogueManager;
+        // console.log(" base scene: scene reference", this.reference);
+        this.dialogueManager.startSceneDialogue(this, this.reference);
     }
 }
