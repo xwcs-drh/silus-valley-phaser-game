@@ -10,7 +10,10 @@
       "vo1", "vo2", "vo3", "vo4", "vo5", "vo6", "vo7", "vo8", "vo9", "vo10", "vo11", "vo12", "vo25", "vo26", "vo27", "vo28", "vo29", "vo30"
     ],
     "biome": "b1",
-    "requiredResources": {},
+    "requiredResources": {
+      "r1": 1,
+      "r3": 3
+    },
     "awardedResources": {
       "r1": 1
     },
