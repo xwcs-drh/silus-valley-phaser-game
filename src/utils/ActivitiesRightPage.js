@@ -17,7 +17,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
             fill: '#000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.4, useAdvancedWrap: true } // Set word wrap width
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
         };
 
         //Style for 2nd level header text
@@ -27,7 +27,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
             fill: '#000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.5, useAdvancedWrap: true } // Set word wrap width
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
         };
 
         //Style for title text
@@ -37,7 +37,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
             fill: '#000',
             strokeThickness: 1,
             resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.5, useAdvancedWrap: true } // Set word wrap width
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
         };
         this.scene.add.existing(this);
         this.initPage();
@@ -86,7 +86,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         let instructionX = this.instructionsHeader.x;
         // console.log(this.activity);
         // for each instruction string, add to instruction text and instruction array, and update y position for next line.
-        activity[`instructions${this.userLanguage}`].forEach(instruction => {
+        this.activity[`instructions${this.userLanguage}`].forEach(instruction => {
             const instructionText = this.scene.add.text(instructionX, instructionY, instruction, this.h3Style);
             // this.add(instructionText);
             this.instructions.push(instructionText);
