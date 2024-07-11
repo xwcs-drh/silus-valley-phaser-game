@@ -65,10 +65,12 @@ export default class RecipeBookPopupScene extends PopupScene {
     */
     addNavigationButtons() {
           this.prevPageButton = new PageNavButton(this, this.popupContainer.width*0.01, this.popupContainer.height*0.5, "< prev", () => {
+            console.log("clicked page back button");
             this.changePage(-1); //pass in scene to enable launching of another scene
             });
           this.nextPageButton = new PageNavButton(this, this.popupContainer.width*0.85 + this.popupContainer.x, this.popupContainer.height*0.5, "next >",
             () => {
+            console.log("clicked page next button");
             this.changePage(1); //pass in scene to enable launching of another scene
             });
 
@@ -84,7 +86,7 @@ export default class RecipeBookPopupScene extends PopupScene {
     */
     changePage(direction) {
         //set currentPageIndex to next, if direction = 1 and the current index isn't the highest index value in the array
-        if(direction = 1){
+        if(direction === 1){
             if (this.currentPageIndex < this.activities.length - 1) {
                 this.currentPageIndex++;
             }
@@ -94,7 +96,7 @@ export default class RecipeBookPopupScene extends PopupScene {
         }
         
         //set currentPageIndex to previous, if direction = -1 and there is an element in the previous index of the activities array
-        else if(direction = -1){
+        else if(direction === -1){
             if (this.currentPageIndex > 0) {
                 this.currentPageIndex--;
             }
