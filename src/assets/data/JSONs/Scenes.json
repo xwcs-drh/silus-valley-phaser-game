@@ -1,5 +1,13 @@
 [
   {
+    "constructor_identifier": "BootScene",
+    "reference_name": "BootScene",
+    "description": "This is the scene that loads in data and managers",
+    "background_image": "",
+    "UIMenu": "",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
     "constructor_identifier": "StartMenuScene",
     "reference_name": "StartMenuScene",
     "description": "This is the scene that loads upon start",
@@ -40,7 +48,7 @@
     "unlockedTraditionalActivities": [""]
   },
   {
-    "constructor_identifier": "vocabBase",
+    "constructor_identifier": "vocabBaseScene",
     "reference_name": "Scene6",
     "description": "This is the scene that includes the navigation within the vocabulary minigames",
     "background_image": "silu_valley_workbench.png",
@@ -48,7 +56,7 @@
     "unlockedTraditionalActivities": [""]
   },
   {
-    "constructor_identifier": "traditionalActivitiesBase",
+    "constructor_identifier": "traditionalActivitiesBaseScene",
     "reference_name": "Scene7",
     "description": "This is the scene that includes the navigation within the traditional activities",
     "background_image": "silu_valley_fun.png",
