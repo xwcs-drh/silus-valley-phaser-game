@@ -6,9 +6,16 @@ export default class CreditsPopupScene extends PopupScene {
 
     preload(){
         this.load.json('credits', './assets/data/JSONs/credits.json');
+        this.load.image('yellow_wash_background', './assets/UI/yellow_wash_background.jpg'); // Load recipe book background image
     }
 
     create() {
+
+        //set key for background image for super PopupScene to set
+        this.backgroundKey = 'yellow_wash_background';
+        console.log(`background image key", ${this.backgroundKey}`);
+
+
         super.create(); //create the popup window
         const popupWidth = this.game.config.width / 2; //set popup window width
         const popupHeight = this.game.config.height / 2; //set popup window height

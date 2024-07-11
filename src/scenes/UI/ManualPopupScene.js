@@ -4,8 +4,15 @@ export default class ManualPopupScene extends PopupScene {
         super('ManualPopupScene');
     }
 
+    preload(){
+        this.load.image('yellow_wash_background', './assets/UI/yellow_wash_background.jpg'); // Load recipe book background image
+    }
 
     create() {
+        //set key for background image for super PopupScene to set
+        this.backgroundKey = 'yellow_wash_background';
+        console.log(`background image key", ${this.backgroundKey}`);
+
         super.create();
 
         this.popupWidth = this.game.config.width / 2;
