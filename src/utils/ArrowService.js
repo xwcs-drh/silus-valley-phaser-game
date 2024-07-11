@@ -13,14 +13,14 @@ export default class ArrowService {
         this.setFillColor(fillColor); // Apply the fill color tint
         this.arrow.setDepth(102); //dialogueBox depth +1
         this.arrow.setVisible(false); // Initially hide the arrow
-        console.log(`Arrow created with width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
+        //console.log(`Arrow created with width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
     }
 
     setTarget(target) {
         // Set the target object
         this.target = target;
         this.updateArrow(); // Update arrow direction immediately
-        console.log(`arrow service: arrow x: ${this.arrow.x}, y: ${this.arrow.y}`);
+        //console.log(`arrow service: arrow x: ${this.arrow.x}, y: ${this.arrow.y}`);
     }
 
     updateArrow() {
@@ -64,7 +64,7 @@ export default class ArrowService {
 
     //Set the position of the arrow to be relative to the target object, and enable visibility
     pointAtObject(target) {
-        console.log(`arrow service: target x: ${target.x}, y: ${target.y}`);
+        //console.log(`arrow service: target x: ${target.x}, y: ${target.y}`);
 
         this.setTarget(target);
         if (this.arrow) {
@@ -74,8 +74,8 @@ export default class ArrowService {
             this.updateArrow(); // Ensure the arrow points to the target immediately
             this.arrow.setVisible(true);
         }
-        console.log(`arrow service: target x: ${target.x}, y: ${target.y}`);
-        console.log(`Arrow now has width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
+        //console.log(`arrow service: target x: ${target.x}, y: ${target.y}`);
+        //console.log(`Arrow now has width: ${this.arrow.displayWidth}, height: ${this.arrow.displayHeight}`);
     }
 
     //Disable visibility of arrow
