@@ -1,11 +1,20 @@
 [{
-  "id": "player1",
+  "username": "chloe",
+  "settings": {
+        "language": "E",
+        "audio": true,
+        "showDialogue": true
+  },
   "inventory": {
   	"r1": 0,
     "r2": 0
    },
-  "biomes": ["b1", "b3"],
+  "biomesUnlocked": ["b1", "b3"],
   "unlockedTraditionalActivities": ["ta1", "ta2"],
+  "progress": {
+        "completedVocabGames": ["game1", "game2"],
+        "completedTraditionalActivities": ["activity1"]
+  },
   "vocabEncounters": [
 	{
       "vocabId": "v2",
