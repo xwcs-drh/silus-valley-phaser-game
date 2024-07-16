@@ -19,11 +19,18 @@ export default class MainUIScene extends Phaser.Scene {
         console.log('MainUIScene - init called');
     }
 
+    /**
+     * Updates the current scene reference
+     * @param {Scene} scene - The new scene to reference
+     */
     setScene(scene){
         console.log("updating current scene reference");
         this.scene = scene;
     }
 
+    /**
+     * Loads the main button icons
+     */
     preload() {
         //preload main button icons
         this.load.image('navigationToggleButtonImg', './assets/UI/globe.jpeg');
@@ -43,10 +50,17 @@ export default class MainUIScene extends Phaser.Scene {
         });
     }
 
+    /**
+     * Creates the main UI scene
+     */
     create() {
         console.log('MainUIScene - create called');
         this.windowWidth = this.sys.game.config.width;
         this.windowHeight = this.sys.game.config.height;
+        this.mainSceneKey = this.getPrimarySceneKey(); // Set mainSceneKey here
+        this.dataManager = this.game.dataManager; // Get the DataManager instance
+
+
         //set width of all buttons
         this.iconWidth = this.windowWidth * 0.06;
         this.iconGap = this.windowWidth * 0.02;
@@ -80,16 +94,16 @@ export default class MainUIScene extends Phaser.Scene {
     getPrimarySceneKey() {
         // Access the list of all active scenes
         const runningScenes = this.scene.manager.getScenes(true);
-        console.log('MainUIScene: Running scenes:', runningScenes.map(scene => scene.sys.settings.key));
+        // console.log('MainUIScene: Running scenes:', runningScenes.map(scene => scene.sys.settings.key));
 
         // Filter to find the current active scene that is not this scene
         const mainScene = runningScenes.find(scene => scene.sys.settings.key !== 'MainUIScene' && scene.sys.settings.status === Phaser.Scenes.RUNNING);
         let mainSceneKey = ""; // Use let instead of const
         if (mainScene) {
           mainSceneKey = mainScene.sys.settings.key;
-          console.log(`MainUIScene: Found mainSceneKey: ${mainSceneKey}`);
+        //   console.log(`MainUIScene: Found mainSceneKey: ${mainSceneKey}`);
         } else {
-          console.error('MainUIScene: Could not find the main scene key');
+        //   console.error('MainUIScene: Could not find the main scene key');
         }
         return mainSceneKey;
     }
@@ -103,7 +117,7 @@ export default class MainUIScene extends Phaser.Scene {
     loadBiomeIcons(){
         //get biome data from dataManager
         this.biomesData = this.game.dataManager.getAllBiomesData();
-        console.log("MainUIScene - biomes data: ", this.biomesData);
+        // console.log("MainUIScene - biomes data: ", this.biomesData);
 
         this.biomesData.forEach(biome => {
             if (biome.unlocked === "true") { // Only preload biome icon if the player has access to the biome
@@ -181,6 +195,7 @@ export default class MainUIScene extends Phaser.Scene {
         // console.log("MainUI - biomeNavButtons: ", this.biomeNavButtons);
     }
 
+    
     createBiomeButton(x,y,biome,biomeID, biomeReference){
 
         const button = new RoundedButton(
@@ -203,11 +218,11 @@ export default class MainUIScene extends Phaser.Scene {
     */
     getBiomeStartX(nBiomeButtons){
         const totalIconsWidth = (this.iconGap*(nBiomeButtons-1)) + (this.iconWidth * (nBiomeButtons-0.5));
-        console.log(totalIconsWidth);
+        // console.log(totalIconsWidth);
         const iconsRightEdge = this.windowWidth * 0.95;
-        console.log(iconsRightEdge);
+        // console.log(iconsRightEdge);
         const startX = iconsRightEdge - totalIconsWidth;
-        console.log(startX);
+        // console.log(startX);
         return startX;
     }
 
@@ -252,15 +267,20 @@ export default class MainUIScene extends Phaser.Scene {
         - biome (str) = scene constructor identifier / biome.nameE (these should be equal strings)
     */
     startBiomeScene(biomeReference) {
-        console.log(`MainUI - Starting BiomeHomeScene with referenceName: ${biomeReference}`);
-        console.log("MainUI - is sceneManager", this.game.sceneManager);
+        // console.log(`MainUI - Starting BiomeHomeScene with referenceName: ${biomeReference}`);
+        // console.log("MainUI - is sceneManager", this.game.sceneManager);
         this.game.sceneManager.changeScene("BiomeHomeScene", biomeReference);
         this.updateBiomeNavButtonInteractivity();
     }
 
-    /*
-    */
+    /**
+     * Updates the interactivity of the biome navigation buttons
+     */
     updateBiomeNavButtonInteractivity() {
+
+        const currentBiomeReference = this.dataManager.getCurrentBiomeReference();
+        console.log("MainUIScene: Current biome reference:", currentBiomeReference);
+
         for (const biomeId in this.biomeNavButtons) {
             if (this.mainSceneKey === "BiomeHomeScene" && biomeId === this.game.global.currentBiomeId) {
                 this.biomeNavButtons[biomeId].disableInteractive();
@@ -271,15 +291,16 @@ export default class MainUIScene extends Phaser.Scene {
         }
     }
 
+    /**
+     * Creates the return button
+     */
     createReturnButton(){
-        console.log('BiomeHomeScene: createReturnButton');
-        const buttonText = "<-";
-        const buttonX = this.windowWidth*0.2;
-        const buttonY = this.windowHeight*0.2;
-
-        const backButton = new BackButton(this, buttonX, buttonY, buttonText, this.game.sceneManager);
-        console.log(backButton);
-        backButton.setDepth(this.defaultDepth +1);
+        // console.log('BiomeHomeScene: createReturnButton');
+        const canvasWidth = this.windowWidth;
+        const canvasHeight = this.windowHeight;
+        //create the back button
+        const backButton = new BackButton(this, canvasWidth, canvasHeight, this.game.sceneManager);
+        // console.log("back button: ", backButton);
+        backButton.setDepth(this.defaultDepth+1);
     }
 }
-
