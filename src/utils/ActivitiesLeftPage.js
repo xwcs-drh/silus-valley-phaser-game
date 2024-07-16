@@ -8,7 +8,8 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
         this.width = width;
         this.height = height;
         this.activity = activity;
-        this.userLanguage = userLanguage;
+        
+        this.userLanguage = this.scene.game.playerDataManager.getUserLanguage();
         this.inventory = inventory; 
         this.dataManager = dataManager;
         this.resources = this.dataManager.getAllResources();
@@ -45,6 +46,9 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
         //add the ActivitiesLeftPage object to the RecipeBookPopupScene
         this.scene.add.existing(this);
         this.initPage();
+
+        // Listen for the languageUpdated event
+        this.scene.game.playerDataManager.on('languageUpdated', this.updateLanguage, this);
     }
 
     initPage() {
@@ -75,16 +79,40 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
         const name = this.activity[`name${this.userLanguage}`]; //set name variable to correspond to the user's selected language  for the activity passed in
         const biome = this.dataManager.getBiomeFromID(this.activity.biome)[`name${this.userLanguage}`]; //set name variable to correspond to the user's selected language for the activity passed in
         // console.log(biome);
+        console.log(`Activities Left Page : ${this.activity.thumbnailFilename}`);
+        
         this.updateThumbnail(this.activity.thumbnailFilename); 
         this.nameText.setText(name); //set the nameText element to correspond to the name string
         this.biomeText.setText(`Available in the ${biome} biome.`); //set the biomeText element to correspond to the biome string
+
+        // Clear existing resource cards
+        this.clearResourceCards();
+
         this.addRequiredResources(); //populate with the resourceCards indicated to be required for the activity passed in
         this.addAwardedResources(); //populate with the resourceCards indicated to be awarded by the activity passed in
     }
 
+    /*
+    Clear all resource cards from the scene
+    Parameters: None
+    */
+    clearResourceCards() {
+        // Filter out resource cards and destroy them
+        this.list = this.list.filter(child => {
+            if (child instanceof ResourceCard) {
+                child.destroy();
+                return false; // Remove from the list
+            }
+            return true; // Keep in the list
+        });
+    }
+
     // Function to update the thumbnail image
     updateThumbnail(newImageKey) {
-        this.thumbnail.setTexture(newImageKey);
+        this.thumbnail.setTexture(newImageKey)
+        .setOrigin(0.5)
+            .setDisplaySize(this.width * 0.22, this.height * 0.22);
+            
     }
 
     /*
@@ -150,4 +178,16 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
         return this.inventory[resourceKey] || 0;
     }
 
+    updateLanguage(newLang) {
+        console.log(`ActivitiesLeftPage: Language changed to ${newLang}`);
+        this.userLanguage = newLang;
+        this.updatePage(this.activity)
+        this.updateText();
+    }
+
+    destroy() {
+        // Clean up event listener
+        this.scene.game.playerDataManager.off('languageUpdated', this.updateLanguage, this);
+        super.destroy();
+    }
 }

@@ -41,12 +41,12 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         };
         this.scene.add.existing(this);
         this.initPage();
+
+        // Listen for the languageUpdated event
+        this.scene.game.playerDataManager.on('languageUpdated', this.updateLanguage, this);
     }
 
     initPage() {
-        // this.biomeText = this.scene.add.text(this.x + this.width * 0.08,this. y+ this.height * 0.4, '', this.h3Style).setOrigin(0);
-        console.log(this.x);
-
         //create the text element for the activity description
         this.descriptionText = this.scene.add.text(this.x +this.width*0.18,this. y+ this.height * 0.1, "", this.h3Style);
         
@@ -77,6 +77,19 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         this.addInstructions(this.activity);
     }
 
+    updateLanguage(newLang) {
+        console.log(`ActivitiesLeftPage: Language changed to ${newLang}`);
+        this.userLanguage = newLang;
+        this.updateText();
+    }
+
+    updateText() {
+        // Update the text elements based on the new language
+        this.descriptionText.setText(this.activity[`description${this.userLanguage}`]);
+        this.instructionsHeader.setText(this.activity[`instructionsHeader${this.userLanguage}`]);
+        this.addInstructions();
+    }
+
     /*
     Print out array of strings from activity.instructions${userLanguage}
     */
@@ -92,5 +105,11 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
             this.instructions.push(instructionText);
             instructionY += instructionText.height + 10;
         });
+    }
+
+    destroy() {
+        // Clean up event listener
+        this.scene.game.playerDataManager.off('languageUpdated', this.updateLanguage, this);
+        super.destroy();
     }
 }
