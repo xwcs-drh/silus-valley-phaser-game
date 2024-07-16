@@ -44,6 +44,14 @@ export default class DataManager {
         return this.data.currentBiome.id;
     }
 
+    getCurrentBiomeReference(){
+        console.log(this.data.currentBiome);
+        if(this.data.currentBiome !=null){
+            return this.data.currentBiome.biome_reference_name;
+        } 
+        return null;
+    }
+
     getBiomeFromID(biomeID){
         const biome = this.data.allBiomesData.find(b => b.id === biomeID);
         return biome;
