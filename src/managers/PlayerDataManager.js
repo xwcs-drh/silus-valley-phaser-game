@@ -1,6 +1,9 @@
-export default class PlayerDataManager {
-  //follows structure of PlayerData.json
+import Phaser from 'phaser';
+
+export default class PlayerDataManager extends Phaser.Events.EventEmitter {
+    //follows structure of PlayerData.json
     constructor(dataManager) {
+        super();
         this.dataManager = dataManager; // Reference to DataManager to access global data
 //
         this.playerData = null;
@@ -56,6 +59,9 @@ export default class PlayerDataManager {
       this.playerData.settings.language = language;
       console.log(this.playerData.settings.language);
       this.savePlayerData();
+
+      //Emit an event to notify other parts of the game that the language has been updated
+      this.emit("languageUpdated", language);
     }
 
     updateInventory(newInventory) {
