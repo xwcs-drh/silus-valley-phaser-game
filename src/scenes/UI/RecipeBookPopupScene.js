@@ -30,6 +30,7 @@ export default class RecipeBookPopupScene extends PopupScene {
     */
     create() {
         //set key for background image for super PopupScene to set
+        
         this.backgroundKey = 'recipe_book_background';
         console.log(`background image key", ${this.backgroundKey}`);
 
@@ -107,5 +108,11 @@ export default class RecipeBookPopupScene extends PopupScene {
         //Update element content in the left and right pages of the spread by passing in the current activity object at the currentPageIndex of the activities array
         this.leftPage.updatePage(this.activities[this.currentPageIndex]);
         this.rightPage.updatePage(this.activities[this.currentPageIndex]);
+    }
+
+    shutdown() {
+        // Clean up event listeners
+        this.leftPage.destroy();
+        this.rightPage.destroy();
     }
 }
