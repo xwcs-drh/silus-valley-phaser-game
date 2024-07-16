@@ -7,6 +7,13 @@ dist/
 # Ignore build directory (if used)
 build/
 
+# Ignore all image files in the vocabulary folder
+vocabulary/*.jpg
+vocabulary/*.jpeg
+vocabulary/*.png
+vocabulary/*.gif
+vocabulary/*.svg
+
 # Ignore Webpack config files 
 webpack.config.js
 
