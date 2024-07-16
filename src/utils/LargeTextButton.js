@@ -1,5 +1,3 @@
-// import Phaser from 'phaser';
-
 export default class LargeTextButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text, callback, width=190, height=50) {
     super(scene, Math.floor(x), Math.floor(y));
