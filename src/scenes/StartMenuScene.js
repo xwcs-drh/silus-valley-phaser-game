@@ -64,8 +64,19 @@ export default class StartMenuScene extends BaseScene {
         super.create();
         // console.log('StartMenuScene: create');
         
-        //Create title text
-        this.add.text(this.cameras.main.width *.4, this.cameras.main.height *.4, "Sil̕ə's Valley", {fontSize: 64, fontFamily: 'Noto Sans', fill:'#000080'});
+        // Calculate responsive font size
+        const fontSize = Math.min(this.cameras.main.width, this.cameras.main.height) * 0.1;
+        // this.add.text(this.cameras.main.width * 0.4, this.cameras.main.height * 0.4, "Sil̕ə's Valley", { fontSize: fontSize, fontFamily: 'Noto Sans', fill: '#000080' });
+        // Check if the title text has already been created
+        if (!this.titleTextCreated) {
+            // Create title text
+            this.add.text(this.cameras.main.width * 0.4, this.cameras.main.height * 0.4, "Sil̕ə's Valley", { fontSize: fontSize, fontFamily: 'Noto Sans', fill: '#000080' });
+            // Set the flag to true
+            this.titleTextCreated = true;
+        }
+
+        this.titleTextCreated = false;
+
 
     	//Create Start button => Starts Opening Introduction Scene
         this.createStartButton(this.gameWidth*0.5, this.gameHeight*0.8, 'Start');
@@ -124,9 +135,9 @@ export default class StartMenuScene extends BaseScene {
         new LargeTextButton(this, x, y, text, () => {
             // console.log(text,' button clicked');
             //start OpeningIntroductionScene scene when the button is clicked on. don't need to pass in 'reference' as it will be set by default in BaseScene
-            // this.game.sceneManager.changeScene('MainMapScene');
+            this.game.sceneManager.changeScene('MainMapScene');
             // this.game.sceneManager.changeScene("BiomeHomeScene", "littleForest");
-            this.game.sceneManager.changeScene('OpeningIntroductionScene');
+            // this.game.sceneManager.changeScene('OpeningIntroductionScene');
         });
     }
 

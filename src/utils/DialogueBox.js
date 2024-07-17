@@ -3,8 +3,8 @@ import Phaser from 'phaser';
 export default class DialogueBox extends Phaser.GameObjects.Container {
   constructor(scene, x, y, callback, width = 590, height = 100, boxRadius = 20, buttonRadius = 10) {
     super(scene, Math.floor(x), Math.floor(y));
-    console.log('DialogueBox constructor called');
-    console.log('Scene:', scene);
+    // console.log('DialogueBox constructor called');
+    // console.log('Scene:', scene);
 
     // Ensure the scene is valid before proceeding
     // if (!scene || !scene.sys) {
@@ -13,30 +13,30 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     // }
     this.callback = callback;
     this.scene = scene;
-    this.boxWidth = width;
-    this.boxHeight = height;
+    this.width = scene.sys.game.config.width*0.65;
+    this.height = scene.sys.game.config.height*0.18;
     this.buttonDiameter = 40;
     this.buttonRadius = buttonRadius;
 
     const textStyle = {
       fontFamily: 'Unbounded',
-      fontSize: '20px',
+      fontSize: `${Math.min(this.width, this.height) * 0.18}px`,
       fill: '#000',
       strokeThickness: 0.5,
       resolution: window.devicePixelRatio,
-      wordWrap: { width: width - 20, useAdvancedWrap: true } // Set word wrap width
+      wordWrap: { width: this.width *0.9, useAdvancedWrap: true } // Set word wrap width
     };
 
     // Create the background and border
-    const background = this.createBackgroundAndBorder(scene, width, height, boxRadius);
+    const background = this.createBackgroundAndBorder(scene, this.width, this.height, boxRadius);
 
     // Create the dialogue text object
     this.dialogueText = scene.add.text(0, 0, "", textStyle).setOrigin(0.5);
 
 
     // Calculate the button position relative to the dialogue box
-    const buttonOffsetX = width / 2 - 10;  // Adjust the button's X position relative to the right edge
-    const buttonOffsetY = height / 2 - 10;  // Adjust the button's Y position relative to the bottom edge
+    const buttonOffsetX = this.width / 2 - 10;  // Adjust the button's X position relative to the right edge
+    const buttonOffsetY = this.height / 2 - 10;  // Adjust the button's Y position relative to the bottom edge
 
     //Create the "go" (to next line of dialogue) button
     this.button = this.createButton(scene, buttonOffsetX, buttonOffsetY, '>', this.handleClick.bind(this));
@@ -72,7 +72,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     // Create the button text
     const buttonText = this.scene.add.text(x, y, text, {
       fontFamily: 'Arial',
-      fontSize: '20px',
+      fontSize: `${Math.min(this.width, this.height) * 0.25}px`,
       color: '#000'
     }).setOrigin(0.5);
     
@@ -142,14 +142,14 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
   handleClick() {
     if(this.button){ //if the button exists
       // Disable the button's input
-      console.log('Button clicked. Setting inactive button state.');
+      // console.log('Button clicked. Setting inactive button state.');
       // Change button to inactive color
       this.changeButtonColor(this.button.buttonGraphics, 0xe4e4e4);
       this.setButtonVisibility(false);
       this.button.buttonRect.disableInteractive();
     }
     // Execute the callback function before making the button inactive
-    console.log('Executing callback.');
+    // console.log('Executing callback.');
     this.callback(this.scene);
     
     if(this.button){ //if the button exists

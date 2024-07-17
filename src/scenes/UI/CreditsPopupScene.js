@@ -5,10 +5,13 @@ export default class CreditsPopupScene extends PopupScene {
     }
 
     preload(){
-        this.load.json('credits', './assets/data/JSONs/credits.json');
+        this.load.json('credits', './assets/data/JSONs/credits.json'); //load credits data
         this.load.image('yellow_wash_background', './assets/UI/yellow_wash_background.jpg'); // Load recipe book background image
     }
 
+    /**
+     * Creates the credits popup
+     */
     create() {
 
         //set key for background image for super PopupScene to set
@@ -25,6 +28,7 @@ export default class CreditsPopupScene extends PopupScene {
 
         //Format text to concatenate each credit object (role:name)
         let creditsText = '';
+        //iterate through each category in the credits data and concatenate the names
         creditsData.forEach(categoryData => {
             creditsText += categoryData.category + ':\n';
             categoryData.name.forEach(name => {
@@ -35,17 +39,17 @@ export default class CreditsPopupScene extends PopupScene {
 
         //style credits text
         const creditsTextStyle = {
-            fontSize: '18px',
+            fontSize: `${Math.min(popupWidth, popupHeight) * 0.05}px`,
             fill: '#000',
             wordWrap: { width: 600, useAdvancedWrap: true }
         };
 
         // Add specific content for the manual popup
         if (this.popupContainer) {
-            const headerText = this.add.text(50, 0, 'Credits', { fontSize: '24px', fill: '#000' });
-            this.addContentToPopup(0.5, 0.005, headerText, true); // Positioning text at 5% from the top-left corner
+            const headerText = this.add.text(this.popupContainer.x + this.popupContainer.width * 0.45, this.popupContainer.y + this.popupContainer.height * 0.05, 'Credits', { fontSize: `${Math.min(popupWidth, popupHeight) * 0.06}px`, fill: '#000' });
+            // this.addContentToPopup(Math.min(popupWidth, popupHeight) * 0.2, Math.min(popupWidth, popupHeight) * 0.3, headerText, true); // Positioning text at 5% from the top-left corner
             // Create the multiline text object
-            this.add.text(100, 100, creditsText, creditsTextStyle);
+            this.add.text(this.popupContainer.x + this.popupContainer.width * 0.05, this.popupContainer.y + this.popupContainer.height * 0.12, creditsText, creditsTextStyle);
         } else {
           console.error('Popup container is not initialized');
         }

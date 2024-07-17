@@ -62,8 +62,8 @@ export default class MainUIScene extends Phaser.Scene {
 
 
         //set width of all buttons
-        this.iconWidth = this.windowWidth * 0.06;
-        this.iconGap = this.windowWidth * 0.02;
+        this.iconWidth = this.windowWidth * 0.05;
+        this.iconGap = this.windowWidth * 0.015;
         // const testText = this.add.text(this.sys.game.config.width/2, 10, 'UI', { fontSize: '48px', fill: '#000' });
         // testText.setDepth(this.defaultDepth + 1);
 

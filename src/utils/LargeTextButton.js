@@ -4,12 +4,14 @@ export default class LargeTextButton extends Phaser.GameObjects.Container {
     
     const textStyle = {
         fontFamily: 'Unbounded',
-        fontSize: '20px',
+        // Calculate responsive font size based on button width or height
+        fontSize: `${Math.min(width, height) * 0.4}px`,
         fill: '#fff',
         strokeThickness:0.5,
         resolution: window.devicePixelRatio
     };
-
+    width = this.scene.sys.game.config.width*0.21;
+    height = this.scene.sys.game.config.height*0.085;
     // Load the background image
     const buttonBackground = scene.add.image(0, 0, 'blueButtonBackground').setOrigin(0.5);
     buttonBackground.setDisplaySize(width, height);
