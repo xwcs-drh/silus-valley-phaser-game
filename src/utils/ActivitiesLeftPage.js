@@ -111,7 +111,7 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
     updateThumbnail(newImageKey) {
         this.thumbnail.setTexture(newImageKey)
         .setOrigin(0.5)
-            .setDisplaySize(this.width * 0.22, this.height * 0.22);
+        .setDisplaySize(this.width * 0.22, this.height * 0.22);
             
     }
 
@@ -160,8 +160,9 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
             // Add resource cards for awarded resources
             for (const [resourceKey, quantity] of Object.entries(awardedResources)) {
                 console.log(this.dataManager.getResource(resourceKey));
-                const resource = this.dataManager.getResource(resourceKey)
-                const resourceCard = new ResourceCard(this.scene, xPos, yPos, this.width * 0.1, this.height * 0.1, resource, quantity);
+                const resourceAvailable = this.scene.game.playerDataManager.isResourceAvailable(resourceKey); 
+                const resource = this.dataManager.getResource(resourceKey);
+                const resourceCard = new ResourceCard(this.scene, xPos, yPos, this.width * 0.1, this.height * 0.1, resource, quantity, resourceAvailable);
                 this.add(resourceCard);
                 // yPos += this.height * 0.21; 
                 xPos += this.width * 0.055; 
