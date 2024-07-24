@@ -10,8 +10,8 @@ export default class BackButton extends Phaser.GameObjects.Container {
     // Calculate button position and size based on canvas dimensions
     const x = canvasWidth * 0.07;
     const y = canvasHeight * 0.05;
-    const width = canvasWidth * 0.11;
-    const height = width * 0.4;
+    const width = canvasWidth * 0.095;
+    const height = width * 0.35;
 
     // console.log(`Button position: (${x}, ${y}), size: (${width}, ${height})`);
 
