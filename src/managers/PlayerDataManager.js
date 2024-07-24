@@ -109,7 +109,7 @@ export default class PlayerDataManager extends Phaser.Events.EventEmitter {
     Will be concatenated with `name` or `description` based on text type indicated in json data.
     */
     getUserLanguage(){
-      console.log("getting user language", this.playerData.settings.language);
+      // console.log("getting user language", this.playerData.settings.language);
       return this.playerData.settings.language;
       // return "E";
     }
@@ -215,15 +215,23 @@ export default class PlayerDataManager extends Phaser.Events.EventEmitter {
     Used in DataManager or TraditionalActivityPopupScene to see if a player has enough of a resource in their inventory to play an activity
     */
     isResourceAvailable(resourceId) {
-        const resource = this.dataManager.getResource(resourceId);
-        if (!resource) return false;
+        const resource = this.dataManager.getResource(resourceId); // get resource object
+        if (!resource) return false; //return false if resource is null
 
+        //check if any of the player's unlocked activities award this resource
         for (const activityId of this.playerData.unlockedTraditionalActivities) {
+          console.log("PlayerDataManager - isResourceAvailalble resourceID: ",activityId);
             const activity = this.dataManager.getTraditionalActivity(activityId);
-            if (activity.awardedResources[resourceId] || activity.requiredResources[resourceId]) {
-                return true;
+            if (activity.activityUnlocked && activity.awardedResources[resourceId]) {
+              console.log("PlayerDataManager - isActivityUnlocked: ",activity.activityUnlocked, "awards: ", activity.awardedResources[resourceId]);
+              return true;
             }
         }
         return false;
+    }
+
+    removeResource(resourceId, quantity) {
+        this.playerData.inventory[resourceId] -= quantity;
+        // this.savePlayerData();
     }
 }
