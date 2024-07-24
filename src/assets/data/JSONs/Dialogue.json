@@ -64,7 +64,7 @@
     {
       "order": 1,
       "textE": "Grandchild will work with cedar in silə's backyard/little forest",
-      "textH": "...",
+      "textH": "hulq - Grandchild will work with cedar in silə's backyard/little forest",
       "conditions": "not returningPlayer",
       "functions": [
         {
@@ -77,7 +77,7 @@
     {
       "order": 2,
       "textE": "Grandchild will get fish from the river",
-      "textH": "...",
+      "textH": "Hulq - Grandchild will get fish from the river",
       "conditions": "not returningPlayer",
       "functions": [
         {
@@ -95,7 +95,7 @@
     {
       "order": 3,
       "textE": "Grandchild will work with medicine in silə's backyard/garden/little forest",
-      "textH": "...",
+      "textH": "hulq - Grandchild will work with medicine in silə's backyard/garden/little forest",
       "conditions": "not returningPlayer",
       "functions": [
         {
@@ -172,6 +172,80 @@
     {
       "order": 2,
       "textE": "in silə's backyard, you can do traditional activities with cedar, fish, and medicine",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "textE": "and practice the vocab that is centered around them",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["workbench"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["signpost"]
+        }
+      ]
+    },    
+    {
+      "order": 4,
+      "textE": "As you finish traditional activities, you get materials for the other activities",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["signpost"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "textE": "Let's play",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["workbench"]
+        }
+      ]
+    }
+  ]
+},
+{
+  "scene_reference_name": "river",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "Welcome to silə's river",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": []
+    },
+    {
+      "order": 2,
+      "textE": "in the river, you can do traditional activities with fish",
       "textH": "...",
       "conditions": "not returningPlayer",
       "functions": [
