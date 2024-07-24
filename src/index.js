@@ -7,16 +7,18 @@ import StartMenuScene from './scenes/StartMenuScene';
 import OpeningIntroductionScene from './scenes/OpeningIntroductionScene';
 import MainMapScene from './scenes/MainMapScene';
 import BiomeHomeScene from './scenes/BiomeHomeScene';
+import TraditionalActivitiesMenuScene from './scenes/TraditionalActivitiesMenuScene';
+import TraditionalActivityMinigameScene from './scenes/TraditionalActivityMinigameScene';
 
 // import gameConfig from './config';
 
 // console.log('Initializing Phaser game...');
-alert('index.js loaded');
+// alert('index.js loaded');
 
 // Create an array of all scenes including the UI scenes
 var config = {
-	width: 800,
-	height: 600,
+	width: 2032,
+	height: 1079,
 	resolution: window.devicePixelRatio || 1,
 	backgroundColor: 0x000000,
 	scene: [
@@ -25,6 +27,8 @@ var config = {
 		OpeningIntroductionScene,
 		MainMapScene,
 		BiomeHomeScene,
+		TraditionalActivitiesMenuScene,
+		TraditionalActivityMinigameScene,
 	], //list of all scenes used
 	scale: {
 	    mode: Phaser.Scale.FIT,
