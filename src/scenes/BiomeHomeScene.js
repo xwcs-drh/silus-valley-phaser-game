@@ -32,6 +32,7 @@ export default class BiomeHomeScene extends BaseScene {
         this.dataManager.setCurrentBiome(this.reference);
 
         this.createActionLandmarks();
+        console.log(`Current Biome : ${this.dataManager.getCurrentBiome()}`);
     }
 
     /*
@@ -41,7 +42,7 @@ export default class BiomeHomeScene extends BaseScene {
     */
     createActionLandmarks(){
         //create signpost button... will replace with interactive sprite probably
-        this.workbenchButton = this.createLandmarkButton(this.canvasWidth*0.2,this.canvasHeight*0.7, "workbench", "traditionalActivitiesBaseScene", this.biomeReference);
+        this.workbenchButton = this.createLandmarkButton(this.canvasWidth*0.2,this.canvasHeight*0.7, "workbench", "TraditionalActivitiesMenuScene", this.biomeReference);
         //create workbench button... will replace with interactive sprite probably
         this.signpostButton = this.createLandmarkButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "signpost", "vocabBaseScene", this.biomeReference);
     }
