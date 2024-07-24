@@ -75,7 +75,7 @@ export default class StartMenuScene extends BaseScene {
             this.titleTextCreated = true;
         }
 
-        this.titleTextCreated = false;
+        // this.titleTextCreated = false;
 
 
     	//Create Start button => Starts Opening Introduction Scene
@@ -103,10 +103,9 @@ export default class StartMenuScene extends BaseScene {
         - popupToLaunch (string) = name of the popup scene that should be launched on button click
     */
     createMainButton(x,y,text, popupToLaunch){
-        // console.log('StartMenuScene: create ', text,' button');
-
-    	const buttonX = this.gameWidth*0.8;
-        const buttonY = this.gameHeight*0.9;
+        console.log('StartMenuScene: create ', text, ' button');
+        console.log('buttonX: ', x);
+        console.log('buttonY: ', y);
 
         // Create the settings button
         new LargeTextButton(this, x, y, text, () => {
@@ -115,7 +114,11 @@ export default class StartMenuScene extends BaseScene {
             //start or launch indicated scene
             console.log("popup to launch: ", popupToLaunch);
             this.game.sceneManager.showPopupScene(this.scene, popupToLaunch); //pass in scene to enable launching of another scene
-        });
+        }, 
+            this.canvasWidth * 0.21,
+            this.canvasHeight * 0.085
+        );
+
     }
 
     /*
@@ -128,17 +131,16 @@ export default class StartMenuScene extends BaseScene {
     createStartButton(x,y,text){
         // console.log('StartMenuScene: create ',text,' button');
 
-        const buttonX = this.gameWidth*0.8;
-        const buttonY = this.gameHeight*0.9;
-
-        // Create the settings button
+        // Create the start button
         new LargeTextButton(this, x, y, text, () => {
-            // console.log(text,' button clicked');
+            console.log(text, ' button clicked');
             //start OpeningIntroductionScene scene when the button is clicked on. don't need to pass in 'reference' as it will be set by default in BaseScene
             this.game.sceneManager.changeScene('MainMapScene');
-            // this.game.sceneManager.changeScene("BiomeHomeScene", "littleForest");
-            // this.game.sceneManager.changeScene('OpeningIntroductionScene');
-        });
+        }, 
+            this.canvasWidth * 0.21,
+            this.canvasHeight * 0.085
+        );
+
     }
 
     /*
