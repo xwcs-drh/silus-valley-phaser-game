@@ -12,6 +12,7 @@ export default class SceneManager {
         this.currentPopupSceneKey = "";
         this.popupSceneHistory = [];
         this.currentUIScene = null;
+        this.currentBiomeID = null;
     }
 
     checkScenes() {
@@ -58,15 +59,21 @@ export default class SceneManager {
 
         if (sceneData) {
             const currentSceneKey = this.currentSceneData.constructor_identifier;
+            console.log("current scene key: ", currentSceneKey);
             // console.log("SceneManager: Stopping current scene:", this.currentScene);
             // console.log(`SceneManager: Stopping current scene key: ${this.currentSceneData.constructor_identifier}`);
 
             this.currentReference = reference;
             this.sceneHistory.push({ sceneKey: currentSceneKey, reference: this.currentReference });
-
+            // console.log("SceneManager: scene history: ", this.sceneHistory);
             this.game.scene.stop(currentSceneKey);
+            
             this.game.scene.start(newSceneKey, { reference: reference });
             this.currentScene = this.game.scene.getScene(newSceneKey);
+            if((this.dataManager.getCurrentBiome() == null || this.dataManager.getCurrentBiomeReference() !== reference) && newSceneKey.includes("BiomeHomeScene")){
+                console.log("SceneManager: Setting current biome reference to: ", reference);
+                this.dataManager.setCurrentBiome(reference);
+            }
             // this.checkScenes();
             // console.log(`SceneManager: Started new scene: ${newSceneKey}`);
         } else {
@@ -93,8 +100,9 @@ export default class SceneManager {
     // }
 
     updateUIScene(scene, uiSceneKey) {
-        // const uiSceneKey = sceneData.UIMenu; //get the name of the specified target UI menu to be run in parallel with game scene
-        // console.log("UIManager - ui scene key: ", uiSceneKey);
+        //const uiSceneKey = sceneData.UIMenu; //get the name of the specified target UI menu to be run in parallel with game scene
+        console.log("scene manager - scene", scene.key);
+        console.log("UIManager - ui scene key: ", uiSceneKey);
         this.hideAllUIScenes(scene, uiSceneKey);
 
         //if the current ui scene isn't empty, and doesn't match the specified target UI scene key
@@ -102,9 +110,9 @@ export default class SceneManager {
             // console.log(`UIManager - current UI scene key: ${this.currentUISceneKey} and intended ui scene key: ${uiSceneKey}`);
             this.showUIScene(scene, uiSceneKey); //launch the specified target scene key
         }
-
+        //if the current ui scene isn't empty, and matches the specified target UI scene key
         else if (this.currentUIScene && this.currentUISceneKey === uiSceneKey){
-            // console.log("current ui scene", this.currentUIScene);
+            console.log("current ui scene", this.currentUIScene);
             this.currentUIScene.setScene(this.currentUIScene); //set the specified target ui scene key to current ui scene key 
         }
 
@@ -118,7 +126,7 @@ export default class SceneManager {
             // console.log(`SceneManager: hiding scene key: ${uiSceneKey}`);
             sceneInstance.scene.setVisible(true);
             // sceneInstance.scene.pause();
-            this.checkScenes();
+            // this.checkScenes();
             return;
         }
         if (sceneInstance && !sceneInstance.scene.isActive()) {
@@ -126,7 +134,7 @@ export default class SceneManager {
             scene.launch(uiSceneKey);
             sceneInstance.scene.setVisible(true);
             // sceneInstance.scene.pause();
-            this.checkScenes();
+            // this.checkScenes();
             return;
         }
         this.currentUIScene = sceneInstance;
@@ -154,6 +162,7 @@ export default class SceneManager {
     }
 
     getSceneBackground() {
+        console.log("SceneManager - current scene data: ", this.currentSceneData.background_image);
         return this.currentSceneData ? this.currentSceneData.background_image : null;
     }
 
@@ -161,8 +170,14 @@ export default class SceneManager {
         return this.currentSceneData ? this.currentSceneData.UIMenu : null;
     }
 
-    getSceneReference(){
-        return this.currentSceneData.reference_name;
+    getSceneReference() {
+        if (this.currentSceneData) {
+            console.log("Current Scene Data:", this.currentSceneData);
+            console.log("Reference Name:", this.currentSceneData.reference_name);
+            return this.currentSceneData.reference_name;
+        }
+        console.error("No current scene data available.");
+        return null;
     }
 
     showPopupScene(scene, popupSceneKey) {
@@ -199,6 +214,8 @@ export default class SceneManager {
         }
     }
 
+    
+    
     hideAllPopupScenes(scene, exceptScene){
         for (const key of Object.keys(this.popupScenes)) {
             if(key != exceptScene){
@@ -209,17 +226,27 @@ export default class SceneManager {
 
     // Go back to the previous scene
     goBack() {
-        if (this.sceneHistory.length > 0) {
+        this.getSceneReference();
+        console.log("SceneManager: scene history: ", this.sceneHistory);
+        if (this.sceneHistory.length > 1) {
+            // Remove the current scene from the history
+            this.sceneHistory.pop();
+            // Get the new last element, which is the previous scene
             const previousScene = this.sceneHistory.pop();
-            // console.log(`SceneManager: Returning to previous scene: ${previousScene.sceneKey} with reference: ${previousScene.reference}`);
+            console.log(`SceneManager: Returning to previous scene: ${previousScene.sceneKey} with reference: ${previousScene.reference}`);
 
-            this.currentReference = previousScene.reference;
+            // Ensure the current scene is stopped before changing to the previous scene
+            const currentSceneKey = this.currentSceneData ? this.currentSceneData.constructor_identifier : null;
+            if (currentSceneKey) {
+                this.game.scene.stop(currentSceneKey);
+            }
 
-            this.game.scene.stop(this.game.scene.keys[0]);
-            this.game.scene.start(previousScene.sceneKey, { reference: previousScene.reference });
-        } 
-        else {
-            // console.error('SceneManager: No previous scene to return to.');
+            // Change to the previous scene
+            this.changeScene(previousScene.sceneKey, previousScene.reference);
+
+        } else {
+            console.error('SceneManager: No previous scene to return to.');
         }
     }
+
 }
