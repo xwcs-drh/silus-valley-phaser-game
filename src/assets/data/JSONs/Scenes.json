@@ -48,18 +48,26 @@
     "unlockedTraditionalActivities": [""]
   },
   {
-    "constructor_identifier": "vocabBaseScene",
-    "reference_name": "Scene6",
+    "constructor_identifier": "VocabBaseScene",
+    "reference_name": "VocabBaseScene",
     "description": "This is the scene that includes the navigation within the vocabulary minigames",
     "background_image": "silu_valley_workbench.png",
     "UIMenu": "MainUIScene",
     "unlockedTraditionalActivities": [""]
   },
   {
-    "constructor_identifier": "traditionalActivitiesBaseScene",
-    "reference_name": "Scene7",
+    "constructor_identifier": "TraditionalActivitiesMenuScene",
+    "reference_name": "TraditionalActivitiesMenuScene",
     "description": "This is the scene that includes the navigation within the traditional activities",
-    "background_image": "silu_valley_fun.png",
+    "background_image": "silu_valley_fun.jpg",
+    "UIMenu": "MainUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "TraditionalActivityMinigameScene",
+    "reference_name": "TraditionalActivityMinigameScene",
+    "description": "This is the scene that includes the navigation within the traditional activities",
+    "background_image": "silu_valley_river.png",
     "UIMenu": "MainUIScene",
     "unlockedTraditionalActivities": [""]
   }
