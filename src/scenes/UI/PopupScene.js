@@ -14,6 +14,49 @@ export default class PopupScene extends Phaser.Scene {
         console.log(this.playerDataManager.getUserLanguage());
     }
 
+    preload() {
+        // Load common images for all popup scenes
+        this.loadCommonImages();
+    }
+
+    loadCommonImages() {
+        // Check if images are already loaded to avoid duplication
+        if (!this.textures.exists('recipe_book_background')) {
+            this.load.image('recipe_book_background', './assets/UI/recipe_book_background.png');
+        }
+        if (!this.textures.exists('blueButtonBackground')) {
+            this.load.image('blueButtonBackground', './assets/UI/blank_blue_button.jpeg');
+        }
+        if (!this.textures.exists('lockIcon')) {
+            this.load.image('lockIcon', '../assets/UI/lock_icon.jpeg');
+        }
+        if (!this.textures.exists('darkblue_wash_background')) {
+            this.load.image('darkblue_wash_background', '../assets/UI/darkblue_wash_background.jpg');
+        }
+        if (!this.textures.exists('yellow_wash_background')) {
+            this.load.image('yellow_wash_background', './assets/UI/yellow_wash_background.jpg');
+        }
+
+        // Load activity thumbnails
+        const activities = this.dataManager.getAllTraditionalActivities();
+        activities.forEach(activity => {
+            const filepath = `./assets/UI/${activity.thumbnailFilename}`;
+            if (!this.textures.exists(activity.thumbnailFilename)) {
+                this.load.image(activity.thumbnailFilename, filepath);
+            }
+        });
+
+        // Load resource images
+        const resources = this.dataManager.getAllResources();
+        resources.forEach(resource => {
+            const filepath = `./assets/Images/vocabulary/${resource.imageFilename}`;
+            if (!this.textures.exists(resource.imageFilename)) {
+                this.load.image(resource.imageFilename, filepath);
+                console.log(resource.imageFilename);
+            }
+        });
+    }
+
     create() {
         console.log("background key", this.backgroundKey);
         this.blockerDepth = 120;
