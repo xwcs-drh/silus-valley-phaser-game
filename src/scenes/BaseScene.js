@@ -36,8 +36,8 @@ export default class BaseScene extends Phaser.Scene {
 
         this.sceneManager = this.game.sceneManager;
         // console.log(this.sceneManager); 
-        this.currentSceneData = this.sceneManager.currentSceneData;
-        // console.log(`Base Scene: current scene data ${this.currentSceneData}`);
+        this.currentSceneData = this.sceneManager.getCurrentSceneData();
+        console.log("Base Scene: current scene data " , this.currentSceneData);
         // this.currentSceneData = this.allScenesData.find(scene => scene.reference_name === this.reference);
         // if (!this.currentSceneData) {
         //     // console.error('No sceneData received in BaseScene.');
@@ -55,14 +55,15 @@ export default class BaseScene extends Phaser.Scene {
     preload() {
         // console.log("BaseScene: preloading with sceneData: ", this.sceneData);
         // Background_image is defined in the sceneData for each scene
-        // console.log('current scene data: ', this.currentSceneData.background_image);
-        const imagePath = `./assets/Images/${this.sceneManager.getSceneBackground()}`;
+        console.log('current scene data: ', this.currentSceneData.background_image);
+        console.log('scene background: ', this.game.sceneManager.getSceneBackground());
+        const imagePath = `./assets/UI/${this.game.sceneManager.getSceneBackground()}`;
         // console.log(`Base Scene background image path: ${imagePath}`);
         this.load.image('arrowImage', './assets/UI/arrow.png'); // Load arrow texture
         //console.log('scene background image name: ', this.currentSceneData.background_image);
         // console.log('background image path: ', imagePath);
         if (this.currentSceneData && imagePath) {
-            this.load.image(this.sceneManager.getSceneBackground(), imagePath);
+            this.load.image(this.game.sceneManager.getSceneBackground(), imagePath);
         }
     }
 
@@ -114,9 +115,11 @@ export default class BaseScene extends Phaser.Scene {
     */
     createBackground(){
         //Add a background image if one is indicated in the sceneData object
+        console.log("current scene data: ", this.currentSceneData);
         if (this.currentSceneData && this.sceneManager.getSceneBackground()) {        
             // Add the background image at the scene's center
             let bg = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, this.currentSceneData.background_image);
+            console.log("bg: ", bg);
         
             // Scale the image to cover the whole game area
             bg.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
