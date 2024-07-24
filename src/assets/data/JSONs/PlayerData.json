@@ -6,8 +6,8 @@
         "showDialogue": true
   },
   "inventory": {
-  	"r1": 0,
-    "r2": 0
+  	"r1": 2,
+    "r2": 1
    },
   "biomesUnlocked": ["b1", "b3"],
   "unlockedTraditionalActivities": ["ta1", "ta2"],
