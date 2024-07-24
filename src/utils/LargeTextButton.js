@@ -1,55 +1,43 @@
 export default class LargeTextButton extends Phaser.GameObjects.Container {
-  constructor(scene, x, y, text, callback, width=190, height=50) {
+  constructor(scene, x, y, text, callback, width = 190, height = 50) {
     super(scene, Math.floor(x), Math.floor(y));
-    
+
     const textStyle = {
         fontFamily: 'Unbounded',
-        // Calculate responsive font size based on button width or height
-        fontSize: `${Math.min(width, height) * 0.4}px`,
+        fontSize: `${Math.min(width, height) * 0.4}px`, // Adjust the multiplier as needed
         fill: '#fff',
-        strokeThickness:0.5,
+        strokeThickness: 0.5,
         resolution: window.devicePixelRatio
     };
-    width = this.scene.sys.game.config.width*0.21;
-    height = this.scene.sys.game.config.height*0.085;
-    // Load the background image
+
+    // console.log("Width:", width);
+    // console.log("Height:", height);
     const buttonBackground = scene.add.image(0, 0, 'blueButtonBackground').setOrigin(0.5);
     buttonBackground.setDisplaySize(width, height);
 
-    // Log to see if the background is correctly added
-    // console.log("Button background added:", buttonBackground);
-
-    //update button width to correspond to image dimensions
-    const buttonWidth = buttonBackground.displayWidth;
-    const buttonHeight = buttonBackground.displayHeight;
-    
-    // Create the text object
     const buttonText = scene.add.text(0, 0, text, textStyle).setOrigin(0.5);
 
-    // Log to see if the text is correctly added
-    // console.log("Button text added:", buttonText);
-
-    // Add background and text to the container
     this.add(buttonBackground);
     this.add(buttonText);
 
-    // Make the button interactive
-    this.setSize(buttonWidth, buttonHeight);
-    this.setInteractive(new Phaser.Geom.Rectangle(0, 0, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains)
+    this.setSize(buttonBackground.displayWidth, buttonBackground.displayHeight);
+    this.setPosition(x, y);
+
+    // Debugging statements
+    // console.log("Button position:", this.x, this.y);
+    // console.log("Button size:", this.width, this.height);
+    // console.log("Interactive area:", -width / 2, -height / 2, width, height);
+
+    // Correct the interactive area to match the button's dimensions
+    this.setInteractive(new Phaser.Geom.Rectangle(0, 0, width, height), Phaser.Geom.Rectangle.Contains)
       .on('pointerdown', callback)
       .on('pointerover', () => {
-        // console.log('Pointer over');
         buttonBackground.setTint(0xAAAAAA);
       })
       .on('pointerout', () => {
-        // console.log('Pointer out');
         buttonBackground.clearTint();
       });
 
-    // Add the button object to the scene
     scene.add.existing(this);
-
-    // Log the final state of the button
-    // console.log("LargeTextButton created:", this);
   }
 }
