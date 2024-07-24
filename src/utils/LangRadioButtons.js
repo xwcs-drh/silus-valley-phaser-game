@@ -9,15 +9,15 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         this.lang2 = lang2;
         this.defaultLang = defaultLang;
         this.callback = callback;
-        this.width = width;
-        this.height = height;
+        this.width = this.scene.sys.game.config.width*0.2;
+        this.height = this.scene.sys.game.config.height*0.07;
         this.buttonBackground = backgroundKey;
 
 
         // Define colors
         this.unselectedColor = 0x888888; // Gray
         this.selectedColor = 0xffffff; // same color as the button background image
-        this.hoverColor = 0xbbbbbb; // Slightly tinted from the button background image
+        this.hoverColor = 0xff033e; // Slightly tinted from the button background image
 
 
         // Add the radio button background for lang1
@@ -27,7 +27,7 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         this.add(this.radioButton1);
 
         // Add the radio button background for lang2
-        this.radioButton2 = this.createRadioButton(width/3, height/2, this.lang2, () => this.selectLang2());
+        this.radioButton2 = this.createRadioButton(width, height/2, this.lang2, () => this.selectLang2());
         this.add(this.radioButton2);
 
         this.selectedButton = null;
@@ -49,7 +49,7 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
 
         const buttonText = this.scene.add.text(0, 0, text, {
             fontFamily: 'Unbounded',
-            fontSize: '14px',
+            fontSize: `${this.width*0.065}px`,
             fill: '#fff',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio
