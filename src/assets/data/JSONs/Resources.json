@@ -15,14 +15,14 @@
   	"ta3": 5
   },
   "audioFilename": "plant.wav",
-  "imageFilename": "plant.svg"
+  "imageFilename": "plant.jpg"
 },
 {
   "id": "r2",
   "nameE": "fish",
   "nameH": "st̓ᶿqʷay",
   "vocabID": "",
-  "quantity": 0,
+  "quantity": 3,
   "descriptionE": "Something about the plant",
   "descriptionH": "...",
   "traditionalActivitiesProvide": {
@@ -34,7 +34,7 @@
   	"ta8": 1
   },
   "audioFilename": "fish.wav",
-  "imageFilename": "fish.svg"
+  "imageFilename": "fish.jpg"
 },
 {
   "id": "r3",
@@ -51,7 +51,7 @@
   	
   },
   "audioFilename": "tea.wav",
-  "imageFilename": "tea.svg"
+  "imageFilename": "tea.jpg"
 },
 {
   "id": "r4",
@@ -68,7 +68,7 @@
   	
   },
   "audioFilename": "devils_club_beads.wav",
-  "imageFilename": "devils_club_beads.svg"
+  "imageFilename": "devils_club_beads.jpg"
 },
 {
   "id": "r5",
@@ -85,7 +85,7 @@
   	
   },
   "audioFilename": "salve.wav",
-  "imageFilename": "salve.svg"
+  "imageFilename": "salve.jpg"
 },
 {
   "id": "r6",
@@ -101,8 +101,8 @@
   "traditionalActivitiesRequire": {
   	
   },
-  "audioFilename": "fishBoneBeads.wav",
-  "imageFilename": "fishBoneBeads.svg"
+  "audioFilename": "fish_bone_beads.wav",
+  "imageFilename": "fish_bone_beads.jpg"
 },
 {
   "id": "r7",
@@ -118,8 +118,8 @@
   "traditionalActivitiesRequire": {
   	
   },
-  "audioFilename": "fishLeather.wav",
-  "imageFilename": "fishLeather.svg"
+  "audioFilename": "fish_leather.wav",
+  "imageFilename": "fish_leather.jpg"
 },
 {
   "id": "r8",
@@ -127,7 +127,7 @@
   "vocabID": "",
   "nameH": "...",
   "quantity": 0,
-  "descriptionE": "Something about the fish leather",
+  "descriptionE": "Something about the smoked fish",
   "descriptionH": "...",
   "traditionalActivitiesProvide": {
   	"ta8": 1
@@ -135,7 +135,109 @@
   "traditionalActivitiesRequire": {
   	
   },
-  "audioFilename": "fishLeather.wav",
-  "imageFilename": "fishLeather.svg"
+  "audioFilename": "smoked_fish.wav",
+  "imageFilename": "smoked_fish.jpg"
+},
+{
+  "id": "r9",
+  "nameE": "fish bone beads",
+  "nameH": "...",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the fish bone beads",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta6": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "fish_bone_beads.wav",
+  "imageFilename": "fish_bone_beads.jpg"
+},
+{
+  "id": "r10",
+  "nameE": "fish leather",
+  "nameH": "...",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the fish leather",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta7": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "fish_leather.wav",
+  "imageFilename": "fish_leather.jpg"
+},
+{
+  "id": "r11",
+  "nameE": "smoked fish",
+  "vocabID": "",
+  "nameH": "...",
+  "quantity": 0,
+  "descriptionE": "Something about the smoked fish",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta8": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "smoked_fish.wav",
+  "imageFilename": "smoked_fish.jpg"
+},
+{
+  "id": "r12",
+  "nameE": "fish bone beads",
+  "nameH": "...",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the fish bone beads",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta6": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "fish_bone_beads.wav",
+  "imageFilename": "fish_bone_beads.jpg"
+},
+{
+  "id": "r13",
+  "nameE": "fish leather",
+  "nameH": "...",
+  "vocabID": "",
+  "quantity": 0,
+  "descriptionE": "Something about the fish leather",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta7": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "fish_leather.wav",
+  "imageFilename": "fish_leather.jpg"
+},
+{
+  "id": "r14",
+  "nameE": "smoked fish",
+  "vocabID": "",
+  "nameH": "...",
+  "quantity": 0,
+  "descriptionE": "Something about the smoked fish",
+  "descriptionH": "...",
+  "traditionalActivitiesProvide": {
+  	"ta8": 1
+  },
+  "traditionalActivitiesRequire": {
+  	
+  },
+  "audioFilename": "smoked_fish.wav",
+  "imageFilename": "smoked_fish.jpg"
 }
 ]
