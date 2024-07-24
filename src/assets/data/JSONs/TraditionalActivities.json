@@ -17,7 +17,7 @@
     "awardedResources": {
       "r1": 1
     },
-    "thumbnailFilename": "gardeningActivityThumbnail.png",
+    "thumbnailFilename": "gardeningActivityThumbnail.jpg",
     "instructionsE": ["instruction1", "instruction2"],
     "instructionsH": ["instruction1", "instruction2"]
   },
@@ -34,7 +34,7 @@
     "awardedResources": {
       "r2": 1
     },
-    "thumbnailFilename": "fishingActivityThumbnail.png",
+    "thumbnailFilename": "fishingActivityThumbnail.jpg",
     "instructionsE": ["instruction1", "instruction2"],
     "instructionsH": ["instruction1", "instruction2"]
   },
