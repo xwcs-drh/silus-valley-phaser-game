@@ -1,0 +1,402 @@
+[
+  {
+    "id": "ta1",
+    "nickname": "gardening",
+    "nameE": "let’s garden",
+    "nameH": "...",
+    "description": "brief explanation about gardening",
+    "content": "...",
+    "vocabulary": [
+      "vo1", "vo2", "vo3", "vo4", "vo5", "vo6", "vo7", "vo8", "vo9", "vo10", "vo11", "vo12", "vo25", "vo26", "vo27", "vo28", "vo29", "vo30"
+    ],
+    "activityUnlocked": "true",
+    "biome": "b1",
+    "requiredResources": {
+      "r1": 1,
+      "r3": 3
+    },
+    "awardedResources": {
+      "r1": 1
+    },
+    "thumbnailFilename": "gardeningActivityThumbnail.jpg",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta2",
+    "nickname": "fishing",
+    "nameE": "let's fish",
+    "nameH": "...",
+    "description": "brief explanation about fishing",
+    "content": "...",
+    "vocabulary": ["vo1", "vo2", "vo3"],
+    "activityUnlocked": "true",
+    "biome": "b2",
+    "requiredResources": {},
+    "awardedResources": {
+      "r2": 1
+    },
+    "thumbnailFilename": "fishingActivityThumbnail.jpg",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta3",
+    "nickname": "fishBoneBeads",
+    "nameE": "Let's Make Fish Bone Beads",
+    "nameH": "ʔi łe θə́yt tə sx̌k̓ʷáləs ʔə tə sqʷín̓qʷən̓",
+    "description": "brief explanation about making fish bone beads",
+    "content": "...",
+    "vocabulary": [
+      {
+        "id": "vo1",
+        "name": "closed_salmon",
+        "image": "vo1Image.jpeg"
+      },
+      {
+        "id": "vo12",
+        "name": "open_salmon",
+        "image": "vo12Image.jpeg"
+      },
+      {
+        "id": "vo14",
+        "name": "no_tail_salmon",
+        "image": "vo13Image.jpg"
+      },
+      {
+        "id": "vo2",
+        "name": "mat",
+        "image": "vo2Image.jpeg"
+      },
+      {
+        "id": "vo3",
+        "name": "pot",
+        "image": "vo3Image.png"
+      },
+      {
+        "id": "vo4",
+        "name": "knife",
+        "image": "vo4Image.png"
+      },
+      {
+        "id": "vo5",
+        "name": "water",
+        "image": "vo5Image.jpg"
+      },
+      {
+        "id": "vo6",
+        "name": "bones",
+        "image": "vo6Image.jpg"
+      },
+      {
+        "id": "vo7",
+        "name": "peroxide",
+        "image": "vo7Image.jpg"
+      },
+      {
+        "id": "vo8",
+        "name": "tail",
+        "image": "vo8Image.jpg"
+      },
+      {
+        "id": "vo9",
+        "name": "spoon",
+        "image": "vo9Image.png"
+      },
+      {
+        "id": "vo10",
+        "name": "backbone",
+        "image": "vo6Image.jpg"
+      },
+      {
+        "id": "vo11",
+        "name": "jar",
+        "image": "vo11Image.jpg"
+      },
+      {
+        "id": "vo13",
+        "name": "guts",
+        "image": "vo13Image.jpg"
+      },
+      {
+        "id": "vo15",
+        "name": "beads",
+        "image": "vo15Image.jpg"
+      }
+    ],
+    "activityUnlocked": "true",
+    "biome": "b2",
+    "requiredResources": {},
+    "awardedResources": {
+      "r2": 1
+    },
+    "thumbnailFilename": "fishingBoneBeadsActivityThumbnail.png",
+    "instructions": [
+      {
+        "id": "step1",
+        "textE": "get your salmon",
+        "textH": "get sθə́qəy̓",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo1",
+          "position": [0.2, 0.6],
+          "xPercent": 0.10
+        },
+        "incorrectTool": ["vo9", "vo4"],
+        "correctDestination": {
+          "id": "vo2",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "nextStep": "step2"
+      },
+      {
+        "id": "step2",
+        "textE": "cut the chum salmon with a knife",
+        "textH": "łc̓éls tə k̓ʷál̕əxʷ ʔə tə łéc̓tən",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo4",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "incorrectTool": ["vo1", "vo9"],
+        "correctDestination": {
+          "id": "vo12",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "removeItems": "vo1",
+        "nextStep": "step3"
+      },
+      {
+        "id": "step3",
+        "textE": "Then scrape the flesh of the chum salmon",
+        "textH": "ʔix̌ət tə słíqʷs tə k̓ʷál̕əxʷ",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo9",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "incorrectTool": ["vo4", "vo7"],
+        "correctDestination": {
+          "id": "vo12",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "removeItems": "vo13",
+        "nextStep": "step4"
+      },
+      {
+        "id": "step4",
+        "textE": "cut the tail off the chum salmon",
+        "textH": "łíc̓ət tə sx̌ə́p̓xən tə k̓ʷál̕əxʷ",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo9",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo8",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "removeItems": ["vo8", "vo12"],
+        "addItems": ["vo14"],
+        "feedback": "The salmon backbone is ready to boil.",
+        "nextStep": "step5"
+      },
+      {
+        "id": "step5",
+        "textE": "Pour the water in the pot",
+        "textH": "k̓ʷłéls tə qáʔ ʔi tə škʷál̕s",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo5",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo3",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "nextStep": "step6"
+      },
+      {
+        "id": "step6",
+        "textE": "add the salmon backbone",
+        "textH": "q̓aʔt tə sx̌k̓ʷáləs",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo10",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo3",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "nextStep": "step7"
+      },
+      {
+        "id": "step7",
+        "textE": "boil the salmon backbone",
+        "textH": "qʷə́l̕st tə sx̌k̓ʷáləs kʷə néc̓aʔ ʔáwə",
+        "actionType": "select",
+        "correctTextE": "boil",
+        "correctTextH": "qʷə́l̕st",
+        "incorrectTextE": ["pour", "wash"],
+        "incorrectTextH": ["k̓ʷłéls", "t̕ᶿx̌ʷát"],
+        "feedbackE": "You will wait one hour for the fish bones to boil.",
+        "feedbackH": "HUNQ-You will wait one hour for the fish bones to boil.",
+        "nextStep": "step8"
+      },
+      {
+        "id": "step8",
+        "textE": "Remove the salmon backbone from the pot",
+        "textH": "méʔx kʷə sx̌k̓ʷáləs ʔə tə škʷál̕s",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo10",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo2",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "nextStep": "step9"
+      },
+      {
+        "id": "step9",
+        "textE": "separate the salmon backbone",
+        "textH": "θəlθəláq tə sx̌k̓ʷáləs",
+        "actionType": "select",
+        "correctTextE": "separate bone",
+        "correctTextH": "HUNQ- separate bone",
+        "incorrectTextE": ["HUNQ- combine", "HUNQ- freeze"],
+        "nextStep": "step10"
+      },
+      {
+        "id": "step10",
+        "textE": "put the little bones in the jar",
+        "textH": "nə́w̓əx tə st̕ᶿát̕ᶿəm̓ ʔi tə šxʷčemélə",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo6",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo11",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "nextStep": "step11"
+      },
+      {
+        "id": "step11",
+        "textE": "add peroxide to the jar",
+        "textH": "nə́w̓əx tə peroxide ʔi tə šxʷčemélə",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo7",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo11",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "feedbackE": "Stir every day for three days.",
+        "feedbackH": "kʷə́yx̌t tə mə́k̓ʷ swéyəl ʔi tə łəxʷəłnet",
+        "nextStep": "step12"
+      },
+      {
+        "id": "step12",
+        "textE": "Then remove the little bones",
+        "textH": "méʔx tə st̕ᶿát̕ᶿəm̓",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo6",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo2",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "nextStep": "step13"
+      },
+      {
+        "id": "step13",
+        "textE": "scrape between the little bones",
+        "textH": "ʔíx̌ət šxʷəxʷíc̓ tə st̕ᶿát̕ᶿəm̓",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo4",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo6",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "nextStep": "step14"
+      },
+      {
+        "id": "step14",
+        "textE": "Put the little bones in water",
+        "textH": "nə́w̓əx tə st̕ᶿát̕ᶿəm̓ ʔi tə qáʔ",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo6",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo5",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "feedbackE": "This will wash the bones",
+        "feedbackH": "HUNQ - this will wash the bones",
+        "nextStep": "step15"
+      },
+      {
+        "id": "step15",
+        "textE": "Then remove the little bones",
+        "textH": "méʔx tə st̕ᶿát̕ᶿəm̓",
+        "actionType": "drag",
+        "correctTool": {
+          "id": "vo6",
+          "position": [0.4, 0.6],
+          "xPercent": 0.10
+        },
+        "correctDestination": {
+          "id": "vo2",
+          "position": [0.7, 0.3],
+          "xPercent": 0.20
+        },
+        "feedbackE": "The bones will dry",
+        "feedbackH": "HUNQ - the bones will dry",
+        "nextStep": "step16"
+      },
+      {
+        "id": "step16",
+        "textE": "We finished. Look at our beads",
+        "textH": "shá∙y ct. k̓ʷécət tə sqʷín̓qʷən̓ct",
+        "actionType": "awardResources",
+        "nextStep": "end"
+      }
+    ]
+  }
+]
