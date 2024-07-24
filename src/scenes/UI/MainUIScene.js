@@ -55,31 +55,31 @@ export default class MainUIScene extends Phaser.Scene {
      */
     create() {
         console.log('MainUIScene - create called');
-        this.windowWidth = this.sys.game.config.width;
-        this.windowHeight = this.sys.game.config.height;
+        this.canvasWidth = this.sys.game.canvas.width;
+        this.canvasHeight = this.sys.game.canvas.height;
         this.mainSceneKey = this.getPrimarySceneKey(); // Set mainSceneKey here
         this.dataManager = this.game.dataManager; // Get the DataManager instance
 
 
         //set width of all buttons
-        this.iconWidth = this.windowWidth * 0.05;
-        this.iconGap = this.windowWidth * 0.015;
+        this.iconWidth = this.canvasWidth * 0.05;
+        this.iconGap = this.canvasWidth * 0.015;
         // const testText = this.add.text(this.sys.game.config.width/2, 10, 'UI', { fontSize: '48px', fill: '#000' });
         // testText.setDepth(this.defaultDepth + 1);
 
         //Create UI buttons -- will have to alter positioning to accommodate dynamic device size
-        this.biomeNagivationButton = this.addButton(this.windowWidth*0.95, this.windowHeight*0.9, 'navigationToggleButtonImg', true, this.toggleBiomeNavigationButtons); //create button to toggle biome buttons
+        this.biomeNagivationButton = this.addButton(this.canvasWidth*0.95, this.canvasHeight*0.9, 'navigationToggleButtonImg', true, this.toggleBiomeNavigationButtons); //create button to toggle biome buttons
         this.addBiomesButtons(); //create individual biome nagivation buttons dynamically from biome data
         this.updateBiomeNavButtonInteractivity();
         // console.log("MainUIScene - navigation button exists: ", this.biomeNagivationButton.name);
         //Add settings button. 
-        this.settingsToggleButton = this.addButton(this.windowWidth*0.65, this.windowHeight*0.9, 'settingsToggleButtonImg', true, () => this.game.sceneManager.showPopupScene(this.scene, 'SettingsPopupScene')); //create button to show settings popup window via UIManager
+        this.settingsToggleButton = this.addButton(this.canvasWidth*0.65, this.canvasHeight*0.9, 'settingsToggleButtonImg', true, () => this.game.sceneManager.showPopupScene(this.scene, 'SettingsPopupScene')); //create button to show settings popup window via UIManager
         
         //Add inventory button
-        this.inventoryToggleButton = this.addButton(this.windowWidth*0.75, this.windowHeight*0.9, 'inventoryToggleButtonImg', true, () => this.game.sceneManager.showPopupScene(this.scene, 'InventoryPopupScene')); //create button to show inventory popup window via UIManager
+        this.inventoryToggleButton = this.addButton(this.canvasWidth*0.75, this.canvasHeight*0.9, 'inventoryToggleButtonImg', true, () => this.game.sceneManager.showPopupScene(this.scene, 'InventoryPopupScene')); //create button to show inventory popup window via UIManager
         
         //Add recipe book button
-        this.recipeBookToggleButton = this.addButton(this.windowWidth*0.85, this.windowHeight*0.9, 'recipeBookToggleButtonImg', true, () => this.game.sceneManager.showPopupScene(this.scene, 'RecipeBookPopupScene')); //create button to show recipe book popup window via UIManager
+        this.recipeBookToggleButton = this.addButton(this.canvasWidth*0.85, this.canvasHeight*0.9, 'recipeBookToggleButtonImg', true, () => this.game.sceneManager.showPopupScene(this.scene, 'RecipeBookPopupScene')); //create button to show recipe book popup window via UIManager
         
         //Add back button.
         this.createReturnButton();
@@ -165,8 +165,8 @@ export default class MainUIScene extends Phaser.Scene {
 
         const startX = this.getBiomeStartX(nUnlockedBiomes);
         let x = startX + (this.iconWidth / 2);
-        const buttonY = this.windowHeight * 0.8;
-        const gapWidth = this.windowWidth * 0.015;
+        const buttonY = this.canvasHeight * 0.8;
+        const gapWidth = this.canvasWidth * 0.015;
         //TODO: add condition for if width of icons at default size overflow
 
 
@@ -219,7 +219,7 @@ export default class MainUIScene extends Phaser.Scene {
     getBiomeStartX(nBiomeButtons){
         const totalIconsWidth = (this.iconGap*(nBiomeButtons-1)) + (this.iconWidth * (nBiomeButtons-0.5));
         // console.log(totalIconsWidth);
-        const iconsRightEdge = this.windowWidth * 0.95;
+        const iconsRightEdge = this.canvasWidth * 0.95;
         // console.log(iconsRightEdge);
         const startX = iconsRightEdge - totalIconsWidth;
         // console.log(startX);
@@ -295,11 +295,8 @@ export default class MainUIScene extends Phaser.Scene {
      * Creates the return button
      */
     createReturnButton(){
-        // console.log('BiomeHomeScene: createReturnButton');
-        const canvasWidth = this.windowWidth;
-        const canvasHeight = this.windowHeight;
         //create the back button
-        const backButton = new BackButton(this, canvasWidth, canvasHeight, this.game.sceneManager);
+        const backButton = new BackButton(this, this.canvasWidth, this.canvasHeight, this.game.sceneManager);
         // console.log("back button: ", backButton);
         backButton.setDepth(this.defaultDepth+1);
     }
