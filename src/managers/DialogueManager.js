@@ -18,7 +18,7 @@ class DialogueManager {
         this.currentDialogueData = []; //store relevant dialogue for the scene using the DialogueManager
         this.currentEntryIndex = 0;
 
-        this.game.playerDataManager.on('languageUpdated', this.updateLanguage, this);
+        this.game.playerDataManager.on('languageUpdated', this.updateLanguage, this); //listen for language updates
 
     }
 
@@ -34,13 +34,18 @@ class DialogueManager {
         - sceneReference (string): aka. `scene.reference_name` to compare with `dialogue.scene_reference_name`
     */
     startSceneDialogue(scene, sceneReference){
+        console.log("dialogue manager: scene dialogue data:", this.currentDialogueData);
+
         this.setSceneDialogueData(sceneReference);
-        // console.log("dialogue manager: scene dialogue data:", this.currentDialogueData);
-        if(this.currentDialogueData){
-            // console.log("dialogue manager:", this.currentDialogueData);
-            this.createDialogueBox(scene);
-            this.processNextEntry(scene);
+        if (!this.currentDialogueData) {
+            console.log(`No dialogue found for scene reference: ${sceneReference}`);
+            this.destroyDialogueBox();
+            return; // Exit early if no dialogue data is found
         }
+
+        // Proceed with creating the dialogue box and processing entries
+        this.createDialogueBox(scene);
+        this.processNextEntry(scene);
     }
 
     /*
@@ -50,21 +55,14 @@ class DialogueManager {
     */
     setSceneDialogueData(sceneReference){
         // Ensure this.allDialogueData is an array and not undefined
-        // console.log(typeof this.allDialogueData);
         if (Array.isArray(this.allDialogueData)) {
-            //console.log(`Dialogue Manager - scene key: ${this.sceneKey} ; reference: ${this.sceneReference}`);
             const sceneDialogue = this.allDialogueData.find(dialogue => 
                 dialogue.scene_reference_name === sceneReference);
-            if (sceneDialogue) {
-                // console.log("Dialogue Manager - Scene dialogue data found: ", sceneDialogue); // Debugging output
-            } else {
-                // console.error(`Dialogue Manager - Scene dialogue data notfound for scene: ${this.sceneKey} ; reference: ${this.sceneReference}`);
-            }
 
-            this.currentDialogueData = sceneDialogue;
+            this.currentDialogueData = sceneDialogue || null;
             this.currentEntryIndex = 0;
         } else {
-            // console.error("allDialogueData is not an array or is undefined");
+            console.error("allDialogueData is not an array or is undefined");
             this.currentDialogueData = null;
         }
     }
@@ -81,11 +79,15 @@ class DialogueManager {
     Set the depth to 102 (above game scene elements but below UI and service elements)
     */
     createDialogueBox(scene){
+        console.log("create dialogue box");
         //declare `processNextEntry()` function callback to be called by the button in 'dialogue box' 
         const boundCallback = this.processNextEntry.bind(this);
         
+        this.canvasWidth = this.game.canvas.width;
+        this.canvasHeight = this.game.canvas.height;
+
         //add text to dialogue box
-        this.dialogueBox = new DialogueBox(scene, 400, 200, boundCallback);
+        this.dialogueBox = new DialogueBox(scene, this.canvasWidth*0.5 , this.canvasHeight*0.2, boundCallback);
         this.dialogueBox.setDepth(102);
     }
 
@@ -98,7 +100,7 @@ class DialogueManager {
     */
     processNextEntry(scene) {
         const entry = "no more text";
-        // console.log("Dialogue Manager - Scene Dialogue at current entry index: ", this.currentDialogueData.dialogues[this.currentEntryIndex]);
+        console.log("Dialogue Manager - Scene Dialogue at current entry index: ", this.currentDialogueData.dialogues[this.currentEntryIndex]);
         // console.log("Dialogue Manager - line should read: ", this.currentDialogueData.dialogues[this.currentEntryIndex].textE);
         // console.log("Dialogue Manager - scene dialogue length: ", this.currentDialogueData.dialogues.length);
         // console.log(` current index: ${this.currentEntryIndex}, dialogue length ${ this.currentDialogueData.dialogues.length}`);
@@ -255,5 +257,15 @@ class DialogueManager {
             this.dialogueBox.setText(entry[dialogueTextKey]);
         } 
     }
+
+    /*
+    Function to hide the dialogue box.
+    */
+    destroyDialogueBox() {
+        console.log("destroy dialogue box");
+        if (this.dialogueBox) {
+            this.dialogueBox.destroyBox();
+        }
+    }
 }
-export default DialogueManager; // Export a singleton instance: use shared inventory manager across the game
+export default DialogueManager; // Export a singleton instance: use shared inventory manager across the gam
