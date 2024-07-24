@@ -23,6 +23,15 @@ export default class DataManager {
         this.currentBiome = this.data.allBiomesData.find(b => b.biome_reference_name === biomeReference);
         console.log("Data Manager - current biome set: ", this.currentBiome);
     }
+   
+    getCurrentBiome() {
+        console.log("Data Manager - Current Biome: ", this.currentBiome);
+        return this.currentBiome;
+    }
+
+    getCurrentBiomeID(){
+        return this.currentBiome.id;
+    }
 
     getNumberUnlockedBiomes(){
         // Filter the biomes where unlocked is true
@@ -36,18 +45,12 @@ export default class DataManager {
         return unlockedBiomesCount;
     }
 
-    getCurrentBiome() {
-        return this.data.currentBiome;
-    }
 
-    getCurrentBiomeID(){
-        return this.data.currentBiome.id;
-    }
 
     getCurrentBiomeReference(){
-        console.log(this.data.currentBiome);
-        if(this.data.currentBiome !=null){
-            return this.data.currentBiome.biome_reference_name;
+        console.log(this.currentBiome);
+        if(this.currentBiome !=null){
+            return this.currentBiome.biome_reference_name;
         } 
         return null;
     }
@@ -76,6 +79,7 @@ export default class DataManager {
     }
 
     getAllResources() {
+        console.log('Data Manager - All Resources length:', this.data.allResources.length);
         return this.data.allResources;
     }
 
@@ -85,11 +89,11 @@ export default class DataManager {
     }
 
     setAllTraditionalActivitiesData(activities) {
-        this.data.allTraditionalActivities = activities;
+        this.data.allTraditionalActivitiesData = activities;
     }
 
     getAllTraditionalActivities() {
-        return this.data.allTraditionalActivities;
+        return this.data.allTraditionalActivitiesData;
     }
 
     setAllDialogueData(dialogue){
@@ -105,6 +109,7 @@ export default class DataManager {
     }
 
     getAllScenesData() {
+        console.log("Data Manager - All Scenes Data: ", this.data.allScenesData);
         return this.data.allScenesData;
     }
 
@@ -130,4 +135,47 @@ export default class DataManager {
     getCurrentSceneData(){
         return this.currentSceneData;
     }
+
+    getTraditionalActivity(activityID){
+        const activities = this.getAllTraditionalActivities();
+        
+        const activity = activities.find(activity => activity.id === activityID);
+        console.log("DataManager - TraditionalActivity: ", activity);
+        if(!activity){
+            return null;
+        }
+
+        return activity;
+    }
+
+    getActivitiesForBiome(biomeID) {
+        const activities = this.getAllTraditionalActivities();
+        // Assuming activities is a global array containing all activities
+        return activities.filter(activity => activity.biome === biomeID);
+    }
+
+    unlockTraditionalActivities() {
+        const inventory = this.game.playerDataManager.getPlayerData().inventory;
+        const unlockedActivities = [];
+
+        this.data.allTraditionalActivitiesData.forEach(activity => {
+            if (activity.unlocked === "false") {
+                const requiredResources = activity.traditionalActivitiesRequire;
+                const hasAllResources = Object.keys(requiredResources).every(resourceID => {
+                    const requiredQuantity = requiredResources[resourceID];
+                    const playerResource = inventory.find(r => r.id === resourceID);
+                    return playerResource && playerResource.quantity >= requiredQuantity;
+                });
+
+                if (hasAllResources) {
+                    activity.unlocked = "true";
+                    unlockedActivities.push(activity);
+                }
+            }
+        });
+
+        console.log(unlockedActivities);
+        return unlockedActivities.length > 0 ? unlockedActivities : null;
+    }
+
 }
