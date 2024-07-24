@@ -15,7 +15,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     this.scene = scene;
     this.width = scene.sys.game.config.width*0.65;
     this.height = scene.sys.game.config.height*0.18;
-    this.buttonDiameter = 40;
+    this.buttonDiameter = width*0.15;
     this.buttonRadius = buttonRadius;
 
     const textStyle = {
