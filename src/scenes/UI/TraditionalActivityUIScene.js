@@ -14,11 +14,26 @@ export default class TraditionalActivityUIScene extends Phaser.Scene {
 
     preload() {
         //preload main button icons
-        this.load.image('navigationToggleButtonImg', './assets/UI/globe.jpeg');
-        this.load.image('inventoryToggleButtonImg', './assets/UI/basket.jpeg');
-        this.load.image('settingsToggleButtonImg', './assets/UI/cog-icon.jpeg');
-        this.load.image('recipeBookToggleButtonImg', './assets/UI/recipe_book.jpeg');
-        this.load.image('backButtonImg', './assets/UI/back.png');
+        this.load.image('navigationToggleButtonImg', './assets/UI/globe.jpeg', {
+            minFilter: Phaser.Textures.FilterMode.NEAREST,
+            magFilter: Phaser.Textures.FilterMode.NEAREST
+        });
+        this.load.image('inventoryToggleButtonImg', './assets/UI/basket.jpeg', {
+            minFilter: Phaser.Textures.FilterMode.NEAREST,
+            magFilter: Phaser.Textures.FilterMode.NEAREST
+        });
+        this.load.image('settingsToggleButtonImg', './assets/UI/cog-icon.jpeg', {
+            minFilter: Phaser.Textures.FilterMode.NEAREST,
+            magFilter: Phaser.Textures.FilterMode.NEAREST
+        });
+        this.load.image('recipeBookToggleButtonImg', './assets/UI/recipe_book.jpeg', {
+            minFilter: Phaser.Textures.FilterMode.NEAREST,
+            magFilter: Phaser.Textures.FilterMode.NEAREST
+        });
+        this.load.image('backButtonImg', './assets/UI/back.png', {
+            minFilter: Phaser.Textures.FilterMode.NEAREST,
+            magFilter: Phaser.Textures.FilterMode.NEAREST
+        });
 
         //preload biome navigation buttons
         this.loadBiomeIcons();
@@ -95,7 +110,10 @@ export default class TraditionalActivityUIScene extends Phaser.Scene {
             if (biome.unlocked === "true") { // Only preload biome icon if the player has access to the biome
                 const filePath = `../assets/UI/${biome.icon_filename}`;
                 // console.log(`Loading icon for biome: ${biome.nameE} filepath: ${filePath}`);
-                this.load.image(biome.id, filePath);
+                this.load.image(biome.id, filePath, {
+                    minFilter: Phaser.Textures.FilterMode.NEAREST,
+                    magFilter: Phaser.Textures.FilterMode.NEAREST
+                });
                 this.loadedBiomeIcons[biome.id] = biome.id;
             } 
         });
