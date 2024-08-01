@@ -137,36 +137,80 @@
         "textE": "get your salmon",
         "textH": "get sθə́qəy̓",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo1",
-          "position": [0.2, 0.6],
-          "xPercent": 0.10
-        },
-        "incorrectTool": ["vo9", "vo4"],
-        "correctDestination": {
-          "id": "vo2",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo1",
+            "role": "agent",
+            "position": [0.2, 0.6],
+            "widthPercent": 0.2,
+            "depth": 1
+          },
+          {
+            "id": "vo4",
+            "role": "decoy",
+            "position": [0.3, 0.6],
+            "widthPercent": 0.05,
+            "depth": 2
+          },
+          {
+            "id": "vo9",
+            "role": "decoy",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.065,
+            "depth": 2
+          },
+          {
+            "id": "vo2",
+            "role": "target",
+            "position": [0.8, 0.3],
+            "widthPercent": 0.25,
+            "depth": 0
+          }
+        ],
         "nextStep": "step2"
       },
       {
         "id": "step2",
         "textE": "cut the chum salmon with a knife",
-        "textH": "łc̓éls tə k̓ʷál̕əxʷ ʔə tə łéc̓tən",
+        "textH": "łc̓éls tə k̓ʷál̕əxʷ ʔə tə łéc̓tən",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo4",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "incorrectTool": ["vo1", "vo9"],
-        "correctDestination": {
-          "id": "vo12",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
-        "removeItems": "vo1",
+        "objects": [
+          {
+            "id": "vo4",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.05,
+            "depth": 2
+          },
+          {
+            "id": "vo7",
+            "role": "decoy",
+            "position": [0.2, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo9",
+            "role": "decoy",
+            "position": [0.3, 0.6],
+            "widthPercent": 0.065,
+            "depth": 2
+          },
+          {
+            "id": "vo12",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
+        "functions": [
+          {
+            "sequence": "after",
+            "functionReference": "showFeedback",
+            "args": ["The salmon backbone is ready to boil."]
+          }
+        ],
         "nextStep": "step3"
       },
       {
@@ -174,18 +218,36 @@
         "textE": "Then scrape the flesh of the chum salmon",
         "textH": "ʔix̌ət tə słíqʷs tə k̓ʷál̕əxʷ",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo9",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "incorrectTool": ["vo4", "vo7"],
-        "correctDestination": {
-          "id": "vo12",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
-        "removeItems": "vo13",
+        "objects": [
+          {
+            "id": "vo9",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.065,
+            "depth": 2
+          },
+          {
+            "id": "vo4",
+            "role": "decoy",
+            "position": [0.2, 0.6],
+            "widthPercent": 0.05,
+            "depth": 2
+          },
+          {
+            "id": "vo7",
+            "role": "decoy",
+            "position": [0.3, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo12",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "nextStep": "step4"
       },
       {
@@ -193,19 +255,47 @@
         "textE": "cut the tail off the chum salmon",
         "textH": "łíc̓ət tə sx̌ə́p̓xən tə k̓ʷál̕əxʷ",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo9",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo8",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
-        "removeItems": ["vo8", "vo12"],
-        "addItems": ["vo14"],
-        "feedback": "The salmon backbone is ready to boil.",
+        "objects": [
+          {
+            "id": "vo4",
+            "role": "agent",
+            "position": [0.2, 0.6],
+            "widthPercent": 0.05,
+            "depth": 2
+          },{
+            "id": "vo9",
+            "role": "decoy",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.065,
+            "depth": 2
+          },
+          {
+            "id": "vo7",
+            "role": "decoy",
+            "position": [0.3, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo8",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.30,
+            "depth": 0
+          }
+        ],
+        "functions": [
+          {
+            "sequence": "after",
+            "functionReference": "showFeedback",
+            "args": ["The salmon backbone is ready to boil."]
+            },
+            {
+              "sequence": "after",
+              "functionReference": "clockService.passTime",
+              "args": [1]
+            }
+        ],
         "nextStep": "step5"
       },
       {
@@ -213,16 +303,22 @@
         "textE": "Pour the water in the pot",
         "textH": "k̓ʷłéls tə qáʔ ʔi tə škʷál̕s",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo5",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo3",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo5",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo3",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "nextStep": "step6"
       },
       {
@@ -230,16 +326,22 @@
         "textE": "add the salmon backbone",
         "textH": "q̓aʔt tə sx̌k̓ʷáləs",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo10",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo3",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo10",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo12",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "nextStep": "step7"
       },
       {
@@ -260,16 +362,22 @@
         "textE": "Remove the salmon backbone from the pot",
         "textH": "méʔx kʷə sx̌k̓ʷáləs ʔə tə škʷál̕s",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo10",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo2",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo10",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo2",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "nextStep": "step9"
       },
       {
@@ -280,6 +388,7 @@
         "correctTextE": "separate bone",
         "correctTextH": "HUNQ- separate bone",
         "incorrectTextE": ["HUNQ- combine", "HUNQ- freeze"],
+        "incorrectTextH": ["HUNQ- combine", "HUNQ- freeze"],
         "nextStep": "step10"
       },
       {
@@ -287,16 +396,22 @@
         "textE": "put the little bones in the jar",
         "textH": "nə́w̓əx tə st̕ᶿát̕ᶿəm̓ ʔi tə šxʷčemélə",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo6",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo11",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo6",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo11",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "nextStep": "step11"
       },
       {
@@ -304,16 +419,22 @@
         "textE": "add peroxide to the jar",
         "textH": "nə́w̓əx tə peroxide ʔi tə šxʷčemélə",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo7",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo11",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo7",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo11",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 2
+          }
+        ],
         "feedbackE": "Stir every day for three days.",
         "feedbackH": "kʷə́yx̌t tə mə́k̓ʷ swéyəl ʔi tə łəxʷəłnet",
         "nextStep": "step12"
@@ -323,16 +444,22 @@
         "textE": "Then remove the little bones",
         "textH": "méʔx tə st̕ᶿát̕ᶿəm̓",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo6",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo2",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo6",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo2",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 2
+          }
+        ],
         "nextStep": "step13"
       },
       {
@@ -340,16 +467,22 @@
         "textE": "scrape between the little bones",
         "textH": "ʔíx̌ət šxʷəxʷíc̓ tə st̕ᶿát̕ᶿəm̓",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo4",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo6",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo4",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo6",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 2
+          }
+        ],
         "nextStep": "step14"
       },
       {
@@ -357,16 +490,22 @@
         "textE": "Put the little bones in water",
         "textH": "nə́w̓əx tə st̕ᶿát̕ᶿəm̓ ʔi tə qáʔ",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo6",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo5",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo6",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo5",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 1
+          }
+        ],
         "feedbackE": "This will wash the bones",
         "feedbackH": "HUNQ - this will wash the bones",
         "nextStep": "step15"
@@ -376,16 +515,22 @@
         "textE": "Then remove the little bones",
         "textH": "méʔx tə st̕ᶿát̕ᶿəm̓",
         "actionType": "drag",
-        "correctTool": {
-          "id": "vo6",
-          "position": [0.4, 0.6],
-          "xPercent": 0.10
-        },
-        "correctDestination": {
-          "id": "vo2",
-          "position": [0.7, 0.3],
-          "xPercent": 0.20
-        },
+        "objects": [
+          {
+            "id": "vo6",
+            "role": "agent",
+            "position": [0.4, 0.6],
+            "widthPercent": 0.10,
+            "depth": 2
+          },
+          {
+            "id": "vo2",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 1
+          }
+        ],
         "feedbackE": "The bones will dry",
         "feedbackH": "HUNQ - the bones will dry",
         "nextStep": "step16"
@@ -393,8 +538,16 @@
       {
         "id": "step16",
         "textE": "We finished. Look at our beads",
-        "textH": "shá∙y ct. k̓ʷécət tə sqʷín̓qʷən̓ct",
-        "actionType": "awardResources",
+        "textH": "shá∙y ct. k̓ʷécət tə sq",
+        "actionType": "special",
+        "objects":[],
+        "functions": [
+          {
+            "sequence": "after",
+            "functionReference": "showFeedback",
+            "args": ["Great job! You've made fish bone beads."]
+          }
+        ],
         "nextStep": "end"
       }
     ]
