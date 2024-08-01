@@ -1,9 +1,14 @@
 import BaseScene from './BaseScene';
+import InteractiveObject from '../utils/InteractiveObject';
+import ClockService from '../utils/ClockService';
 
 export default class TraditionalActivityMinigameScene extends BaseScene {
     constructor() {
         super({ key: 'TraditionalActivityMinigameScene' });
+        this.objects = [];
+        this.hintsLeft = 3;
     }
+    
     /*
     Function to get the instruction text based on the user's language preference.
     Parameters:
@@ -26,9 +31,9 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         super.init(data);
         this.dataManager = this.game.dataManager;
         this.activityData = data.reference.activity;
-        console.log("activity data: ", this.activityData);
+        // console.log("activity data: ", this.activityData);
         this.activityId = this.activityData.id;
-        console.log("activity id: ", this.activityId);
+        // console.log("activity id: ", this.activityId);
         if (!this.activityData) {
             console.error(`Activity with ID ${this.activityId} not found`);
         }
@@ -53,8 +58,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
                 });
             }
         }
-        
-
+    
     }
 
     
@@ -74,6 +78,29 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         this.renderActivity();
         // this.game.dialogueManager.hideDialogueBox();
         
+        this.createHintButton();
+
+        // Enable input plugin
+        this.input = this.input || this.scene.input;
+
+         // Add drag event listeners
+         this.input.on('dragstart', (pointer, gameObject) => {
+            // gameObject.setTint(0xff0000);
+        });
+
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        });
+
+        this.input.on('dragend', (pointer, gameObject) => {
+            // gameObject.clearTint();
+            this.checkDragEnd(gameObject); //check if the drop is correct 
+        });
+
+        //Create the clock service in scene
+        this.clockService = new ClockService(this, this.canvasWidth*0.5, this.canvasHeight*0.5, this.canvasWidth*0.3);
+
         this.instructionFontStyle = {
             fontFamily: 'Arial',
             fontSize: `${this.canvasWidth * 0.03}px`,
@@ -81,8 +108,86 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
             wordWrap: { width: this.canvasWidth * 0.5 },
             align: 'left' // Align the font to the left
         };
+
+        this.createBlocker();
     }
 
+    createBlocker(){
+        this.blocker = this.add.rectangle(0, 0, this.canvasWidth, this.canvasHeight, 0x000000, 0);
+        this.blocker.setOrigin(0, 0);
+        this.blocker.setInteractive();
+        this.blocker.setDepth(115); // Ensure the blocker is above the overlay
+        this.blocker.setVisible(true);
+    }
+
+    /*
+    Function to create the hint button.
+    */
+    createHintButton(){
+         // Create hint button
+         const canvasWidth = this.cameras.main.width;
+         const canvasHeight = this.cameras.main.height;
+         this.hintButton = this.add.circle(0.95 * canvasWidth, 0.05 * canvasHeight, 0.15 * canvasWidth, 0xffc0cb)
+             .setInteractive()
+             .setDisplaySize(0.05 * canvasWidth, 0.05 * canvasWidth)
+             .on('pointerdown', () => {
+                 if (this.hintPopup && this.hintPopup.visible) {
+                     this.hideHint();
+                 } else {
+                     this.showHint();
+                 }
+             }, this);
+ 
+         this.hintText = this.add.text(0.95 * canvasWidth, 0.05 * canvasHeight, '?', {
+             fontSize: `${this.canvasWidth * 0.03}px`,
+             color: '#000000',
+             align: 'center'
+         }).setOrigin(0.5);
+ 
+         // Create hint popup (hidden initially)
+         this.hintPopup = this.add.rectangle(canvasWidth / 2, canvasHeight / 2, 0.8 * canvasWidth, 0.4 * canvasHeight, 0xffffff)
+             .setStrokeStyle(2, 0x000000)
+             .setOrigin(0.5)
+             .setVisible(false);
+ 
+         this.hintPopupText = this.add.text(canvasWidth / 2, canvasHeight / 2, '', {
+             fontSize: '24px',
+             color: '#000000',
+             wordWrap: { width: 0.75 * canvasWidth },
+             align: 'left'
+         }).setOrigin(0.5)
+           .setVisible(false);
+ 
+         // Close hint popup on click
+         this.hintPopup.setInteractive().on('pointerdown', () => {
+             this.hideHint();
+
+             if (this.hintsLeft === 0) {
+                this.hintButton.setFillStyle(0xd3d3d3);
+                this.hintText.setColor('#a9a9a9');
+                this.hintButton.disableInteractive();
+            }
+         });
+    }
+
+    /*
+    Function to show the hint.
+    */
+    showHint() {
+        if (this.hintsLeft > 0) {
+            const currentInstruction = this.instructions[this.currentStep];
+            this.hintPopupText.setText(this.getInstructionHintText(currentInstruction));
+            this.hintPopup.setVisible(true);
+            this.hintPopupText.setVisible(true);
+            this.hintsLeft--;
+        }
+    }
+
+    hideHint(){
+        this.hintPopup.setVisible(false);
+        this.hintPopupText.setText("");    
+    }
+    
     /*
     Function to render the activity data and handle interactions.
     Parameters:
@@ -92,9 +197,6 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         const background = this.add.image(this.canvasWidth*0.5, this.canvasHeight*0.5, 'background');
         background.setOrigin(0.5, 0.5);
         background.setDisplaySize(this.canvasWidth, this.canvasHeight); // Set the background to fill the game window
-
-        //show title
-        this.showTitle();
         
         // Remove required resources from player inventory. No visuals associated... may add some
         const requiredResources = this.activityData.requiredResources;
@@ -108,6 +210,9 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         // Render the instructions and handle interactions
         this.instructions = this.activityData.instructions;
         this.currentStep = 0;
+
+        //show title
+        this.showTitle();
     }
 
     /*
@@ -119,7 +224,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         
         const titleKey = `name${this.userLanguage}`;
         const titleText = this.activityData[titleKey] || this.activityData.nameE; // Fallback to English if the desired language is not available
-        console.log("showTitle: ", titleText);
+        // console.log("showTitle: ", titleText);
         const title = this.add.text(this.canvasWidth*0.5, this.canvasHeight*0.15, titleText, { fontSize: `${this.canvasWidth * 0.05}px`, fill: '#000' });
         title.setOrigin(0.5, 0.5);
         title.alpha = 0;
@@ -140,7 +245,8 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
                         ease: 'Power1',
                         onComplete: () => {
                             // Start the first instruction
-                            this.showInstruction(this.currentStep);
+                            this.currentStep = "step1";
+                            this.showInstruction();
                         }
                     });
                 });
@@ -153,14 +259,14 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Parameters:
         - stepIndex (integer): The index of the current step.
     */
-    showInstruction(stepIndex) {
-        const instruction = this.instructions[stepIndex];
-        if (!instruction) return;
+    showInstruction() {
+        this.instruction = this.instructions.find(instruction => instruction.id === this.currentStep);
+        if (!this.instruction) return;
         
-        console.log("showInstruction: ", instruction);
-        if(this.instructions[stepIndex].addItems){
-            console.log("stepIndex: ", stepIndex, "; this.instructions[stepIndex].addItems: ", this.instructions[stepIndex].addItems);
-            this.addImages(this.instructions[stepIndex].addItems); //add all new scene items 
+        console.log("showInstruction: ", this.instruction);
+        if(this.instruction.addItems){
+            console.log("currentStepNumber: ", this.currentStep, "; this.instructions[currentStepNumber].addItems: ", this.instruction.addItems);
+            this.addImages(this.instruction.addItems); //add all new scene items 
         }
 
         // Clear previous instruction text if it exists
@@ -169,19 +275,23 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         }
 
         // Display the instruction text
-        const instructionString = this.getInstructionText(instruction);
+        const instructionString = this.getInstructionText(this.instruction);
         this.currentInstructionText = this.add.text(this.canvasWidth * 0.25, this.canvasHeight * 0.15, instructionString, this.instructionFontStyle);
+        
+        //populate scene interactive objects
+        // this.updateObjects(instruction);
 
         // Handle interaction based on actionType
-        if (instruction.actionType === 'drag') {
-            this.setupDragInteraction(instruction);
-        } else if (instruction.actionType === 'select') {
-            this.setupSelectInteraction(instruction);
+        if (this.instruction.actionType === 'drag') {
+            this.setupDragInteraction(this.instruction);
+        } else if (this.instruction.actionType === 'select') {
+            this.setupSelectInteraction(this.instruction);
         } else if (instruction.actionType === 'special') {
             this.setupSpecialInteraction(instruction);
-        } else if (this.instructions.actionType === 'end'){
-            this.endActivity(instruction)
+        } else if (this.instruction.actionType === 'end'){
+            this.endActivity(this.instruction)
         }
+        this.blocker.setVisible(false);
     }
 
     /*
@@ -191,93 +301,28 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Returns:
         - (string): The instruction text in the user's preferred language.
     */
-    getInstructionText(instruction){
+    getInstructionText(){
         this.userLanguage = this.playerDataManager.getUserLanguage();
 
         // console.log(this.userLanguage);
         const dialogueTextKey = `text${this.userLanguage}`;
-        console.log("dialogueText: ", instruction[dialogueTextKey]);
-        return instruction[dialogueTextKey];
+        // console.log("dialogueText: ", this.instruction[dialogueTextKey]);
+        return this.instruction[dialogueTextKey];
     } 
     
+    getInstructionHintText(){
+        const dialogueTextKey = `textH`;
+        // console.log("dialogueText: ", this.instruction[dialogueTextKey]);
+        return this.instruction[dialogueTextKey];
+    }
     /*
     Function to setup the drag interaction.
     Parameters:
         - instruction (object): The instruction object containing the correct tool and destination.
     */
-    setupDragInteraction(instruction) {
-        // Setup drag interaction
-        const toolVocabItem = this.activityVocabulary.find(item => item.id === instruction.correctTool.id);
-        const destinationVocabItem = this.activityVocabulary.find(item => item.id === instruction.correctDestination.id);
-    
-        if (toolVocabItem && destinationVocabItem) {
-            const toolImgKey = toolVocabItem.image.split('.').slice(0, -1).join('.'); // Remove file extension
-            const destinationImgKey = destinationVocabItem.image.split('.').slice(0, -1).join('.'); // Remove file extension
-    
-            const originalToolImage = this.textures.get(toolImgKey).getSourceImage();
-            const originalToolWidth = originalToolImage.width;
-            const originalToolHeight = originalToolImage.height;
-    
-            const screenWidth = this.cameras.main.width;
-            const screenHeight = this.cameras.main.height;
-            const desiredToolWidth = (instruction.correctTool.xPercent) * screenWidth;
-            const toolAspectRatio = originalToolHeight / originalToolWidth;
-            const desiredToolHeight = desiredToolWidth * toolAspectRatio;
-    
-            const toolStartX = instruction.correctTool.position[0] * screenWidth;
-            const toolStartY = instruction.correctTool.position[1] * screenHeight;
-    
-            const tool = this.add.image(toolStartX, toolStartY, toolImgKey).setInteractive();
-            tool.setDisplaySize(desiredToolWidth, desiredToolHeight); // Set tool size
-            this.input.setDraggable(tool);
-            
-            const originalDestinationImage = this.textures.get(destinationImgKey).getSourceImage();
-            const originalDestinationWidth = originalDestinationImage.width;
-            const originalDestinationHeight = originalDestinationImage.height;
-    
-            const desiredDestinationWidth = (instruction.correctDestination.xPercent) * screenWidth;
-            const destinationAspectRatio = originalDestinationHeight / originalDestinationWidth;
-            const desiredDestinationHeight = desiredDestinationWidth * destinationAspectRatio;
-    
-            const destinationX = instruction.correctDestination.position[0] * screenWidth;
-            const destinationY = instruction.correctDestination.position[1] * screenHeight;
-    
-            // Create the destination image but keep it invisible until needed
-            const destination = this.add.image(destinationX, destinationY, destinationImgKey).setInteractive();
-            destination.setDisplaySize(desiredDestinationWidth, desiredDestinationHeight); // Set destination size
-            // destination.setVisible(false); // Hide the destination image initially
-            
-            this.input.on('dragstart', (pointer, gameObject) => {
-                // Ensure the size remains consistent during drag
-                gameObject.setDisplaySize(desiredToolWidth, desiredToolHeight);
-                gameObject.setDepth(1); // Bring the object to the front
-            });
-    
-            this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-                gameObject.x = dragX;
-                gameObject.y = dragY;
-            });
-    
-            this.input.on('dragend', (pointer, gameObject) => {
-                // Ensure the size remains consistent after drag
-                gameObject.setDisplaySize(desiredToolWidth, desiredToolHeight);
-    
-                // Show the destination image and check for correct drop
-                destination.setVisible(true);
-                if (this.isCorrectDrop(gameObject, destination)) {
-                    gameObject.x = destinationX;
-                    gameObject.y = destinationY;
-                    this.chainFollowUp(instruction);
-                } else {
-                    // Return to start position if drop is incorrect
-                    gameObject.x = toolStartX;
-                    gameObject.y = toolStartY;
-                }
-                gameObject.setDepth(0); // Reset the depth after drop
-            });
-        } else {
-            console.error('Tool or destination vocabulary item not found');
-        }
+    setupDragInteraction() {
+        this.updateObjects(this.instruction);
+
     }
 
     /*
@@ -285,11 +330,12 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Parameters:
         - instruction (object): The instruction object containing the correct text.
     */
-    setupSelectInteraction(instruction) {
+    setupSelectInteraction() {
         // Setup select interaction
-        const correctText = this.add.text(300, 300, instruction.correctText, { fontSize: '24px', fill: '#000' }).setInteractive();
+        this.updateObjects(this.instruction);
+        const correctText = this.add.text(300, 300, this.instruction.correctText, { fontSize: '24px', fill: '#000' }).setInteractive();
         correctText.on('pointerdown', () => {
-            this.onCorrectDrop(instruction);
+            this.onCorrectDrop(this.instruction);
         });
     }
 
@@ -298,36 +344,66 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Parameters:
         - instruction (object): The instruction object containing the feedback.
     */
-    setupSpecialInteraction(instruction) {
+    setupSpecialInteraction() {
         // Handle special interaction
-        this.showFeedback(instruction.feedback);
+        this.updateObjects(this.instruction);
+        this.showFeedback(this.instruction.feedback);
         this.nextStep();
     }
 
     /*
-    Function to check if the drop is correct.
+    Function to check if the drag end is correct.
     Parameters:
-        - gameObject (object): The game object that was dropped.
-        - correctDestination (object): The correct destination for the game object.
+        - draggedObject (object): The game object that was dragged.
+    */
+    checkDragEnd(draggedObject) {
+        const collidedObject = this.getCollidedObject(draggedObject);
+        if (this.isDragCorrect(draggedObject, collidedObject)) {
+            // console.log('Correct drag!');
+            setTimeout(() => {
+                this.chainFollowUp();
+            }, 1000);
+        } else {
+            // console.log('Incorrect drag.');
+            // Tween the dragged object back to its original position
+            this.tweens.add({
+                targets: draggedObject,
+                x: draggedObject.input.dragStartX,
+                y: draggedObject.input.dragStartY,
+                duration: 500,
+                ease: 'Power2'
+            });
+        }
+    }
+
+    /*
+    Function to get the object that the dragged object collided with
+    Parameters:
+        - draggedObject (object): The game object that was dragged.
+    Returns:
+        - (object): The game object that the dragged object collided with.
+    */
+    getCollidedObject(draggedObject) {
+        const draggedBounds = draggedObject.getBounds();
+
+        return this.objects.find(obj => {
+            if (obj === draggedObject) return false; // Skip the dragged object itself
+            const objBounds = obj.getBounds();
+            return Phaser.Geom.Intersects.RectangleToRectangle(draggedBounds, objBounds);
+        });
+    }
+
+    /*
+    Function to check if the drag end is correct.
+    Parameters:
+        - draggedObject (object): The game object that was dragged.
+        - collidedObject (object): The game object that the dragged object collided with.
     Returns:
         - (boolean): True if the drop is correct, false otherwise.
     */
-    isCorrectDrop(gameObject, correctDestination) {
-        // Check if the drop is correct
-        const distance = Phaser.Math.Distance.Between(
-            gameObject.x, gameObject.y,
-            correctDestination.x, correctDestination.y
-        );
-
-        // Define a threshold distance for a correct drop
-        const threshold = 50;
-
-        console.log(`Distance: ${distance}, Threshold: ${threshold}`);
-        console.log(`GameObject Position: (${gameObject.x}, ${gameObject.y})`);
-        console.log(`Destination Position: (${correctDestination.x}, ${correctDestination.y})`);
-
-        /*NOTE: THIS ISNT RELIABLY RETURNING THE CORRECT DROP*/
-        return distance <= threshold;
+    isDragCorrect(draggedObject, collidedObject) {
+        // console.log('Is drag correct: draggedObject: ', draggedObject.role, '; collidedObject: ', collidedObject.role   );
+        return draggedObject.role === 'agent' && collidedObject && collidedObject.role === 'target';
     }
 
      /*
@@ -343,29 +419,18 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         5. Otherwise, it calls the nextStep function to proceed to the next instruction.
         6. If there are items to be added (instruction.addItems), it calls the addImages function to add those items and sets a delay of 500 milliseconds before executing the next step.
     */
-    chainFollowUp(instruction){
-        const executeNext = () => {
-            if (instruction.removeItems) {
-                if (this.removeImages(instruction.removeItems)) {
-                    executeNext();
-                }
-                return;
+    async chainFollowUp(){
+        this.blocker.setVisible(true);
+        const executeNext = async () => {
+            console.log("Executing next step with instruction:", this.instruction);
+            if (this.instruction.functions && this.instruction.functions.length > 0) {
+                await this.executeFunctions(this.instruction.functions);
             }
-            if (instruction.addItems) {
-                if (this.addImages(instruction.addItems)) {
-                    executeNext();
-                }
-                return;
-            }
-            if (instruction.feedback) {
-                if (this.showFeedback(instruction.feedback)) {
-                    executeNext();
-                }
-                return;
-            }
-            if (instruction.nextStep === "end") {
-                this.endActivity(instruction);
+
+            if (this.instruction.nextStep === "end") {
+                this.endActivity(this.instruction);
             } else {
+                this.currentStep = this.instruction.nextStep;
                 this.nextStep();
             }
         };
@@ -378,8 +443,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Function to move to the next step.
     */
     nextStep() {
-        this.currentStep++;
-        this.showInstruction(this.currentStep);
+        this.showInstruction();
     }
 
     /*
@@ -388,78 +452,54 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         - feedback (string): The feedback to be shown to the player.
     */
     showFeedback(feedback) {
-        // Display feedback to the player
-        const feedbackText = this.add.text(400, 400, feedback, { fontSize: '24px', fill: '#000' });
-        //fade in and out the feedback text
-        this.tweens.add({
-            targets: feedbackText,
-            alpha: { from: 0, to: 1 }, //fade in 
-            duration: 500, //fade-in duration of 500ms
-            onComplete: () => {
-                this.time.delayedCall(4000, () => { //wait for 4 seconds
-                    this.tweens.add({
-                        targets: feedbackText,
-                        alpha: { from: 1, to: 0 },
-                        duration: 750, //fade-out duration of 750ms
-                        onComplete: () => {
-                            feedbackText.destroy(); //destroy the feedback text
-                        }
+        return new Promise(resolve => {
+            console.log("Feedback: ", feedback);
+            // Display feedback to the user
+            const feedbackText = this.add.text(400, 400, feedback, { fontSize: '24px', fill: '#000' });
+            //fade in and out the feedback text
+            this.tweens.add({
+                targets: feedbackText,
+                alpha: { from: 0, to: 1 }, //fade in 
+                duration: 500, //fade-in duration of 500ms
+                onComplete: () => {
+                    this.time.delayedCall(4000, () => { //wait for 4 seconds
+                        this.tweens.add({
+                            targets: feedbackText,
+                            alpha: { from: 1, to: 0 },
+                            duration: 750, //fade-out duration of 750ms
+                            onComplete: () => {
+                                feedbackText.destroy(); //destroy the feedback text
+                                resolve();
+                            }
+                        });
                     });
-                });
-            }
-        });
-        return false; // Function is not complete until the tween finishes
-    }
-
-    /*
-    Function to add images to the scene.
-    Parameters:
-        - images (object): The object containing images to be added to the scene.
-    */
-    addImages(images) {
-        console.log("addImages: ", images);
-        if (typeof images !== 'object' || images === null) {
-            console.error('addImages: images is not an object or is null');
-            return false; // Function is not complete
-        }
-
-        console.log(images);
-        for (const key in images) {
-            if (images.hasOwnProperty(key)) {
-                const vocabItem = this.activityVocabulary.find(item => item.id === key);
-                if (vocabItem) {
-                    const imageKey = vocabItem.image.split('.').slice(0, -1).join('.'); // Remove file extension
-                    const originalImage = this.textures.get(imageKey).getSourceImage();
-                    const originalWidth = originalImage.width;
-                    const originalHeight = originalImage.height;
-
-                    // Calculate the width as a percentage of the screen width
-                    const screenWidth = this.cameras.main.width;
-                    const desiredWidth = (vocabItem.width / 100) * screenWidth;
-
-                    // Calculate the height to maintain the aspect ratio
-                    const aspectRatio = originalHeight / originalWidth;
-                    const desiredHeight = desiredWidth * aspectRatio;
-
-                    const image = this.add.image(vocabItem.position[0], vocabItem.position[1], imageKey).setInteractive();
-                    image.setDisplaySize(desiredWidth, desiredHeight); // Set the display size to maintain aspect ratio
                 }
-            }
-        }
-        return true; // Function is complete
+            });
+        });
     }
 
-    /*
-    Function to remove images from the scene.
-    Parameters:
-        - images (array): The array of images to be removed from the scene.
-    */
-    removeImages(images){
-        for(let i = 0; i < images.length; i++){
-            this.remove.image(images[i].x, images[i].y, images[i].key);
+    async executeFunctions(functions) {
+        if (!functions) return;
+
+        for (const func of functions) {
+            const { sequence, functionReference, args } = func;
+            console.log("executing function: ", functionReference, " with args: ", args);
+            if (sequence === 'after') {
+                await this.executeFunctionByName(this, functionReference, ...args);
+            }
         }
-        return true; // Function is complete
     }
+
+    executeFunctionByName(context, functionName, ...args) {
+        const namespaces = functionName.split('.');
+        const func = namespaces.pop();
+        for (let i = 0; i < namespaces.length; i++) {
+            context = context[namespaces[i]];
+        }
+        return context[func](...args);
+    }
+
+    
 
     /*
     Function to award resources to the player.
@@ -520,5 +560,30 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
                 //show card for unlocked traditional activity with delay
             });
         }
+    }
+
+    updateObjects(instruction) {
+        const newObjectIds = instruction.objects.map(obj => obj.id);
+
+        // Destroy objects not in the new instruction
+        this.objects = this.objects.filter(obj => {
+            if (!newObjectIds.includes(obj.id)) {
+                console.log("destroying object: ", obj.id);
+                obj.destroyObject();
+                return false;
+            }
+            return true;
+        });
+
+        // Update or create objects
+        instruction.objects.forEach(objectData => {
+            let obj = this.objects.find(o => o.id === objectData.id);
+            if (obj) {
+                obj.updateObject(objectData);
+            } else {
+                obj = new InteractiveObject(this, objectData);
+                this.objects.push(obj);
+            }
+        });
     }
 }
