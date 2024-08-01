@@ -1,4 +1,3 @@
-
 import Phaser from 'phaser';
 
 class LangRadioButtons extends Phaser.GameObjects.Container {
@@ -75,20 +74,65 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         return radioButton;
     }
 
+    attemptLanguageChange(selectedLang) {
+        const scene = this.scene.scene.get('TraditionalActivityMinigameScene');
+        if (scene && scene.scene.isActive()) {
+            // Show notification
+            const notification = this.scene.add.text(
+                this.scene.cameras.main.centerX,
+                this.scene.cameras.main.centerY,
+                'Language cannot be changed during a traditional activity.',
+                {
+                    fontFamily: 'Arial',
+                    fontSize: '24px',
+                    fill: '#ffffff',
+                    backgroundColor: '#000000',
+                    padding: { x: 20, y: 10 }
+                }
+            ).setOrigin(0.5);
+
+            // Remove notification after 3 seconds
+            this.scene.time.delayedCall(3000, () => {
+                notification.destroy();
+            });
+        } else {
+            // If not in TraditionalActivityMinigameScene, proceed with language change
+            this.changeLanguage(selectedLang);
+        }
+    }
+
+    changeLanguage(selectedLang) {
+        if (selectedLang === this.lang1) {
+            this.radioButton1.getAt(0).setTint(this.selectedColor); // Selected color
+            this.radioButton2.getAt(0).setTint(this.unselectedColor); // Unselected color
+            this.selectedButton = this.radioButton1;
+            console.log(`lang1: ${this.lang1}`);
+            this.callback(this.lang1);
+        } else {
+            this.radioButton2.getAt(0).setTint(this.selectedColor); // Selected color
+            this.radioButton1.getAt(0).setTint(this.unselectedColor); // Unselected color
+            this.selectedButton = this.radioButton2;
+            console.log(`lang2: ${this.lang2}`);
+            this.callback(this.lang2);
+        }
+    }
+
     selectLang1() {
-        this.radioButton1.getAt(0).setTint(this.selectedColor); // Selected color
-        this.radioButton2.getAt(0).setTint(this.unselectedColor); //Unselected color
-        this.selectedButton = this.radioButton1;
-        console.log(`lang1: ${this.lang1}`);
-        this.callback(this.lang1);
+        this.attemptLanguageChange(this.lang1);
     }
 
     selectLang2() {
-        this.radioButton2.getAt(0).setTint(this.selectedColor); // Selected color
-        this.radioButton1.getAt(0).setTint(this.unselectedColor); // Unselected color
-        this.selectedButton = this.radioButton2;
-        console.log(`lang1: ${this.lang2}`);
-        this.callback(this.lang2);
+        this.attemptLanguageChange(this.lang2);
+    }
+
+    disableLanguageChange() {
+        this.radioButton1.disableInteractive();
+        this.radioButton2.disableInteractive();
+    }
+
+    enableLanguageChange() {
+        this.radioButton1.setInteractive();
+        this.radioButton2.setInteractive();
     }
 }
 
