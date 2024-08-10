@@ -7,6 +7,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         super({ key: 'TraditionalActivityMinigameScene' });
         this.objects = [];
         this.hintsLeft = 3;
+        this.instruction = null;
     }
     
     /*
@@ -16,10 +17,10 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Returns:
         - (string): The instruction text in the user's preferred language.
     */
-    getInstructionText(instruction) {
+    getInstructionText() {
         this.userLanguage = this.game.playerDataManager.getUserLanguage();
         const instructionTextKey = `text${this.userLanguage}`;
-        return instruction[instructionTextKey];
+        return this.instruction[instructionTextKey];
     }
 
     /*
@@ -39,7 +40,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         }
     }
 
-    /*preload any assets you need for the minigame
+    /*preload any assets needed for the minigame
     */
     preload() {
         super.preload();
@@ -279,17 +280,16 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         this.currentInstructionText = this.add.text(this.canvasWidth * 0.25, this.canvasHeight * 0.15, instructionString, this.instructionFontStyle);
         
         //populate scene interactive objects
-        // this.updateObjects(instruction);
 
         // Handle interaction based on actionType
         if (this.instruction.actionType === 'drag') {
-            this.setupDragInteraction(this.instruction);
+            this.setupDragInteraction();
         } else if (this.instruction.actionType === 'select') {
-            this.setupSelectInteraction(this.instruction);
+            this.setupSelectInteraction();
         } else if (instruction.actionType === 'special') {
-            this.setupSpecialInteraction(instruction);
+            this.setupSpecialInteraction();
         } else if (this.instruction.actionType === 'end'){
-            this.endActivity(this.instruction)
+            this.endActivity()
         }
         this.blocker.setVisible(false);
     }
@@ -321,8 +321,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         - instruction (object): The instruction object containing the correct tool and destination.
     */
     setupDragInteraction() {
-        this.updateObjects(this.instruction);
-
+        this.updateObjects();
     }
 
     /*
@@ -332,7 +331,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     */
     setupSelectInteraction() {
         // Setup select interaction
-        this.updateObjects(this.instruction);
+        this.updateObjects();
         const correctText = this.add.text(300, 300, this.instruction.correctText, { fontSize: '24px', fill: '#000' }).setInteractive();
         correctText.on('pointerdown', () => {
             this.onCorrectDrop(this.instruction);
@@ -346,8 +345,8 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     */
     setupSpecialInteraction() {
         // Handle special interaction
-        this.updateObjects(this.instruction);
-        this.showFeedback(this.instruction.feedback);
+        this.updateObjects();
+        this.showFeedback();
         this.nextStep();
     }
 
@@ -451,7 +450,8 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Parameters:
         - feedback (string): The feedback to be shown to the player.
     */
-    showFeedback(feedback) {
+    showFeedback() {
+        const feedback = this.instruction.feedback;
         return new Promise(resolve => {
             console.log("Feedback: ", feedback);
             // Display feedback to the user
@@ -545,7 +545,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     }
 
     
-    endActivity(instruction){
+    endActivity(){
         this.awardResources();
         //show any newly unlocked activities
         this.showUnlockedActivities();
@@ -562,8 +562,10 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         }
     }
 
-    updateObjects(instruction) {
-        const newObjectIds = instruction.objects.map(obj => obj.id);
+    updateObjects() {
+        console.log("instruction: ", this.instruction);
+        console.log("updateObjects: ", this.instruction.objects);
+        const newObjectIds = this.instruction.objects.map(obj => obj.id);
 
         // Destroy objects not in the new instruction
         this.objects = this.objects.filter(obj => {
@@ -576,7 +578,7 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
         });
 
         // Update or create objects
-        instruction.objects.forEach(objectData => {
+        this.instruction.objects.forEach(objectData => {
             let obj = this.objects.find(o => o.id === objectData.id);
             if (obj) {
                 obj.updateObject(objectData);
