@@ -19,6 +19,7 @@ export default class DataManager {
         return this.data.allBiomesData;
     }
 
+
     setCurrentBiome(biomeReference) {
         this.currentBiome = this.data.allBiomesData.find(b => b.biome_reference_name === biomeReference);
         console.log("Data Manager - current biome set: ", this.currentBiome);
@@ -109,26 +110,28 @@ export default class DataManager {
     }
 
     getAllScenesData() {
-        console.log("Data Manager - All Scenes Data: ", this.data.allScenesData);
+        // console.log("Data Manager - All Scenes Data: ", this.data.allScenesData);
         return this.data.allScenesData;
     }
 
     setCurrentSceneData(newSceneKey, newReference = null){
-        console.log(newSceneKey);
+        // console.log(newSceneKey);
         const allScenesData = this.getAllScenesData();
-        console.log(allScenesData);
+        // console.log(allScenesData);
         let sceneData = null;
         if(!newReference){
-            console.log("Data Manager no new reference... sceneKey: ", newSceneKey);
+            // console.log("Data Manager no new reference... sceneKey: ", newSceneKey);
             sceneData = allScenesData.find(scene => scene.constructor_identifier === newSceneKey);
-            console.log("found from scene key", sceneData);
+            // console.log("found from scene key", sceneData);
         }        
         else if (newReference && !sceneData) {
-            console.log("Data Manager new reference: ", newReference);
+            // console.log("Data Manager new reference: ", newReference);
             sceneData = allScenesData.find(scene => scene.reference_name === newReference);
         }
-        else{console.log("Data Manager current scene data set to: ", sceneData);}
-        console.log(sceneData);
+        else{
+            // console.log("Data Manager current scene data set to: ", sceneData);
+        }
+        // console.log(sceneData);
         this.currentSceneData = sceneData;
     }
 
@@ -140,7 +143,7 @@ export default class DataManager {
         const activities = this.getAllTraditionalActivities();
         
         const activity = activities.find(activity => activity.id === activityID);
-        console.log("DataManager - TraditionalActivity: ", activity);
+        // console.log("DataManager - TraditionalActivity: ", activity);
         if(!activity){
             return null;
         }
@@ -174,8 +177,23 @@ export default class DataManager {
             }
         });
 
-        console.log(unlockedActivities);
+        // console.log(unlockedActivities);
         return unlockedActivities.length > 0 ? unlockedActivities : null;
+    }
+
+    setAllVocabularyMinigameData(vocabMinigames){
+        this.data.allVocabularyMinigameData = vocabMinigames;
+    }
+
+    getAllVocabularyMinigameData(){
+        return this.data.allVocabularyMinigameData;
+    }
+
+    getVocabularyMinigame(minigameID){
+        const vocabMinigames = this.getAllVocabularyMinigameData();
+        const minigame = vocabMinigames.find(minigame => minigame.id === minigameID);
+        console.log("Data Manager - Vocabulary Minigame: ", minigame);
+        return minigame;
     }
 
 }

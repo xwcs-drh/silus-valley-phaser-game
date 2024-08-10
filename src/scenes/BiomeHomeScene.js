@@ -44,7 +44,8 @@ export default class BiomeHomeScene extends BaseScene {
         //create signpost button... will replace with interactive sprite probably
         this.workbenchButton = this.createLandmarkButton(this.canvasWidth*0.2,this.canvasHeight*0.7, "workbench", "TraditionalActivitiesMenuScene", this.biomeReference);
         //create workbench button... will replace with interactive sprite probably
-        this.signpostButton = this.createLandmarkButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "signpost", "vocabBaseScene", this.biomeReference);
+        const vocabMinigame = this.dataManager.getVocabularyMinigame("g3");
+        this.signpostButton = this.createLandmarkButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "signpost", "VocabWheelMinigameScene", {vocabMinigame});
     }
 
     /*

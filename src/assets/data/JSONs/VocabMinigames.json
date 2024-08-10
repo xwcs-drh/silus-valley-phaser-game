@@ -3,16 +3,17 @@
   "nameE": "catchFish_challenge", 		
   "morphologicalCategory": "noun", 		
   "semanticCategory": "fish",
-  "gameformat": { 						//SEE SV_VocabGameTypes.txt for more details.
+  "gameformat": { 
       "type": "spawning",
-      "direction": "leftward",			//Attribute only included when type: spawning; the direction the vocabulary objects move after being spawned.
-      "spawnPosition": "bottom_right",	//Attribute only included when type: spawning; the general position the vocabulary spawns in.
-      "movementSpeed": 10,				//Attribute only included when type: spawning; the speed at which the vocab object will move after spawning. 
-      "mode": "challenge"				//Attribute only included when type: spawning; Options: be "practice" or "challenge".
+      "direction": "leftward",
+      "spawnPosition": "bottom_right",
+      "movementSpeed": 10,	
+      "mode": "challenge"
     },
   "inBiome": "b2", 				
   "SceneConstructor_identifier":"vocabGameSpawningScene",	
-  "vocabularyIds": ["v1", "v2", "v3"] 	
+  "vocabularyIds": ["v1", "v2", "v3"]
+
 },
 {
   "id": "g2",
@@ -21,9 +22,50 @@
   "semanticCategory": "plant",
   "gameformat": {
       "type": "matchWords",
-      "pairingMode": "visual_to_H"  	//Attribute only included with type: matchWords; indicates what will be matched. Options: visual_to_H (hunquminum), visual_to_E (English), E_to_H. 
+      "pairingMode": "visual_to_H"
    },
   "inBiome": "b1",
    "SceneConstructor_identifier":"vocabGameMatchWordsScene",	
   "vocabularyIds": ["v4", "v5", "v6"]
+},
+{
+  "id": "g3",
+  "nameE": "matchColours",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "colour",
+  "gameformat": {
+      "type": "VocabWheel",
+      "pairingMode": "visual_to_H"
+   },
+  "optionZone": [0.5, 0.2, 0.9, 0.8],
+  "SceneConstructor_identifier":"vocabGameVocabWheelScene",	
+  "backgroundFilename": "yellow_wash_background.jpg",
+  "vocabulary":[{
+    "id": "vo1",
+    "wordE": "red",
+    "wordH": "rojo",
+    "draggableImage": "redImage.png",
+    "targetImage": "redImage.png"
+  },
+  {
+    "id": "vo2",
+    "wordE": "blue",
+    "wordH": "azul",
+    "draggableImage": "blueImage.png",
+    "targetImage": "blueImage.png"
+  },
+  {
+    "id": "vo3",
+    "wordE": "green",
+    "wordH": "verde",
+    "draggableImage": "greenImage.png",
+    "targetImage": "greenImage.png"
+  },
+  {
+    "id": "vo4",
+    "wordE": "yellow",
+    "wordH": "amarillo",
+    "draggableImage": "yellowImage.jpg",
+    "targetImage": "yellowImage.jpg"
+  }]
 }]

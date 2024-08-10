@@ -70,5 +70,13 @@
     "background_image": "silu_valley_river.png",
     "UIMenu": "MainUIScene",
     "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "VocabWheelMinigameScene",
+    "reference_name": "VocabWheelMinigameScene",
+    "description": "This is the scene that includes the navigation within the vocabulary minigames",
+    "background_image": "yellow_wash_background.jpg",
+    "UIMenu": "",
+    "unlockedTraditionalActivities": [""]
   }
 ]

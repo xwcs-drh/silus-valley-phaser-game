@@ -349,6 +349,15 @@
         "textE": "boil the salmon backbone",
         "textH": "qʷə́l̕st tə sx̌k̓ʷáləs kʷə néc̓aʔ ʔáwə",
         "actionType": "select",
+        "objects": [
+          {
+            "id": "vo12",
+            "role": "decoration",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "correctTextE": "boil",
         "correctTextH": "qʷə́l̕st",
         "incorrectTextE": ["pour", "wash"],
@@ -385,9 +394,18 @@
         "textE": "separate the salmon backbone",
         "textH": "θəlθəláq tə sx̌k̓ʷáləs",
         "actionType": "select",
+        "objects": [
+          {
+            "id": "vo6",
+            "role": "target",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "correctTextE": "separate bone",
         "correctTextH": "HUNQ- separate bone",
-        "incorrectTextE": ["HUNQ- combine", "HUNQ- freeze"],
+        "incorrectTextE": ["combine", "freeze"],
         "incorrectTextH": ["HUNQ- combine", "HUNQ- freeze"],
         "nextStep": "step10"
       },
@@ -540,7 +558,15 @@
         "textE": "We finished. Look at our beads",
         "textH": "shá∙y ct. k̓ʷécət tə sq",
         "actionType": "special",
-        "objects":[],
+        "objects": [
+          {
+            "id": "vo6",
+            "role": "decoration",
+            "position": [0.7, 0.3],
+            "widthPercent": 0.20,
+            "depth": 0
+          }
+        ],
         "functions": [
           {
             "sequence": "after",

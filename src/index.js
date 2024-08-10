@@ -9,6 +9,7 @@ import MainMapScene from './scenes/MainMapScene';
 import BiomeHomeScene from './scenes/BiomeHomeScene';
 import TraditionalActivitiesMenuScene from './scenes/TraditionalActivitiesMenuScene';
 import TraditionalActivityMinigameScene from './scenes/TraditionalActivityMinigameScene';
+import VocabWheelMinigameScene from './scenes/VocabWheelMinigameScene';
 
 // import gameConfig from './config';
 
@@ -29,6 +30,7 @@ var config = {
 		BiomeHomeScene,
 		TraditionalActivitiesMenuScene,
 		TraditionalActivityMinigameScene,
+		VocabWheelMinigameScene,
 	], //list of all scenes used
 	scale: {
 	    mode: Phaser.Scale.FIT,
