@@ -10,13 +10,14 @@ export default class VocabWheelMinigameScene extends BaseScene {
         this.timer = null;
         this.slicesFilled = []
         this.numSlices = 0;
+        this.numDropped = 0;
     }
 
     
     init(data) {
         super.init(data);
-        this.gameMode = data.gameMode || 'practice';
-        this.isTimed = data.isTimed || false;
+        // this.gameMode = data.gameMode || 'challenge';
+        // this.isTimed = data.isTimed || false;
         this.dataManager = this.game.dataManager;
         this.minigameData = data.reference.vocabMinigame;
         // console.log("minigame data: ", this.minigameData);
@@ -42,30 +43,49 @@ export default class VocabWheelMinigameScene extends BaseScene {
                     if (vocabItem.draggableImage) {
                         const imageKey = vocabItem.draggableImage.split('.').slice(0, -1).join('.'); // Remove file extension
                         this.load.image(imageKey, `assets/Images/vocabulary/${vocabItem.draggableImage}`);
-                        // console.log("loading vocabulary image: ", imageKey);
                     }
                     if (vocabItem.targetImage) {
                         const imageKey = vocabItem.targetImage.split('.').slice(0, -1).join('.'); // Remove file extension
                         this.load.image(imageKey, `assets/Images/vocabulary/${vocabItem.targetImage}`);
-                        // console.log("loading vocabulary image: ", imageKey);
                     }
                 });
             }
         }
     }
 
+    /**
+     * Creates the minigame
+     * sets the number of slices, creates the slices, and starts the timer
+     * 
+    */
     create() {
         super.create();
         this.numSlices = this.minigameData.vocabulary.length;
         console.log("this.numSlices: ", this.numSlices);
-        // this.createWheel();
+        
+        this.destroyAllWheelSlices();
         this.createSlices();
-        if (this.isTimed) {
-            this.startTimer();
-        }
-
+        // if (this.isTimed) {
+        //     this.startTimer();
+        // }
+        setupInputEvents(this);
+        this.numDropped = 0;
     }
 
+    /**
+     * Destroys all wheel slices
+     */
+    destroyAllWheelSlices() {
+        this.wheelSlices.forEach(slice => {
+            slice.destroy();
+        });
+        this.wheelSlices = [];
+    }
+
+    /**
+     * Starts a timer for the minigame
+     * Not currently implemented... will add when requested by team
+     */
     startTimer() {
         this.timer = this.time.addEvent({
             delay: 60000, // 1 minute
@@ -81,7 +101,13 @@ export default class VocabWheelMinigameScene extends BaseScene {
     }
 
     
-    // Create the slices of the wheel
+    /**
+     * Creates the slices of the wheel
+     * calculates the radius of the wheel, length of the chord of the arc, the spawn location of the draggable slices, and the angle of the wheel slices
+     * for each object in minigameData.vocabulary, it creates a draggable and target slice and adds them to the wheelSlices and draggableSlices arrays
+     * then it calls distributeDraggableSlices to distribute the draggable slices in the option zone
+     * then it calls fanWheelSlices to fan the wheel slices out from the center
+     */
     createSlices() {
         const angle = this.getWheelAngle();
         const draggableSpawnLocation = this.getSpawnLocation();
@@ -106,17 +132,20 @@ export default class VocabWheelMinigameScene extends BaseScene {
             let targetSlice = new WheelSlice(this, wheelCenterX, wheelCenterY, wheelRadius, angle, this.minigameData.vocabulary[i], "target", "H"); 
             this.wheelSlices.push(targetSlice);
         }
-        setupInputEvents(this);
+        // setupInputEvents(this);
 
         this.distributeDraggableSlices(chordLength, draggableRadius);
         this.fanWheelSlices(angle);
     }
 
+    /**
+     * distributes draggable slices on 2 rows in a random order evenly in the option zone
+     * @param {*} chordLength : the length of the chord of the arc
+     * @param {*} radius : the radius of the wheel
+     */
     distributeDraggableSlices(chordLength, radius) {
-        // console.log("canvasWidth: ", this.canvasWidth, "; canvasHeight: ", this.canvasHeight);
         // Create a copy of the wheelSlices array
         const shuffledSlices = this.draggableSlices;
-        // console.log("shuffledSlices: ", shuffledSlices);
         // Shuffle the array using Fisher-Yates algorithm
         for (let i = shuffledSlices.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -125,7 +154,6 @@ export default class VocabWheelMinigameScene extends BaseScene {
         const xDist = (((this.minigameData.optionZone[2] - this.minigameData.optionZone[0]) / (this.numSlices/2))*0.1) * this.canvasWidth;
         let x = (this.canvasWidth * this.minigameData.optionZone[0]) + chordLength/2 + xDist;
         let y = (this.canvasHeight * this.minigameData.optionZone[1]) + radius*1.1;
-        // console.log("xDist: ", xDist);
         // Distribute the slices in their new random order
         let i = 0;
 
@@ -135,26 +163,29 @@ export default class VocabWheelMinigameScene extends BaseScene {
                 x += xDist + chordLength;
             }
             else{
-                // console.log("this.canvasWidth * this.minigameData.optionZone[0]: ", this.canvasWidth * this.minigameData.optionZone[0]);
                 x = (this.canvasWidth * this.minigameData.optionZone[0]) + chordLength/2 + xDist;
                 y = (this.canvasHeight * this.minigameData.optionZone[3]) - radius*0.1;
             }
-            // console.log("slice " , i, "after change ;slice x: ", x, "y: ", y);
-            // console.log("Final slice position: ", slice.x, slice.y);
             i++;
         });
     }
     
+    /**
+     * Fans the wheel slices out from the center
+     * @param {*} anglePerSlice : the angle of each slice
+     */ 
     fanWheelSlices(anglePerSlice){
-        // Rotate each slice
+        // Rotate each slice 360/numSlices - passing value as radians
         this.wheelSlices.forEach((slice, index) => {
             slice.rotateSlice(anglePerSlice * (index + 1));
+            slice.setHomePosition(slice.x, slice.y);
         });
-
-        // Log the rotation for debugging
-        // console.log(`Rotated ${this.wheelSlices.length} slices by ${anglePerSlice} radians each.`);
     }
 
+    /**
+     * Gets the spawn location of the draggable slices
+     * @returns {Object} : the spawn location of the vertex of the draggable slices
+     */
     getSpawnLocation(){
         const optionZoneWidth = this.minigameData.optionZone[2] - this.minigameData.optionZone[0];
         const optionZoneHeight = this.minigameData.optionZone[3] - this.minigameData.optionZone[1];
@@ -167,61 +198,64 @@ export default class VocabWheelMinigameScene extends BaseScene {
         return {x: spawnX, y: spawnY};
     }
 
-    checkDrop(gameObject) {
-        
-        const targetSlice = this.getTargetSlice(gameObject);
-        
-        if (targetSlice) {
-            if (this.isCorrectDrop(gameObject, targetSlice)) {
-                this.handleCorrectDrop(gameObject, targetSlice);
-            } else {
-                this.handleIncorrectDrop(gameObject);
-            }
-        } else {
-            this.handleIncorrectDrop(gameObject);
+    /**
+     * Adds a challenge drop to the incorrectDrops array
+     * @param {*} draggable : the draggable slice
+     * @param {*} target : the target slice
+     */
+    addChallengeDrop(draggable, target){
+        this.numDropped++;
+        this.slicesFilled.push([draggable, target]);
+        if(draggable.id !== target.id){
+            this.incorrectDrops.push([draggable, target]);
         }
-    }
-    
-    checkDropOnWheel(gameObject) {
-        return this.wheelSlices.find(slice => Phaser.Geom.Intersects.RectangleToRectangle(gameObject.getBounds(), slice.getBounds()));
     }
 
-    getTargetSlice(gameObject) {
-        return this.wheelSlices.find(slice => Phaser.Geom.Intersects.RectangleToRectangle(gameObject.getBounds(), slice.getBounds()));
-    }
-    
-    isCorrectDrop(gameObject, targetSlice) {
-        return gameObject.data.index === targetSlice.data.index;
-    }
-    
-    handleCorrectDrop(gameObject, targetSlice) {
-        if (this.gameMode === 'practice') {
-           gameObject.tweenBorderColor(0x00ff00);
-        } else {
-            if(this.gameMode === 'challenge'){
-                this.sliceFilled.push(targetSlice);
-            }
-            if(this.sliceFilled.length === this.minigameData.vocabulary.length){
-                this.endTimer();
-            }
-        }
-    }
-    
-    handleIncorrectDrop(gameObject) {
-        if (this.gameMode === 'practice') {
-            gameObject.setFillStyle(0xff0000, 1);
-            this.time.delayedCall(75, () => {
-                gameObject.setFillStyle(0xff0000, 1);
-                gameObject.x = gameObject.input.dragStartX;
-                gameObject.y = gameObject.input.dragStartY;
-            });
-        } else {
-            gameObject.setFillStyle(0xffff00, 1);
-        }
-        this.incorrectDrops.push(gameObject.id);
+    /**
+     * Adds a challenge drop to the incorrectDrops array
+     * @param {*} draggable : the draggable slice
+     * @param {*} target : the target slice
+     */
+    addIncorrectDropData(draggable, target){
+        this.incorrectDrops.push([draggable, target]);
     }
 
+    /**
+     * Validates the challenge drops
+     * Highlights the the incorrect slices
+     */
+    validateChallengeDrops(){
+        let score = 0;
+        for (let i = 0; i < this.slicesFilled.length; i++) {
+            const [draggable, target] = this.slicesFilled[i];
+            if (draggable.id === target.id) {
+                score++;
+            }
+            else{
+                draggable.highlight();
+                //do something to indicate wrongness
+            }
+        }
+        console.log(`Challenge score: ${score} out of ${this.slicesFilled.length}`);
+        this.showScore(score);
+        // return score;   
+    }
+
+    /**
+     * Deactivates the slices interactivity
+     */
+    deactivateSlices(){
+        this.draggableSlices.forEach(slice => {
+            slice.deactivate();
+        });
+    }
+
+    /**
+     * Ends the timer
+     * not currently implemented
+     */
     endTimer() {
+        console.log("this.sliceFilled: ", this.sliceFilled);
         if (this.gameMode === 'challenge') {
             this.slicesFilled.forEach(slice => {
                 if (this.incorrectDrops.includes(slice.id)) {
@@ -234,10 +268,30 @@ export default class VocabWheelMinigameScene extends BaseScene {
         }
     }
     
+    /**
+     * Shows the score
+     * Displays number of correct drops / total number of drops
+     * Displays texts of incorrect drops if any  
+     */
     showScore() {
-        const score = this.wheelSlices.length - this.incorrectDrops.length;
-        const scoreText = this.add.text(this.canvasWidth * 0.5, this.canvasHeight * 0.5, `Score: ${score}`, { fontSize: '32px', fill: '#000' });
-        scoreText.setOrigin(0.5, 0.5);
+        const score = this.numDropped;
+        let scoreText = `Score: ${score} / ${this.numSlices}`;
+        
+        if (score !== this.numSlices) {
+            scoreText += "\n\nIncorrect Responses:";
+            this.incorrectDrops.forEach(([draggable, target]) => {
+                console.log("draggable label: ", draggable.label);
+                console.log("target label: ", target.label);
+                scoreText += `\n${draggable.label} -> ${target.label}`;
+            });
+        }
+
+        const scoreTextObject = this.add.text(this.canvasWidth * 0.5, this.canvasHeight * 0.5, scoreText, { 
+            fontSize: '32px', 
+            fill: '#000',
+            align: 'left'
+        });
+        scoreTextObject.setOrigin(0.5, 0.5);
     }
 
 }

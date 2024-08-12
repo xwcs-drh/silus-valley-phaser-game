@@ -43,28 +43,28 @@
   "vocabulary":[{
     "id": "vo1",
     "wordE": "red",
-    "wordH": "rojo",
+    "wordH": "hunq - red",
     "draggableImage": "redImage.png",
     "targetImage": "redImage.png"
   },
   {
     "id": "vo2",
     "wordE": "blue",
-    "wordH": "azul",
+    "wordH": "hunq - blue",
     "draggableImage": "blueImage.png",
     "targetImage": "blueImage.png"
   },
   {
     "id": "vo3",
     "wordE": "green",
-    "wordH": "verde",
+    "wordH": "hunq - green",
     "draggableImage": "greenImage.png",
     "targetImage": "greenImage.png"
   },
   {
     "id": "vo4",
     "wordE": "yellow",
-    "wordH": "amarillo",
+    "wordH": "hunq - yellow",
     "draggableImage": "yellowImage.jpg",
     "targetImage": "yellowImage.jpg"
   }]
