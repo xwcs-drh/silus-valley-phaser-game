@@ -130,7 +130,7 @@ export default class HighlightService {
         console.log('Clearing highlight');
         if (this.overlay) {
             this.overlay.setVisible(false);
-
+            this.blocker.setVisible(false);
             if (this.highlightedObject && this.highlightedObject.setDepth) {
                 this.highlightedObject.setDepth(this.originalDepth);
             }
