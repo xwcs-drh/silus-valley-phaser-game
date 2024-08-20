@@ -18,9 +18,23 @@ export default class RecipeBookPopupScene extends PopupScene {
 
         // Load all activity thumbnails
         this.activities = this.dataManager.getAllTraditionalActivities();
-        this.activities.forEach(activity => {
+        console.log(this.activities);
+        this.unlockedActivityIDs = this.game.playerDataManager.getUnlockedTraditionalActivities();
+        console.log(this.unlockedActivityIDs);
+        this.unlockedActivities = this.activities.filter(activity => this.unlockedActivityIDs.includes(activity.id));
+        console.log(this.unlockedActivities);
+
+        this.unlockedActivities.forEach(activity => {
             const filepath = `./assets/UI/${activity.thumbnailFilename}`;
             this.load.image(activity.thumbnailFilename, filepath);
+            console.log(filepath);
+        });
+
+        //load all resource thumbnails
+        this.resources = this.dataManager.getAllResources();
+        this.resources.forEach(resource => {
+            const filepath = `./assets/Images/vocabulary/${resource.imageFilename}`;
+            this.load.image(resource.imageFilename, filepath);
             console.log(filepath);
         });
     }
@@ -45,13 +59,14 @@ export default class RecipeBookPopupScene extends PopupScene {
         this.playerInventory = this.playerDataManager.getInventory();
         console.log(this.userLanguage);
 
+        console.log(`this.unlockedActivities[this.currentPageIndex]`, this.unlockedActivities[this.currentPageIndex]);
         //Construct the left page of the RecipeBookPopup
             // takes: scene (this), x position, right position, page container width, page container height, the currect activity object, the user's selected language, the player's inventory, and the dataManager
-        this.leftPage = new ActivitiesLeftPage(this, this.popupContainer.x, this.popupContainer.y, this.popupContainer.width, this.popupContainer.height, this.activities[this.currentPageIndex], this.userLanguage, this.playerInventory, this.dataManager);
+        this.leftPage = new ActivitiesLeftPage(this, this.popupContainer.x, this.popupContainer.y, this.popupContainer.width, this.popupContainer.height, this.unlockedActivities[this.currentPageIndex], this.userLanguage, this.playerInventory, this.dataManager);
         
         //Construct the right page of the RecipeBookPopup
             // takes: scene (this), x position, right position, page container width, page container height, the currect activity object, and the user's selected language
-        this.rightPage = new ActivitiesRightPage(this, this.popupContainer.width*0.5, this.popupContainer.y, this.popupContainer.width, this.popupContainer.height, this.activities[this.currentPageIndex], this.userLanguage);
+        this.rightPage = new ActivitiesRightPage(this, this.popupContainer.width*0.5, this.popupContainer.y, this.popupContainer.width, this.popupContainer.height, this.unlockedActivities[this.currentPageIndex], this.userLanguage);
         //add both page objects to this scene
         this.popupContainer.add([this.leftPage, this.rightPage]);
         // this.updatePageContent();
@@ -65,17 +80,36 @@ export default class RecipeBookPopupScene extends PopupScene {
     Parameters: None
     */
     addNavigationButtons() {
-          this.prevPageButton = new PageNavButton(this, this.popupContainer.width*0.01, this.popupContainer.height*0.5, "< prev", () => {
+        if(this.unlockedActivities.length > 1){
+            this.addForwardNavButton();
+        }
+    }
+
+    addBackNavButton(){
+        this.prevPageButton = new PageNavButton(this, this.popupContainer.width*0.01, this.popupContainer.height*0.5, "< prev", () => {
             console.log("clicked page back button");
-            this.changePage(-1); //pass in scene to enable launching of another scene
+            this.changePage(-1); 
             });
-          this.nextPageButton = new PageNavButton(this, this.popupContainer.width*0.85 + this.popupContainer.x, this.popupContainer.height*0.5, "next >",
+        this.popupContainer.add(this.prevPageButton);
+    }
+
+    addForwardNavButton(){
+        this.nextPageButton = new PageNavButton(this, this.popupContainer.width*0.85 + this.popupContainer.x, this.popupContainer.height*0.5, "next >",
             () => {
             console.log("clicked page next button");
-            this.changePage(1); //pass in scene to enable launching of another scene
+            this.changePage(1); 
             });
+        this.popupContainer.add(this.nextPageButton);
+    }
 
-        this.popupContainer.add([this.prevPageButton, this.nextPageButton]);
+    removeBackNavButton(){
+        this.prevPageButton.destroy();
+        this.popupContainer.remove(this.prevPageButton);
+    }
+
+    removeForwardNavButton(){
+        this.nextPageButton.destroy();
+        this.popupContainer.remove(this.nextPageButton);
     }
 
     /*
@@ -88,7 +122,7 @@ export default class RecipeBookPopupScene extends PopupScene {
     changePage(direction) {
         //set currentPageIndex to next, if direction = 1 and the current index isn't the highest index value in the array
         if(direction === 1){
-            if (this.currentPageIndex < this.activities.length - 1) {
+            if (this.currentPageIndex < this.unlockedActivities.length - 1) {
                 this.currentPageIndex++;
             }
             else{
@@ -105,9 +139,27 @@ export default class RecipeBookPopupScene extends PopupScene {
                 return;
             }
         }
+
+        if(this.currentPageIndex === 0){
+            this.removeBackNavButton();
+        }
+        else{
+            if(!this.prevPageButton){
+                this.addBackNavButton();
+            }
+        }
+
+        if(this.currentPageIndex === this.unlockedActivities.length - 1 || this.unlockedActivities.length === 1){
+            this.removeForwardNavButton();
+        }
+        else{
+            if(!this.nextPageButton){
+                this.addForwardNavButton();
+            }
+        }
         //Update element content in the left and right pages of the spread by passing in the current activity object at the currentPageIndex of the activities array
-        this.leftPage.updatePage(this.activities[this.currentPageIndex]);
-        this.rightPage.updatePage(this.activities[this.currentPageIndex]);
+        this.leftPage.updatePage(this.unlockedActivities[this.currentPageIndex]);
+        this.rightPage.updatePage(this.unlockedActivities[this.currentPageIndex]);
     }
 
     shutdown() {
