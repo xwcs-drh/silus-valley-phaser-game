@@ -14,9 +14,9 @@ export default class PageNavButton extends Phaser.GameObjects.Container {
     };
 
     //add image preloaded in RecipeBookPopupScene
-    const buttonBackground = scene.add.image(0, 0, 'blueButtonBackground')
+    this.buttonBackground = scene.add.image(0, 0, 'blueButtonBackground')
       .setOrigin(0.5);
-    buttonBackground.setDisplaySize(width, height);
+    this.buttonBackground.setDisplaySize(width, height);
 
   
     // Create the text object
@@ -24,7 +24,7 @@ export default class PageNavButton extends Phaser.GameObjects.Container {
       .setOrigin(0.5);
 
     // Add background and text to the container
-    this.add(buttonBackground);
+    this.add(this.buttonBackground);
     this.add(buttonText);
 
     // set the size and width to dimensions in the constructor
@@ -33,11 +33,20 @@ export default class PageNavButton extends Phaser.GameObjects.Container {
 
     this.setInteractive(new Phaser.Geom.Rectangle(0,0, width, height), Phaser.Geom.Rectangle.Contains)
       .on('pointerdown', callback)
-      .on('pointerover', () => buttonBackground.setTint(0xAAAAAA))
-      .on('pointerout', () => buttonBackground.clearTint());
+      .on('pointerover', () => this.buttonBackground.setTint(0xAAAAAA))
+      .on('pointerout', () => this.buttonBackground.clearTint());
 
     // Add the button object to the scene
     scene.add.existing(this);
+  }
 
+  disableButton() {
+    this.setInteractive(false);
+    this.buttonBackground.setAlpha(0.5);
+  }
+
+  enableButton() {
+    this.setInteractive(true);
+    this.buttonBackground.clearTint();
   }
 }
