@@ -45,7 +45,8 @@ export default class BiomeHomeScene extends BaseScene {
         this.workbenchButton = this.createLandmarkButton(this.canvasWidth*0.2,this.canvasHeight*0.7, "workbench", "TraditionalActivitiesMenuScene", this.biomeReference);
         //create workbench button... will replace with interactive sprite probably
         const vocabMinigame = this.dataManager.getVocabularyMinigame("g3");
-        this.signpostButton = this.createLandmarkButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "signpost", "VocabWheelMinigameScene", {vocabMinigame});
+        // this.signpostButton = this.createLandmarkButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "signpost", "VocabWheelMinigameScene", {vocabMinigame});
+        this.signpostButton = this.createLandmarkButton(this.canvasWidth*0.7,this.canvasHeight*0.7, "signpost", "VocabMinigamesMenuScene",this.biomeReference);
     }
 
     /*
@@ -87,6 +88,7 @@ export default class BiomeHomeScene extends BaseScene {
         buttonContainer.setSize(buttonWidth, buttonHeight);
         buttonContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains)
           .on('pointerdown', () => {
+              console.log(`Button pressed for scene: ${scene_constructor_identifier}`);
               this.game.sceneManager.changeScene(scene_constructor_identifier, biomeReference);
           })
           .on('pointerover', () => regionBackground.setTint(0xAAAAAA))
