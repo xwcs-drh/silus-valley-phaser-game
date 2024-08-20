@@ -19,7 +19,7 @@ class DialogueManager {
         this.currentEntryIndex = 0;
 
         this.game.playerDataManager.on('languageUpdated', this.updateLanguage, this); //listen for language updates
-
+        this.currScene = null;
     }
 
     create(){
@@ -34,18 +34,19 @@ class DialogueManager {
         - sceneReference (string): aka. `scene.reference_name` to compare with `dialogue.scene_reference_name`
     */
     startSceneDialogue(scene, sceneReference){
-        console.log("dialogue manager: scene dialogue data:", this.currentDialogueData);
+        this.currScene = scene;
+        // console.log("dialogue manager: scene dialogue data:", this.currentDialogueData);
 
         this.setSceneDialogueData(sceneReference);
         if (!this.currentDialogueData) {
-            console.log(`No dialogue found for scene reference: ${sceneReference}`);
+            // console.log(`No dialogue found for scene reference: ${sceneReference}`);
             this.destroyDialogueBox();
             return; // Exit early if no dialogue data is found
         }
 
         // Proceed with creating the dialogue box and processing entries
-        this.createDialogueBox(scene);
-        this.processNextEntry(scene);
+        this.createDialogueBox();
+        this.processNextEntry();
     }
 
     /*
@@ -78,8 +79,8 @@ class DialogueManager {
     Create the graphic container that the text will be displayed in.
     Set the depth to 102 (above game scene elements but below UI and service elements)
     */
-    createDialogueBox(scene){
-        console.log("create dialogue box");
+    createDialogueBox(){
+        // console.log("create dialogue box");
         //declare `processNextEntry()` function callback to be called by the button in 'dialogue box' 
         const boundCallback = this.processNextEntry.bind(this);
         
@@ -87,7 +88,7 @@ class DialogueManager {
         this.canvasHeight = this.game.canvas.height;
 
         //add text to dialogue box
-        this.dialogueBox = new DialogueBox(scene, this.canvasWidth*0.5 , this.canvasHeight*0.2, boundCallback);
+        this.dialogueBox = new DialogueBox(this.currScene, this, this.canvasWidth*0.5 , this.canvasHeight*0.2, boundCallback);
         this.dialogueBox.setDepth(102);
     }
 
@@ -100,7 +101,7 @@ class DialogueManager {
     */
     processNextEntry(scene) {
         const entry = "no more text";
-        console.log("Dialogue Manager - Scene Dialogue at current entry index: ", this.currentDialogueData.dialogues[this.currentEntryIndex]);
+        // console.log("Dialogue Manager - Scene Dialogue at current entry index: ", this.currentDialogueData.dialogues[this.currentEntryIndex]);
         // console.log("Dialogue Manager - line should read: ", this.currentDialogueData.dialogues[this.currentEntryIndex].textE);
         // console.log("Dialogue Manager - scene dialogue length: ", this.currentDialogueData.dialogues.length);
         // console.log(` current index: ${this.currentEntryIndex}, dialogue length ${ this.currentDialogueData.dialogues.length}`);
@@ -113,13 +114,13 @@ class DialogueManager {
                 // console.log('dialogue manager - passing dialogue conditions');
 
                 // Execute "during" functions
-                this.executeFunctions(scene, entry.functions, 'during');
+                this.executeFunctions(entry.functions, 'during');
 
                 this.showDialogueText(entry);
                 
-                scene.time.delayedCall(2000, () => {
+                this.currScene.time.delayedCall(2000, () => {
                     // Execute "after" functions with 2 second delay
-                    this.executeFunctions(scene, entry.functions, 'after');
+                    this.executeFunctions(entry.functions, 'after');
                 });
 
                 this.currentEntryIndex++;
@@ -129,10 +130,10 @@ class DialogueManager {
             //if the last line of dialogue, destroy 'next line' button
             if(this.currentEntryIndex === this.currentDialogueData.dialogues.length){
                 // console.log("destroy the next dialogue button");
-                this.dialogueBox.destroyButton();
+                this.dialogueBox.destroyButtons();
 
                 //destroy dialogue box 4 seconds after last line of text is displayed... may change this
-                scene.time.delayedCall(6000, () => {
+                this.currScene.time.delayedCall(6000, () => {
                     //console.log("destroy the dialogue box");
                     this.dialogueBox.destroyBox();
                     this.currentEntryIndex = 0; //reset index for next scene
@@ -161,12 +162,12 @@ class DialogueManager {
             }]
         - sequence (string): sequence status to run. ie. run all functions identified as "before"
     */
-    executeFunctions(scene, functions, sequence) {
+    executeFunctions(functions, sequence) {
         if (functions) {
           functions.forEach(func => {
             if (func.sequence === sequence) {
-                const resolvedArgs = func.args.map(arg => this.resolveArgument(scene, arg));
-                this.executeFunctionByName(scene, func.functionReference, ...resolvedArgs);            }
+                const resolvedArgs = func.args.map(arg => this.resolveArgument(arg));
+                this.executeFunctionByName(func.functionReference, ...resolvedArgs);            }
           });
         }
     }
@@ -174,11 +175,11 @@ class DialogueManager {
     /*
     Returns value of argument by adding "this.scene..." to argument value if necessary
     */
-    resolveArgument(scene, arg) {
+    resolveArgument(arg) {
         // console.log(arg);
         if (typeof arg === 'string') {
             //console.log(this.scene[arg]);
-            const gameObject = scene.children.getByName(arg);
+            const gameObject = this.currScene.children.getByName(arg);
             // console.log(gameObject);
             if(gameObject){
                 // console.log(typeof arg);
@@ -189,9 +190,9 @@ class DialogueManager {
         return arg;
     }
 
-    resolveArgument(scene, arg) {
+    resolveArgument(arg) {
         if (typeof arg === 'string') {
-            const gameObject = scene.children.getByName(arg);
+            const gameObject = this.currScene.children.getByName(arg);
             if (gameObject) {
                 return gameObject;
             }
@@ -207,19 +208,19 @@ class DialogueManager {
             e.g. highlightService.highlight; showMapButton
         - arguments (various): any arguments required by the function to be executed
     */
-    executeFunctionByName(scene, functionName, ...args) {
+    executeFunctionByName(functionName, ...args) {
         //split functionName into object and function. 
             //Object would be a service like HighlightService or ArrowService.   
         const [object, func] = functionName.split('.');
         //console.log(`object is ${object} and function is ${func}(${args})`);
         //if there's an object and function indicated, execute the function associated with that object as imported into the scene passed into DialogueManager.
-        if (func && scene[object] && typeof scene[object][func] === 'function') {
-          return scene[object][func](...args);
+        if (func && this.currScene[object] && typeof this.currScene[object][func] === 'function') {
+          return this.currScene[object][func](...args);
         } 
 
         //if there isn't an object and function indicated, execute the function associated with the scene passed into the DialogueManager.
-        else if (typeof scene[functionName] === 'function') {
-          return scene[functionName](...args);
+        else if (typeof this.currScene[functionName] === 'function') {
+          return this.currScene[functionName](...args);
         } 
 
         //throw error if functionName cannot be located
@@ -236,7 +237,7 @@ class DialogueManager {
         // Update the displayed text based on the new language
         // console.log("entry" ,this.currentDialogueData.dialogues[this.currentEntryIndex]);
         
-        if (this.currentDialogueData.dialogues.length > 0) {
+        if (this.currentDialogueData && this.currentDialogueData.dialogues.length > 0) {
             // console.log("DialogueManager: Updating dialogue text via listener");
             this.showDialogueText(this.currentDialogueData.dialogues[this.currentEntryIndex]); //this function doesnt run
         }
@@ -262,10 +263,30 @@ class DialogueManager {
     Function to hide the dialogue box.
     */
     destroyDialogueBox() {
-        console.log("destroy dialogue box");
+        // console.log("destroy dialogue box");
         if (this.dialogueBox) {
             this.dialogueBox.destroyBox();
         }
+    }
+
+    terminateDialogue(){
+        if (this.currentDialogueData.dialogues[this.currentEntryIndex + 1]){
+            // Execute "clear" functions in the next entry's functions
+            const nextEntryFunctions = this.currentDialogueData.dialogues[this.currentEntryIndex + 1].functions;
+            if (nextEntryFunctions) {
+                nextEntryFunctions.forEach(func => {
+                    if (func.functionReference.includes('clear')) {
+                        const resolvedArgs = func.args.map(arg => this.resolveArgument(arg));
+                        this.executeFunctionByName(func.functionReference, ...resolvedArgs);
+                    }
+                });
+            }
+        }
+        // console.log("destroy the next dialogue button");
+        this.dialogueBox.destroyButtons();
+        //console.log("destroy the dialogue box");
+        this.dialogueBox.destroyBox();
+        this.currentEntryIndex = 0; //reset index for next scene
     }
 }
 export default DialogueManager; // Export a singleton instance: use shared inventory manager across the gam
