@@ -97,10 +97,10 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         //set position for first line of instruction
         let instructionY = this.instructionsHeader.y+this.height * 0.1;
         let instructionX = this.instructionsHeader.x;
-        // console.log(this.activity);
+        console.log(this.activity);
         // for each instruction string, add to instruction text and instruction array, and update y position for next line.
-        this.activity[`instructions${this.userLanguage}`].forEach(instruction => {
-            const instructionText = this.scene.add.text(instructionX, instructionY, instruction, this.h3Style);
+        this.activity.instructions.forEach(instruction => {
+            const instructionText = this.scene.add.text(instructionX, instructionY, instruction[`text${this.userLanguage}`], this.h3Style);
             // this.add(instructionText);
             this.instructions.push(instructionText);
             instructionY += instructionText.height + 10;
