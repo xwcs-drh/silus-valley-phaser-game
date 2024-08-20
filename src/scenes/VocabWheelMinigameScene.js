@@ -1,10 +1,12 @@
 import BaseScene from './BaseScene';
 import WheelSlice, { setupInputEvents } from '../utils/WheelSlice';
+import VocabCircle from '../utils/VocabCircle';
+// import { vocabularySelection } from '../utils/VocabularySelection';
 
 export default class VocabWheelMinigameScene extends BaseScene {
     constructor() {
         super({ key: 'VocabWheelMinigameScene' });
-        this.gameMode = 'practice'; // 'practice' or 'challenge'
+        this.gameMode = 'challenge'; // 'practice' or 'challenge'
         this.isTimed = false;
         this.incorrectDrops = [];
         this.timer = null;
@@ -20,6 +22,10 @@ export default class VocabWheelMinigameScene extends BaseScene {
         // this.isTimed = data.isTimed || false;
         this.dataManager = this.game.dataManager;
         this.minigameData = data.reference.vocabMinigame;
+        this.vocabulary = data.reference.vocabulary;
+        // this.vocabulary = minigameData.vocabulary;
+        // this.vocabulary = vocabularySelection("noun", "animal");
+
         // console.log("minigame data: ", this.minigameData);
         this.minigameId = this.minigameData.id;
         // console.log("activity id: ", this.activityId);
@@ -76,10 +82,15 @@ export default class VocabWheelMinigameScene extends BaseScene {
      * Destroys all wheel slices
      */
     destroyAllWheelSlices() {
-        this.wheelSlices.forEach(slice => {
-            slice.destroy();
+        if (this.wheelSlices) {
+            this.wheelSlices.forEach(slice => {
+                slice.destroy();
         });
         this.wheelSlices = [];
+        }
+        this.incorrectDrops = [];
+        this.slicesFilled = [];
+        this.numDropped = 0;
     }
 
     /**
@@ -126,16 +137,17 @@ export default class VocabWheelMinigameScene extends BaseScene {
         this.wheelSlices = [];
 
         for (let i = 0; i < this.numSlices; i++) {
-            let draggableSlice = new WheelSlice(this, draggableSpawnLocation.x, draggableSpawnLocation.y, draggableRadius, angle, this.minigameData.vocabulary[i], "draggable", "E"); 
+            let draggableSlice = new WheelSlice(this, draggableSpawnLocation.x, draggableSpawnLocation.y, draggableRadius, angle, this.minigameData.vocabulary[i], "draggable", "H"); 
             this.draggableSlices.push(draggableSlice);
 
-            let targetSlice = new WheelSlice(this, wheelCenterX, wheelCenterY, wheelRadius, angle, this.minigameData.vocabulary[i], "target", "H"); 
+            let targetSlice = new WheelSlice(this, wheelCenterX, wheelCenterY, wheelRadius, angle, this.minigameData.vocabulary[i], "target", "E"); 
             this.wheelSlices.push(targetSlice);
         }
         // setupInputEvents(this);
 
         this.distributeDraggableSlices(chordLength, draggableRadius);
         this.fanWheelSlices(angle);
+
     }
 
     /**
@@ -220,6 +232,39 @@ export default class VocabWheelMinigameScene extends BaseScene {
         this.incorrectDrops.push([draggable, target]);
     }
 
+    createVocabCircles(){
+        const draggableSpawnLocation = this.getSpawnLocation();
+        const optionZoneWidth = this.minigameData.optionZone[2] - this.minigameData.optionZone[0];
+
+        const circleRadius = ((optionZoneWidth / (this.numSlices / 2)) * 0.3) * this.canvasWidth;
+
+        this.vocabCircles = [];
+        this.minigameData.vocabulary.forEach(vocabItem => {
+            this.vocabCircles.push(new VocabCircle(this, draggableSpawnLocation.x, draggableSpawnLocation.y, circleRadius, vocabItem, "H"));
+        });
+        this.distributeVocabCircles(this.vocabCircles, circleRadius);
+    }
+
+    distributeVocabCircles(vocabCircles, circleRadius){
+        const xDist = (((this.minigameData.optionZone[2] - this.minigameData.optionZone[0]) / (this.numSlices/2))*0.1) * this.canvasWidth;
+        let x = (this.canvasWidth * this.minigameData.optionZone[0]) + circleRadius + xDist;
+        let y = (this.canvasHeight * this.minigameData.optionZone[1]) + circleRadius*1.5;
+        // Distribute the slices in their new random order
+        let i = 0;
+
+        vocabCircles.forEach((circle) => {
+            circle.move(x, y);
+            if(i != ((vocabCircles.length/2)-1)){
+                x += xDist + circleRadius*2;
+            }
+            else{
+                x = (this.canvasWidth * this.minigameData.optionZone[0]) + circleRadius + xDist;
+                y = (this.canvasHeight * this.minigameData.optionZone[3]) - circleRadius*1.5;
+            }
+            i++;
+        });
+    }
+
     /**
      * Validates the challenge drops
      * Highlights the the incorrect slices
@@ -230,15 +275,19 @@ export default class VocabWheelMinigameScene extends BaseScene {
             const [draggable, target] = this.slicesFilled[i];
             if (draggable.id === target.id) {
                 score++;
+                draggable.scoreLabel(true);
             }
             else{
                 draggable.highlight();
+                draggable.scoreLabel(false);
                 //do something to indicate wrongness
             }
         }
         console.log(`Challenge score: ${score} out of ${this.slicesFilled.length}`);
         this.showScore(score);
         // return score;   
+        this.createVocabCircles();
+        
     }
 
     /**
@@ -274,7 +323,8 @@ export default class VocabWheelMinigameScene extends BaseScene {
      * Displays texts of incorrect drops if any  
      */
     showScore() {
-        const score = this.numDropped;
+        console.log("showing score with incorrect drops", this.incorrectDrops);
+        const score = this.numSlices - this.incorrectDrops.length;
         let scoreText = `Score: ${score} / ${this.numSlices}`;
         
         if (score !== this.numSlices) {
