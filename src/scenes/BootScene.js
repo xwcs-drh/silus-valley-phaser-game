@@ -26,6 +26,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.json('allTraditionalActivitiesData', './assets/data/JSONs/tempTraditionalActivities.json');
         this.load.json('allVocabularyMinigameData', './assets/data/JSONs/VocabMinigames.json');
         this.load.json('playerData', './assets/data/JSONs/PlayerData.json'); // Load player data for testing
+        this.load.json('allVocabularyData', './assets/data/JSONs/Vocabulary.json');
     }
 
     create() {
@@ -82,6 +83,7 @@ export default class BootScene extends Phaser.Scene {
         this.game.dataManager.setAllTraditionalActivitiesData(this.cache.json.get('allTraditionalActivitiesData')); 
         this.game.dataManager.setAllDialogueData(this.cache.json.get('allDialogueData')); 
         this.game.dataManager.setAllVocabularyMinigameData(this.cache.json.get('allVocabularyMinigameData')); 
+        this.game.dataManager.setAllVocabularyData(this.cache.json.get('allVocabularyData')); 
     }
 
     //Declare PlayerDataManager - manages variables related to a specific player's status

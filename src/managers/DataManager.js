@@ -94,6 +94,7 @@ export default class DataManager {
     }
 
     getAllTraditionalActivities() {
+        console.log("Data Manager - All Traditional Activities: ", this.data.allTraditionalActivitiesData);
         return this.data.allTraditionalActivitiesData;
     }
 
@@ -137,6 +138,33 @@ export default class DataManager {
 
     getCurrentSceneData(){
         return this.currentSceneData;
+    }
+
+    setAllVocabularyData(vocabularyData){
+        this.data.allVocabularyData = vocabularyData;
+    }
+
+    getAllVocabularyData(){
+        return this.data.allVocabularyData;
+    }   
+
+    getVocabularyData(vocabularyID){
+        const vocabularyData = this.getAllVocabularyData();
+        const vocabulary = vocabularyData.find(v => v.id === vocabularyID);
+        return vocabulary;
+    }
+
+    onlyUnique(value, index, array) {
+        return array.indexOf(value) === index;
+    }
+
+    getAllVocabularySemanticCategories(){
+        const vocabularyData = this.getAllVocabularyData();
+        const semanticCategories = vocabularyData.map(v => v.semanticCategory)
+            .filter(this.onlyUnique);
+
+        // console.log("Data Manager - All Vocabulary Semantic Categories: ", semanticCategories);
+        return semanticCategories;
     }
 
     getTraditionalActivity(activityID){
