@@ -222,7 +222,7 @@ export default class PlayerDataManager extends Phaser.Events.EventEmitter {
         for (const activityId of this.playerData.unlockedTraditionalActivities) {
           console.log("PlayerDataManager - isResourceAvailalble resourceID: ",activityId);
             const activity = this.dataManager.getTraditionalActivity(activityId);
-            if (activity.activityUnlocked && activity.awardedResources[resourceId]) {
+            if (activity && activity.activityUnlocked && activity.awardedResources[resourceId]) {
               console.log("PlayerDataManager - isActivityUnlocked: ",activity.activityUnlocked, "awards: ", activity.awardedResources[resourceId]);
               return true;
             }
