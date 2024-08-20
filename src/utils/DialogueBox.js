@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
 
 export default class DialogueBox extends Phaser.GameObjects.Container {
-  constructor(scene, x, y, callback, width = 590, height = 100, boxRadius = 20, buttonRadius = 10) {
+  constructor(scene, dialogueManager, x, y, callback, width = 590, height = 100, boxRadius = 20, buttonRadius = 10) {
     super(scene, Math.floor(x), Math.floor(y));
     // console.log('DialogueBox constructor called');
-    // console.log('Scene:', scene);
+    //console.log('Scene:', scene);
 
     // Ensure the scene is valid before proceeding
     // if (!scene || !scene.sys) {
@@ -13,9 +13,10 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     // }
     this.callback = callback;
     this.scene = scene;
+    this.dialogueManager = dialogueManager;
     this.width = scene.sys.game.config.width*0.65;
     this.height = scene.sys.game.config.height*0.18;
-    this.buttonDiameter = width*0.15;
+    this.buttonDiameter = width*0.12;
     this.buttonRadius = buttonRadius;
 
     const textStyle = {
@@ -36,17 +37,22 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
 
     // Calculate the button position relative to the dialogue box
     const buttonOffsetX = this.width / 2 - 10;  // Adjust the button's X position relative to the right edge
-    const buttonOffsetY = this.height / 2 - 10;  // Adjust the button's Y position relative to the bottom edge
+    const nextButtonOffsetY = this.height / 2 - 10;  // Adjust the button's Y position relative to the bottom edge
+    const skipButtonOffsetY = -(this.height / 2 - 10);  // Adjust the button's Y position relative to the bottom edge
 
     //Create the "go" (to next line of dialogue) button
-    this.button = this.createButton(scene, buttonOffsetX, buttonOffsetY, '>', this.handleClick.bind(this));
-    this.button.setVisible(false);
+    this.nextButton = this.createButton(scene, buttonOffsetX, nextButtonOffsetY, '\u25B6', this.nextLine.bind(this));
+    this.nextButton.setVisible(false);
 
+    //Create the "skip" (to next line of dialogue) button
+    this.skipButton = this.createButton(scene, buttonOffsetX, skipButtonOffsetY, '\u23ED', this.skipDialogue.bind(this));
+    this.skipButton.setVisible(false);
 
     // Add background, text, and progression button to the container
     this.add(background);
     this.add(this.dialogueText);
-    this.add(this.button);
+    this.add(this.nextButton);
+    this.add(this.skipButton);
 
     // Make the container size match the background size
     this.setSize(width, height);
@@ -65,6 +71,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
   - callback (function): function to be called when the button is clicked
   */
   createButton(scene, x, y, text, callback) {
+    console.log('Creating button x:', x, 'y:', y, 'text:', text);
     // Create the button graphics object and set position
     const buttonGraphics = this.createButtonGraphics(scene, this.buttonDiameter, this.buttonDiameter, this.buttonRadius, 0xffffff)
       .setPosition(x,y);
@@ -72,7 +79,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     // Create the button text
     const buttonText = this.scene.add.text(x, y, text, {
       fontFamily: 'Arial',
-      fontSize: `${Math.min(this.width, this.height) * 0.25}px`,
+      fontSize: `${Math.min(this.width, this.height) * 0.18}px`,
       color: '#000'
     }).setOrigin(0.5);
     
@@ -80,7 +87,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     const buttonRect = this.scene.add.rectangle(x, y, this.buttonDiameter, this.buttonDiameter)
       .setOrigin(0.5)
       .setInteractive()
-      .on('pointerdown', this.handleClick.bind(this))
+      .on('pointerdown', callback)
       .on('pointerover', () => this.changeButtonColor(buttonGraphics, 0xE4E4E4))
       .on('pointerout', () => this.changeButtonColor(buttonGraphics, 0xffffff));
 
@@ -139,7 +146,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     runs callback - DialogueManager.processNextEntry()
     After 2 seconds: Enables button and changes background back
   */
-  handleClick() {
+  nextLine() {
     if(this.button){ //if the button exists
       // Disable the button's input
       // console.log('Button clicked. Setting inactive button state.');
@@ -152,18 +159,29 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     // console.log('Executing callback.');
     this.callback(this.scene);
     
-    if(this.button){ //if the button exists
+    if(this.nextButton){ //if the button exists
       // Reactivate the button after 2 seconds
       this.scene.time.delayedCall(2000, () => {
         console.log('Reactivating button after delay.');
         
-          this.changeButtonColor(this.button.buttonGraphics, 0xffffff);
+          this.changeButtonColor(this.nextButton.buttonGraphics, 0xffffff);
           // this.setButtonVisibility(true);
-          this.button.buttonRect.setInteractive();
+          this.nextButton.buttonRect.setInteractive();
 
       });
     }
   }
+
+  /*
+  Called when the Skip Dialogue button is clicked
+    Disables button and changes background color
+    runs callback - DialogueManager.processNextEntry()
+    After 2 seconds: Enables button and changes background back
+  */
+    skipDialogue() {
+      console.log('Skipping dialogue');
+      this.dialogueManager.terminateDialogue();
+    }
 
   /*
   Change background color, maintains border color
@@ -185,6 +203,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
   */
   setText(newText) {
     if (this.dialogueText) {
+      this.setButtonVisibility(false);
       this.dialogueText.setText(newText);
       this.scene.time.delayedCall(2000, () => {
         this.setButtonVisibility(true);
@@ -196,8 +215,11 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
   Change visibility of the 'go' button
   */
   setButtonVisibility(visible) {
-    if (this.button) {
-      this.button.setVisible(visible);
+    if (this.nextButton) {
+      this.nextButton.setVisible(visible);
+    }
+    if (this.skipButton) {
+      this.skipButton.setVisible(visible);
     }
   }
 
@@ -215,11 +237,14 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
   Method to destroy the button
   Remove the button and set to null (such that no button is detected)
   */
-  destroyButton() {
+  destroyButtons() {
     // Destroy all children (background and text) first
-    this.button.removeAll(true);
+    this.nextButton.removeAll(true);
+    this.skipButton.removeAll(true);
     // Destroy the container itself
-    this.button.destroy();
-    this.button = null;
+    this.nextButton.destroy();
+    this.skipButton.destroy();
+    this.nextButton = null;
+    this.skipButton = null;
   }
 }
