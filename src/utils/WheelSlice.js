@@ -30,7 +30,7 @@ export default class WheelSlice extends Phaser.GameObjects.Container {
         this.createSlice();
 
         //Set image and image mask if there's an image file specified for the slice according to its role
-        if(this.imageFilename !== "") {
+        if(this.imageFilename !== "" && this.role !== "draggable") {
             this.createImage();
             this.createMask();
         }
@@ -314,9 +314,13 @@ export default class WheelSlice extends Phaser.GameObjects.Container {
             // console.log("highlighting: ", this.id, ", role: ", this.role);
             // this.sliceShape.lineStyle(5, 0xFFFF00, 1);
             // this.maskShape.lineStyle(5, 0xFFFF00, 1);
-            this.image.setAlpha(0.5); 
+            if(this.image){
+                this.image.setAlpha(0.5); 
+            }
             this.highlighted = true;
-            this.text.setAlpha(0.5);
+            if(this.text){
+                this.text.setAlpha(0.5);
+            }
         }
     }
 
@@ -325,11 +329,24 @@ export default class WheelSlice extends Phaser.GameObjects.Container {
      * This function unhighlights the slice by setting the alpha of the image and text to 1.
      */
     unhighlight() {
-        this.image.setAlpha(1); // Reset the alpha to fully opaque
+        if(this.image){
+            this.image.setAlpha(1); // Reset the alpha to fully opaque
+        }
         // this.sliceShape.lineStyle(2, 0x000000, 1);
         // this.maskShape.lineStyle(2, 0x000000, 1);
-        this.text.setAlpha(1);
+        if(this.text){
+            this.text.setAlpha(1);
+        }
         this.highlighted = false;
+    }
+
+    scoreLabel(correct) {
+        if(correct) {
+            this.text.setText(`✅ ${this.text.text}`);
+        }
+        else {
+            this.text.setText(`❌ ${this.text.text}`);
+        }
     }
     
 }
