@@ -37,8 +37,8 @@ export default class MainUIScene extends Phaser.Scene {
         this.load.image('inventoryToggleButtonImg', './assets/UI/basket.jpeg');
         this.load.image('settingsToggleButtonImg', './assets/UI/cog-icon.jpeg');
         this.load.image('recipeBookToggleButtonImg', './assets/UI/recipe_book.jpeg');
+        
         this.load.image('backButtonImg', './assets/UI/back.png');
-
         //preload biome navigation buttons
         this.loadBiomeIcons();
     }
@@ -121,8 +121,8 @@ export default class MainUIScene extends Phaser.Scene {
 
         this.biomesData.forEach(biome => {
             if (biome.unlocked === "true") { // Only preload biome icon if the player has access to the biome
-                const filePath = `../assets/UI/${biome.icon_filename}`;
-                // console.log(`Loading icon for biome: ${biome.nameE} filepath: ${filePath}`);
+                const filePath = `./assets/UI/${biome.icon_filename}`;
+                console.log(`Loading icon for biome: ${biome.nameE} filepath: ${filePath}`);
                 this.load.image(biome.id, filePath);
                 this.loadedBiomeIcons[biome.id] = biome.id;
             } 
@@ -267,7 +267,7 @@ export default class MainUIScene extends Phaser.Scene {
         - biome (str) = scene constructor identifier / biome.nameE (these should be equal strings)
     */
     startBiomeScene(biomeReference) {
-        // console.log(`MainUI - Starting BiomeHomeScene with referenceName: ${biomeReference}`);
+        console.log(`MainUI - Starting BiomeHomeScene with referenceName: ${biomeReference}`);
         // console.log("MainUI - is sceneManager", this.game.sceneManager);
         this.game.sceneManager.changeScene("BiomeHomeScene", biomeReference);
         this.updateBiomeNavButtonInteractivity();
