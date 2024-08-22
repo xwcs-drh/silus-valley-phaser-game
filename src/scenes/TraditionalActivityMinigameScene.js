@@ -169,6 +169,9 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
                 this.hintButton.disableInteractive();
             }
          });
+    // Set depth for popup and text
+    this.hintPopup.setDepth(10);
+    this.hintPopupText.setDepth(11);
     }
 
     /*
@@ -450,12 +453,14 @@ export default class TraditionalActivityMinigameScene extends BaseScene {
     Parameters:
         - feedback (string): The feedback to be shown to the player.
     */
-    showFeedback() {
-        const feedback = this.instruction.feedback;
+    showFeedback(feedback) {
+        // const feedback = this.instruction.feedback;
+        this.currentInstructionText.setText("");
         return new Promise(resolve => {
             console.log("Feedback: ", feedback);
             // Display feedback to the user
-            const feedbackText = this.add.text(400, 400, feedback, { fontSize: '24px', fill: '#000' });
+            const feedbackText = this.add.text(this.canvasWidth * 0.25, this.canvasHeight * 0.15, feedback, this.instructionFontStyle);
+            feedbackText.setDepth(8);
             //fade in and out the feedback text
             this.tweens.add({
                 targets: feedbackText,
