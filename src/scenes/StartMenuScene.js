@@ -49,12 +49,19 @@ export default class StartMenuScene extends BaseScene {
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
         WebFont.load({
           google: {
-            families: ['Oswald', 'Roboto Condensed', 'Unbounded', 'Ojuju', 'Andika', 'Noto Sans']
-          },
-          active: () => {
-            this.create(); // Call create method once fonts are loaded
+            families: ['Oswald', 'Roboto Condensed', 'Unbounded', 'Ojuju', 'Andika', 'Noto Sans', 'Tahoma']
           }
         });
+
+        this.load.script('webfont','https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap');
+        WebFont.load({
+            google: {
+                families: ['Radio Canada']
+            },
+            active: () => {
+              this.create(); // Call create method once fonts are loaded
+            }
+        })
     }
 
     /*
@@ -63,19 +70,19 @@ export default class StartMenuScene extends BaseScene {
     create() {
         super.create();
         // console.log('StartMenuScene: create');
-        
+
         // Calculate responsive font size
-        const fontSize = Math.min(this.cameras.main.width, this.cameras.main.height) * 0.1;
-        // this.add.text(this.cameras.main.width * 0.4, this.cameras.main.height * 0.4, "Sil̕ə's Valley", { fontSize: fontSize, fontFamily: 'Noto Sans', fill: '#000080' });
+        const fontSize = Math.min(this.canvasWidth, this.canvasHeight) * 0.1;
         // Check if the title text has already been created
-        if (!this.titleTextCreated) {
+        if (!this.titleText) {
             // Create title text
-            this.add.text(this.cameras.main.width * 0.4, this.cameras.main.height * 0.4, "Sil̕ə's Valley", { fontSize: fontSize, fontFamily: 'Noto Sans', fill: '#000080' });
+            this.titleText = this.add.text(this.canvasWidth * 0.4, this.canvasHeight * 0.4, 'Sil\u{315}ə’s Valley', { fontSize: fontSize, fontFamily: 'Radio Canada', fill: '#000080' });
+
+            // this.noteText = this.add.text(this.canvasWidth * 0.4, this.canvasHeight * 0.6, "resize your browser window to fix graphics", { fontSize: Math.min(this.canvasWidth, this.canvasHeight) * 0.05, fontFamily: 'Noto Sans', fill: '#000000' });
             // Set the flag to true
-            this.titleTextCreated = true;
         }
 
-        // this.titleTextCreated = false;
+        this.titleTextCreated = false;
 
 
     	//Create Start button => Starts Opening Introduction Scene
@@ -103,16 +110,17 @@ export default class StartMenuScene extends BaseScene {
         - popupToLaunch (string) = name of the popup scene that should be launched on button click
     */
     createMainButton(x,y,text, popupToLaunch){
-        console.log('StartMenuScene: create ', text, ' button');
-        console.log('buttonX: ', x);
-        console.log('buttonY: ', y);
+        // console.log('StartMenuScene: create ', text, ' button');
+        // console.log('buttonX: ', x);
+        // console.log('buttonY: ', y);
 
         // Create the settings button
+
         new LargeTextButton(this, x, y, text, () => {
-            console.log(text,' button clicked');
+            // console.log(text,' button clicked');
 
             //start or launch indicated scene
-            console.log("popup to launch: ", popupToLaunch);
+            // console.log("popup to launch: ", popupToLaunch);
             this.game.sceneManager.showPopupScene(this.scene, popupToLaunch); //pass in scene to enable launching of another scene
         }, 
             this.canvasWidth * 0.21,
@@ -133,9 +141,14 @@ export default class StartMenuScene extends BaseScene {
 
         // Create the start button
         new LargeTextButton(this, x, y, text, () => {
-            console.log(text, ' button clicked');
+            // console.log(text, ' button clicked');
             //start OpeningIntroductionScene scene when the button is clicked on. don't need to pass in 'reference' as it will be set by default in BaseScene
+            this.titleText.destroy();
+            this.titleText = null;
+
             this.game.sceneManager.changeScene('MainMapScene');
+            // this.game.sceneManager.changeScene('OpeningIntroductionScene');
+            // this.game.sceneManager.changeScene('VocabMinigamesMenuScene');
         }, 
             this.canvasWidth * 0.21,
             this.canvasHeight * 0.085
@@ -148,12 +161,43 @@ export default class StartMenuScene extends BaseScene {
     Used for debugging
     */
     debugScreen() {
-        // Display DPI information on screen
-        this.add.text(10, 10, `Device Pixel Ratio: ${this.devicePixelRatio}`, { fontSize: '16px', fill: '#000' });
-        this.add.text(10, 30, `Game Resolution: ${this.gameResolution}`, { fontSize: '16px', fill: '#000' });
 
+        // const gameWidth = this.sys.game.config.width;
+        // const gameHeight = this.sys.game.config.height;
+        // const canvasWidth = this.sys.game.canvas.width;
+        // const canvasHeight = this.sys.game.canvas.height;
+        // // Get Phaser resolution setting
+        // const gameResolution = this.sys.game.config.resolution;
+        // Get device pixel ratio
+        // const devicePixelRatio = window.devicePixelRatio;
+        // Calculate and set the game aspect ratio
+        // const gameAspectRatio = gameWidth / gameHeight;
+        const cameraWidth = this.cameras.main.width;
+        const cameraHeight = this.cameras.main.height;
+
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        const fontSize = `${Math.min(this.canvasWidth, this.canvasHeight) * 0.02}px`; // Adjust the multiplier as needed
+
+        // Display DPI information on screen
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.1, `Device Pixel Ratio: ${this.devicePixelRatio}`, { fontSize: fontSize, fill: '#000' });
+        // this.add.text(10, 30, `Game Resolution: ${gameResolution}`, { fontSize: '16px', fill: '#000' });
+
+        // Display actual browser dimensions
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.15, `Browser Width: ${windowWidth}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.2, `Browser Height: ${windowHeight}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.25, `Browser Aspect Ratio: ${windowWidth / windowHeight}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.3, `Game Width: ${this.gameWidth}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.35, `Game Height: ${this.gameHeight}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
         // Display canvas dimensions
-        this.add.text(10, 50, `Canvas Width: ${this.canvasWidth}`, { fontSize: '16px', fill: '#000' });
-        this.add.text(10, 70, `Canvas Height: ${this.canvasHeight}`, { fontSize: '16px', fill: '#000' });
-    }
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.4, `Canvas Width: ${this.canvasWidth}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.45, `Canvas Height: ${this.canvasHeight}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+    
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.5, `Game resolution: ${this.gameResolution}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.55, `Camera width: ${cameraWidth}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+        this.add.text(this.canvasWidth*0.05, this.canvasHeight*0.6, `Camera height: ${cameraHeight}`, { fontSize: fontSize, fill: '#000' , resolution: 2});
+        }
 }
