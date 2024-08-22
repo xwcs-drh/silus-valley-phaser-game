@@ -50,35 +50,42 @@ export default class SceneManager {
 
     // Start new scene, based on scene key or reference name (specifically implemented for biomes)
     changeScene(newSceneKey, reference = null) {
-
+        console.log("SceneManager - changing scene to: ", newSceneKey);
         let sceneData = this.getSceneData(newSceneKey, reference);
+
+        //if the scene data is not found, use the ui scene key to find the scene data
         if (!sceneData) {
             sceneData = this.uiManager.uiScenes[newSceneKey];
         }
         // console.log("scene manager - scene data at change scene: ", sceneData);
 
+        //if the scene data is found, continue with the scene change
         if (sceneData) {
             const currentSceneKey = this.currentSceneData.constructor_identifier;
-            console.log("current scene key: ", currentSceneKey);
-            // console.log("SceneManager: Stopping current scene:", this.currentScene);
-            // console.log(`SceneManager: Stopping current scene key: ${this.currentSceneData.constructor_identifier}`);
+            console.log("current scene key at start: ", currentSceneKey);
+            
 
             this.currentReference = reference;
             this.sceneHistory.push({ sceneKey: currentSceneKey, reference: this.currentReference });
-            // console.log("SceneManager: scene history: ", this.sceneHistory);
+            console.log("SceneManager: scene history: ", this.sceneHistory);
+            this.currentScene.input.enabled = false;
+
+            console.log(`SceneManager: Stopping current scene: ${currentSceneKey}`);
             this.game.scene.stop(currentSceneKey);
             
             this.game.scene.start(newSceneKey, { reference: reference });
             this.currentScene = this.game.scene.getScene(newSceneKey);
+            this.currentScene.input.enabled = true;
             if((this.dataManager.getCurrentBiome() == null || this.dataManager.getCurrentBiomeReference() !== reference) && newSceneKey.includes("BiomeHomeScene")){
                 console.log("SceneManager: Setting current biome reference to: ", reference);
                 this.dataManager.setCurrentBiome(reference);
             }
-            // this.checkScenes();
-            // console.log(`SceneManager: Started new scene: ${newSceneKey}`);
+            
+            console.log(`SceneManager: Started new scene: ${newSceneKey}`);
         } else {
             console.error(`Scene with reference name ${reference} or key ${newSceneKey} not found.`);
         }
+        this.checkScenes();
         this.hideAllPopupScenes("");
     }
 
@@ -112,7 +119,7 @@ export default class SceneManager {
         }
         //if the current ui scene isn't empty, and matches the specified target UI scene key
         else if (this.currentUIScene && this.currentUISceneKey === uiSceneKey){
-            console.log("current ui scene", this.currentUIScene);
+            console.log("current ui scene key", this.currentUIScene);
             this.currentUIScene.setScene(this.currentUIScene); //set the specified target ui scene key to current ui scene key 
         }
 
@@ -162,7 +169,7 @@ export default class SceneManager {
     }
 
     getSceneBackground() {
-        console.log("SceneManager - current scene data: ", this.currentSceneData.background_image);
+        // console.log("SceneManager - current scene data: ", this.currentSceneData.background_image);
         return this.currentSceneData ? this.currentSceneData.background_image : null;
     }
 
