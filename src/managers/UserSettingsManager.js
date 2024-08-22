@@ -36,7 +36,7 @@ export default class UserSettingsManager {
     */
     loadSettings(playerDataManager) {
         this.playerDataManager = playerDataManager;
-        console.log("User Settings Manager - playerDataManager: ", this.playerDataManager);
+        // console.log("User Settings Manager - playerDataManager: ", this.playerDataManager);
 
         this.userSettings = this.playerDataManager.getSettings();
 
@@ -45,8 +45,8 @@ export default class UserSettingsManager {
         //     this.userSettings = JSON.parse(settings);
         //     this.playerDataManager.setUserSettings(this.userSettings);
         // }
-        console.log("User Settings Manager - user settings: ", this.userSettings);
-        console.log("User Settings Manager - playerDataManager: ", this.playerDataManager);
+        // console.log("User Settings Manager - user settings: ", this.userSettings);
+        // console.log("User Settings Manager - playerDataManager: ", this.playerDataManager);
 
     }
 }
