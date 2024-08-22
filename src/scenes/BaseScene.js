@@ -26,18 +26,18 @@ export default class BaseScene extends Phaser.Scene {
         - selects the Scene Object pertinent to the content that should be displayed... in BaseScene specifically to load the correct background
     */
     init(data={}) {
-        console.log("BaseScene init data: ", data);
-        console.log("BaseScene init reference: ", data.reference);
+        // console.log("BaseScene init data: ", data);
+        // console.log("BaseScene init reference: ", data.reference);
         
         this.reference = data.reference ? data.reference : this.sceneKey;
         this.dataManager = this.game.dataManager;
-        console.log(`BaseScene: Data manager? ${this.dataManager}`);
+        // console.log(`BaseScene: Data manager? ${this.dataManager}`);
         const allScenesData = this.dataManager.getAllScenesData();
 
         this.sceneManager = this.game.sceneManager;
         // console.log(this.sceneManager); 
         this.currentSceneData = this.sceneManager.getCurrentSceneData();
-        console.log("Base Scene: current scene data " , this.currentSceneData);
+        // console.log("Base Scene: current scene data " , this.currentSceneData);
         // this.currentSceneData = this.allScenesData.find(scene => scene.reference_name === this.reference);
         // if (!this.currentSceneData) {
         //     // console.error('No sceneData received in BaseScene.');
@@ -55,8 +55,8 @@ export default class BaseScene extends Phaser.Scene {
     preload() {
         // console.log("BaseScene: preloading with sceneData: ", this.sceneData);
         // Background_image is defined in the sceneData for each scene
-        console.log('current scene data: ', this.currentSceneData.background_image);
-        console.log('scene background: ', this.game.sceneManager.getSceneBackground());
+        // console.log('current scene data: ', this.currentSceneData.background_image);
+        // console.log('scene background: ', this.game.sceneManager.getSceneBackground());
         const imagePath = `./assets/UI/${this.game.sceneManager.getSceneBackground()}`;
         // console.log(`Base Scene background image path: ${imagePath}`);
         this.load.image('arrowImage', './assets/UI/arrow.png'); // Load arrow texture
@@ -78,7 +78,6 @@ export default class BaseScene extends Phaser.Scene {
     Launches the proper UI scene according to the current SceneData (so they run in parallel)
     */
     create() {
-
         // console.log('BaseScene: create called');
         this.createBackground(); //Create window border, and scene background if a background image is indicated in scenesData.
         this.gameWidth = this.sys.game.config.width;
@@ -108,6 +107,40 @@ export default class BaseScene extends Phaser.Scene {
         this.time.delayedCall(0, () => {
             this.runDialogueAssistant();
         });    
+
+        // Add event listener for window resize
+        window.addEventListener('resize', this.handleResize.bind(this));
+
+        // Initial call to handleResize to set up elements correctly
+        this.handleResize();
+
+    }
+
+     // Method to handle window resize
+    handleResize() {
+        this.gameWidth = this.sys.game.config.width;
+        this.gameHeight = this.sys.game.config.height;
+        this.canvasWidth = this.sys.game.canvas.width;
+        this.canvasHeight = this.sys.game.canvas.height;
+        this.gameResolution = this.sys.game.config.resolution;
+        this.devicePixelRatio = window.devicePixelRatio;
+
+        // Recursively update resolution of all image and text elements
+        this.updateResolution(this.children.list);
+    }
+
+    // Recursive method to update resolution of all text elements
+    updateResolution(children) {
+        children.forEach(child => {
+            if (child instanceof Phaser.GameObjects.Text) {
+                if (child.setResolution) {
+                    child.setResolution(this.devicePixelRatio);
+                }
+            } else if (child.list) {
+                // If the child has its own children (e.g., a container), recursively update them
+                this.updateResolution(child.list);
+            }
+        });
     }
 
     /*
