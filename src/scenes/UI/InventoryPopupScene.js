@@ -14,6 +14,11 @@ export default class InventoryPopupScene extends PopupScene {
 
         console.log("InventoryPopupScene: inventory: ", this.inventory);
 
+        this.resources = this.dataManager.getAllResources();
+        this.resources.forEach(resource => {
+            const filepath = `./assets/Images/vocabulary/${resource.imageFilename}`;
+            this.load.image(resource.imageFilename, filepath);
+        });
     }
 
     create() {
