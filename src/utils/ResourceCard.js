@@ -17,7 +17,7 @@ export default class ResourceCard extends Phaser.GameObjects.Container {
 
         this.h3Style = this.textStyle = {
             fontFamily: 'Unbounded',
-            fontSize: '11px',
+            fontSize: `${this.cardWidth * 0.1}px`,
             fill: '#000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio,
@@ -40,14 +40,15 @@ export default class ResourceCard extends Phaser.GameObjects.Container {
     
         // console.log(`this language in resource card: ${this.language}`);
         const nameText = this.scene.add.text(this.x, this.y, this.resource[`name${this.language}`], this.h3Style).setOrigin(0.5,1);        
-        const quantityText = this.scene.add.text(this.x, this.y + this.cardHeight * 0.2, `Qty: ${this.quantity}`, this.h3Style).setOrigin(0.5,0);
+        // const quantityText = this.scene.add.text(this.x, this.y + this.cardHeight * 0.2, `Qty: ${this.quantity}`, this.h3Style).setOrigin(0.5,0);
 
-        this.add([background, nameText, quantityText]);
-        
-        const circle = this.scene.add.circle(this.cardX + this.cardWidth / 2, this.cardY + this.cardHeight / 2, 15, 0xffffff);
+        // this.add([background, nameText, quantityText]);
+        this.add([background, nameText]);
+
+        const circle = this.scene.add.circle(this.cardX + this.cardWidth / 2, this.cardY + this.cardHeight / 2, 12, 0xffffff);
         const circleText = this.scene.add.text(circle.x, circle.y, this.quantity, {
             fontFamily: 'Unbounded',
-            fontSize: '10px',
+            fontSize: `${this.cardWidth * 0.09}px`,
             fill: '#000000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio

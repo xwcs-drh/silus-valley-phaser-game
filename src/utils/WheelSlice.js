@@ -100,12 +100,13 @@ export default class WheelSlice extends Phaser.GameObjects.Container {
 
         // Add text to the slice
         this.text = this.scene.add.text(this.x, this.y, this.label, {
-            font: '24px Arial',
             fill: '#000000',
-            align: 'center'
+            align: 'center',
+            fontSize: `${this.radius * 0.12}px`, // Adjust the multiplier as needed
+            resolution: 2
         });
         this.text.setOrigin(0.5);
-        this.text.setPosition(this.x, this.y - this.radius / 2);
+        this.text.setPosition(this.x, this.y - this.radius/1.6);
         this.text.setDepth(1);
     }
 
@@ -168,7 +169,7 @@ export default class WheelSlice extends Phaser.GameObjects.Container {
                     this.maskShape.setPosition(this.x, this.y); // Ensure the mask shape moves with the container
                 }
                 if (this.text) {
-                    this.text.setPosition(this.x, this.y - this.radius / 2);
+                    this.text.setPosition(this.x, this.y - this.radius/1.6);
                 }
             }
         });

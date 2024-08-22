@@ -74,9 +74,17 @@
   {
     "constructor_identifier": "VocabWheelMinigameScene",
     "reference_name": "VocabWheelMinigameScene",
+    "description": "This is the vocabulary game scene that includes the menu wheel",
+    "background_image": "yellow_wash_background.jpg",
+    "UIMenu": "VocabMinigameUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "VocabMinigamesMenuScene",
+    "reference_name": "VocabMinigamesMenuScene",
     "description": "This is the scene that includes the navigation within the vocabulary minigames",
     "background_image": "yellow_wash_background.jpg",
-    "UIMenu": "",
+    "UIMenu": "VocabMinigameUIScene",
     "unlockedTraditionalActivities": [""]
   }
 ]

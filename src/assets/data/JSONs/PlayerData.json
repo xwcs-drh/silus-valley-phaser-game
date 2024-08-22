@@ -10,7 +10,7 @@
     "r2": 1
    },
   "biomesUnlocked": ["b1", "b3"],
-  "unlockedTraditionalActivities": ["ta1", "ta2"],
+  "unlockedTraditionalActivities": ["ta1", "ta2", "ta3"],
   "progress": {
         "completedVocabGames": ["game1", "game2"],
         "completedTraditionalActivities": ["activity1"]

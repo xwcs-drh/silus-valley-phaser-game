@@ -15,18 +15,38 @@ export default class ManualPopupScene extends PopupScene {
 
         super.create();
 
-        this.popupWidth = this.game.config.width / 2;
-        this.popupHeight = this.game.config.height / 2;
+
+        //Style for Setting header text
+        this.h1Style = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: `${this.popupWidth * 0.025}px`,
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
+        };
+
+        //Style for Setting label text
+        this.h2Style = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: `${this.popupWidth * 0.02}px`,
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
+        };
 
         // Add specific content for the manual popup
 
         if (this.popupContainer) {
-            const headerText = this.add.text(50, 0, 'Instructions', { fontSize: '24px', fill: '#000' });
-            this.addContentToPopup(0.5, 0.005, headerText, true); // Positioning text at 5% from the top-left corner
+            const headerText = this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.1, 'Instructions', this.h1Style)
+            headerText.setOrigin(0.5);
+            // this.addContentToPopup(0, 0, headerText, true); // Positioning text at 5% from the top-left corner
 
             // Add specific content for the manual popup
-            const manualText = this.add.text(0, 0, 'Manual Content', { fontSize: '18px', fill: '#000' });
-            this.addContentToPopup(0.05, 0.15, manualText, false); // Positioning text at 5% from the top-left corner
+            const manualText = this.add.text(this.popupX + this.popupWidth * 0.12, this.popupY + this.popupHeight*0.18, 'Manual Content', this.h2Style)
+            manualText.setOrigin(0.5);
+            // this.addContentToPopup(0, 0, manualText, false); // Positioning text at 5% from the top-left corner
 
         } else {
           console.error('Popup container is not initialized');

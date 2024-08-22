@@ -30,6 +30,16 @@ export default class BootScene extends Phaser.Scene {
     }
 
     create() {
+        // Adjust canvas size
+        const { width, height } = this.sys.game.canvas;
+        this.sys.game.config.width = width;
+        this.sys.game.config.height = height;
+        this.scale.resize(width, height);
+
+        // Store canvas dimensions for easy access
+        this.canvasWidth = width;
+        this.canvasHeight = height;
+
         console.log('boot scene: create');
         // Initialize global state
         this.game.global = {
@@ -57,12 +67,14 @@ export default class BootScene extends Phaser.Scene {
         //Initialize the scene manager
         // this.game.sceneManager = new SceneManager(this.game, this.game.dataManager, "BootScene");
 
+
         //Start the Main User scene - contains "Start" button, and "Credits", "Manual", "Settings" buttons.
         this.game.sceneManager.changeScene('StartMenuScene');
         // this.game.scene.launch("MainUIScene");
         //Initialize UIManager and register scenes
         // this.initializeUI();
     }
+
 
     /*
     Loads JSON data into Data Manager.

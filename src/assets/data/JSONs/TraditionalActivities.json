@@ -11,8 +11,8 @@
     ],
     "biome": "b1",
     "requiredResources": {
-      "r1": 1,
-      "r3": 3
+      "r1": 100,
+      "r3": 300
     },
     "awardedResources": {
       "r1": 1
@@ -30,7 +30,7 @@
     "content": "...",
     "vocabulary": ["vo1", "vo2", "vo3"],
     "biome": "b2",
-    "requiredResources": {},
+    "requiredResources": {"r1": 100},
     "awardedResources": {
       "r2": 1
     },

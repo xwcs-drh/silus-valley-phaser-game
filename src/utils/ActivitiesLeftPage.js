@@ -17,30 +17,30 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
         //Style for paragraph text
         this.h3Style = this.textStyle = {
             fontFamily: 'Unbounded',
-            fontSize: '11px',
+            fontSize: `${this.width * 0.015}px`,
             fill: '#000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.9, useAdvancedWrap: true } // Set word wrap width
+            wordWrap: { width: this.width, useAdvancedWrap: true } // Set word wrap width
         };
         //Style for 2nd level header text
         this.h2Style = this.textStyle = {
             fontFamily: 'Unbounded',
-            fontSize: '15px',
+            fontSize: `${this.width * 0.015}px`,
             fill: '#000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.9, useAdvancedWrap: true } // Set word wrap width
+            wordWrap: { width: this.width, useAdvancedWrap: true } // Set word wrap width
         };
         
         //Style for title text
         this.h1Style = this.textStyle = {
             fontFamily: 'Unbounded',
-            fontSize: '20px',
+            fontSize: `${this.width * 0.02}px`,
             fill: '#000',
             strokeThickness: 1,
             resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.9, useAdvancedWrap: true } // Set word wrap width
+            wordWrap: { width: this.width, useAdvancedWrap: true } // Set word wrap width
         };
 
         //add the ActivitiesLeftPage object to the RecipeBookPopupScene
@@ -53,7 +53,7 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
 
     initPage() {
         // Create the name text
-        this.nameText = this.scene.add.text(this.x + this.width * 0.4, this.y+ this.height * 0.15, '', this.h1Style).setOrigin(1);
+        this.nameText = this.scene.add.text(this.x + this.width * 0.45, this.y+ this.height * 0.15, '', this.h1Style).setOrigin(1);
         // Create the biome text
         this.biomeText = this.scene.add.text(this.x + this.width * 0.08,this. y+ this.height * 0.4, '', this.h3Style).setOrigin(0);
 

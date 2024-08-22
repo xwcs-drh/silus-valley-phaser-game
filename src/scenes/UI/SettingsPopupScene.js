@@ -22,15 +22,36 @@ export default class SettingsPopupScene extends PopupScene {
         this.playerDataManager = this.game.playerDataManager;
         const userSettings = this.playerDataManager.getSettings();
 
+        //Style for Setting header text
+        this.h1Style = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: `${this.popupWidth * 0.025}px`,
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
+        };
+
+        //Style for Setting label text
+        this.h2Style = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: `${this.popupWidth * 0.02}px`,
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
+        };
+
         // Create UI elements for each setting
-        this.add.text(this.cameras.main.width * 0.15, this.cameras.main.height * 0.15, 'Settings', { fontSize: '32px', fill: '#000' });
+        this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.1, 'Settings', this.h1Style)
+        .setOrigin(0.5);
 
         // this.createToggleButton(100, 200, 'Audio Enabled', userSettingsManager.audioEnabled, value => {
         //     this.userSettingsManager.updateSettings({ audioEnabled: value });
         // });
-        this.add.text(this.cameras.main.width * 0.15, this.cameras.main.height *0.25, 'UI Language', { fontSize: '24px', fill: '#000' });
+        this.add.text(this.popupX + this.popupWidth * 0.05, this.popupY + this.popupHeight*0.22, 'UI Language', this.h2Style);
 
-        this.createLangRadioButtons(this.cameras.main.width * 0.55, this.cameras.main.height *0.25);
+        this.createLangRadioButtons(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.2);
 
     }
 

@@ -21,12 +21,12 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
 
         // Add the radio button background for lang1
         this.button1X = x;
-        this.button2X = x + width*1.2;
-        this.radioButton1 = this.createRadioButton(-width/4, height/2, this.lang1, () => this.selectLang1());
+        this.button2X = x + this.width*1.2;
+        this.radioButton1 = this.createRadioButton(-this.width/4, this.height/2, this.lang1, () => this.selectLang1());
         this.add(this.radioButton1);
 
         // Add the radio button background for lang2
-        this.radioButton2 = this.createRadioButton(width, height/2, this.lang2, () => this.selectLang2());
+        this.radioButton2 = this.createRadioButton(this.width/3, this.height/2, this.lang2, () => this.selectLang2());
         this.add(this.radioButton2);
 
         this.selectedButton = null;

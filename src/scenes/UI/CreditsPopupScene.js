@@ -13,6 +13,26 @@ export default class CreditsPopupScene extends PopupScene {
      * Creates the credits popup
      */
     create() {
+        super.create();
+        //Style for Credit Header text
+        this.creditHeaderStyle = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: `${this.popupWidth * 0.025}px`,
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
+        };
+
+        //Style for credit line text
+        this.creditTextStyle = this.textStyle = {
+            fontFamily: 'Unbounded',
+            fontSize: `${this.popupWidth * 0.015}px`,
+            fill: '#000',
+            strokeThickness: 0.5,
+            resolution: window.devicePixelRatio,
+            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
+        };
 
         //set key for background image for super PopupScene to set
         this.backgroundKey = 'yellow_wash_background';
@@ -37,19 +57,15 @@ export default class CreditsPopupScene extends PopupScene {
             creditsText += '\n'; // Add a blank line between categories
         });
 
-        //style credits text
-        const creditsTextStyle = {
-            fontSize: `${Math.min(popupWidth, popupHeight) * 0.05}px`,
-            fill: '#000',
-            wordWrap: { width: 600, useAdvancedWrap: true }
-        };
 
-        // Add specific content for the manual popup
+        // Add specific content for the credit popup
         if (this.popupContainer) {
-            const headerText = this.add.text(this.popupContainer.x + this.popupContainer.width * 0.45, this.popupContainer.y + this.popupContainer.height * 0.05, 'Credits', { fontSize: `${Math.min(popupWidth, popupHeight) * 0.06}px`, fill: '#000' });
+            this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.08, 'Credits', this.creditHeaderStyle)
+            .setOrigin(0.5);
             // this.addContentToPopup(Math.min(popupWidth, popupHeight) * 0.2, Math.min(popupWidth, popupHeight) * 0.3, headerText, true); // Positioning text at 5% from the top-left corner
             // Create the multiline text object
-            this.add.text(this.popupContainer.x + this.popupContainer.width * 0.05, this.popupContainer.y + this.popupContainer.height * 0.12, creditsText, creditsTextStyle);
+            this.add.text(this.popupX + this.popupWidth * 0.05, this.popupY + this.popupHeight*0.2, creditsText, this.creditTextStyle)
+            .setOrigin(0);
         } else {
           console.error('Popup container is not initialized');
         }

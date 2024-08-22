@@ -13,7 +13,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         //Style for paragraph text
         this.h3Style = this.textStyle = {
             fontFamily: 'Unbounded',
-            fontSize: '14px',
+            fontSize: `${this.width * 0.013}px`,
             fill: '#000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio,
@@ -23,7 +23,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         //Style for 2nd level header text
         this.h2Style = this.textStyle = {
             fontFamily: 'Unbounded',
-            fontSize: '18px',
+            fontSize: `${this.width * 0.015}px`,
             fill: '#000',
             strokeThickness: 0.5,
             resolution: window.devicePixelRatio,
@@ -33,7 +33,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         //Style for title text
         this.h1Style = this.textStyle = {
             fontFamily: 'Unbounded',
-            fontSize: '20px',
+            fontSize: `${this.width * 0.02}px`,
             fill: '#000',
             strokeThickness: 1,
             resolution: window.devicePixelRatio,
@@ -48,10 +48,10 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
 
     initPage() {
         //create the text element for the activity description
-        this.descriptionText = this.scene.add.text(this.x +this.width*0.18,this. y+ this.height * 0.1, "", this.h3Style);
+        // this.descriptionText = this.scene.add.text(this.x +this.width*0.18,this. y+ this.height * 0.1, "", this.h3Style);
         
         //create the text element for the activityinstructions 
-        this.instructionsHeader = this.scene.add.text(this.x +this.width*0.18,this. y+ this.height * 0.25, 'Instructions', this.h2Style).setOrigin(0);
+        this.instructionsHeader = this.scene.add.text(this.x +this.width*0.16,this. y+ this.height * 0.12, 'Instructions', this.h2Style).setOrigin(0);
         this.instructions = []; 
 
         //Populate the object with the current activity passed into the constructor
@@ -67,7 +67,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         this.activity = activity; //set current activity to activity object passed in
         // console.log(activity.description);
         //set the text in the activity description element
-        this.descriptionText.setText(activity.description);
+        // this.descriptionText.setText(activity.description);
         
         // Clear instructions of previous activity
         this.instructions.forEach(instruction => instruction.destroy()); ///???
@@ -85,7 +85,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
 
     updateText() {
         // Update the text elements based on the new language
-        this.descriptionText.setText(this.activity[`description${this.userLanguage}`]);
+        // this.descriptionText.setText(this.activity[`description${this.userLanguage}`]);
         this.instructionsHeader.setText(this.activity[`instructionsHeader${this.userLanguage}`]);
         this.addInstructions();
     }
@@ -103,7 +103,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
             const instructionText = this.scene.add.text(instructionX, instructionY, instruction[`text${this.userLanguage}`], this.h3Style);
             // this.add(instructionText);
             this.instructions.push(instructionText);
-            instructionY += instructionText.height + 10;
+            instructionY += instructionText.height;
         });
     }
 

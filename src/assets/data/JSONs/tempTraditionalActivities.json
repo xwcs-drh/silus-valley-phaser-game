@@ -1,46 +1,5 @@
 [
   {
-    "id": "ta1",
-    "nickname": "gardening",
-    "nameE": "let’s garden",
-    "nameH": "...",
-    "description": "brief explanation about gardening",
-    "content": "...",
-    "vocabulary": [
-      "vo1", "vo2", "vo3", "vo4", "vo5", "vo6", "vo7", "vo8", "vo9", "vo10", "vo11", "vo12", "vo25", "vo26", "vo27", "vo28", "vo29", "vo30"
-    ],
-    "activityUnlocked": "true",
-    "biome": "b1",
-    "requiredResources": {
-      "r1": 1,
-      "r3": 3
-    },
-    "awardedResources": {
-      "r1": 1
-    },
-    "thumbnailFilename": "gardeningActivityThumbnail.jpg",
-    "instructionsE": ["instruction1", "instruction2"],
-    "instructionsH": ["instruction1", "instruction2"]
-  },
-  {
-    "id": "ta2",
-    "nickname": "fishing",
-    "nameE": "let's fish",
-    "nameH": "...",
-    "description": "brief explanation about fishing",
-    "content": "...",
-    "vocabulary": ["vo1", "vo2", "vo3"],
-    "activityUnlocked": "true",
-    "biome": "b2",
-    "requiredResources": {},
-    "awardedResources": {
-      "r2": 1
-    },
-    "thumbnailFilename": "fishingActivityThumbnail.jpg",
-    "instructionsE": ["instruction1", "instruction2"],
-    "instructionsH": ["instruction1", "instruction2"]
-  },
-  {
     "id": "ta3",
     "nickname": "fishBoneBeads",
     "nameE": "Let's Make Fish Bone Beads",
@@ -162,7 +121,7 @@
           {
             "id": "vo2",
             "role": "target",
-            "position": [0.8, 0.3],
+            "position": [0.8, 0.5],
             "widthPercent": 0.25,
             "depth": 0
           }
@@ -199,17 +158,13 @@
           {
             "id": "vo12",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
           }
         ],
         "functions": [
-          {
-            "sequence": "after",
-            "functionReference": "showFeedback",
-            "args": ["The salmon backbone is ready to boil."]
-          }
+          
         ],
         "nextStep": "step3"
       },
@@ -243,7 +198,7 @@
           {
             "id": "vo12",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
           }
@@ -279,22 +234,13 @@
           {
             "id": "vo8",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.30,
             "depth": 0
           }
         ],
         "functions": [
-          {
-            "sequence": "after",
-            "functionReference": "showFeedback",
-            "args": ["The salmon backbone is ready to boil."]
-            },
-            {
-              "sequence": "after",
-              "functionReference": "clockService.passTime",
-              "args": [1]
-            }
+
         ],
         "nextStep": "step5"
       },
@@ -314,7 +260,7 @@
           {
             "id": "vo3",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
           }
@@ -337,37 +283,27 @@
           {
             "id": "vo12",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
+          }
+        ],
+        "functions": [
+          {
+            "sequence": "after",
+            "functionReference": "showFeedback",
+          "args": ["The salmon backbone will boil for 1 hour."]
+          },
+          {
+            "sequence": "after",
+            "functionReference": "clockService.passTime",
+            "args": [1]
           }
         ],
         "nextStep": "step7"
       },
       {
         "id": "step7",
-        "textE": "boil the salmon backbone",
-        "textH": "qʷə́l̕st tə sx̌k̓ʷáləs kʷə néc̓aʔ ʔáwə",
-        "actionType": "select",
-        "objects": [
-          {
-            "id": "vo12",
-            "role": "decoration",
-            "position": [0.7, 0.3],
-            "widthPercent": 0.20,
-            "depth": 0
-          }
-        ],
-        "correctTextE": "boil",
-        "correctTextH": "qʷə́l̕st",
-        "incorrectTextE": ["pour", "wash"],
-        "incorrectTextH": ["k̓ʷłéls", "t̕ᶿx̌ʷát"],
-        "feedbackE": "You will wait one hour for the fish bones to boil.",
-        "feedbackH": "HUNQ-You will wait one hour for the fish bones to boil.",
-        "nextStep": "step8"
-      },
-      {
-        "id": "step8",
         "textE": "Remove the salmon backbone from the pot",
         "textH": "méʔx kʷə sx̌k̓ʷáləs ʔə tə škʷál̕s",
         "actionType": "drag",
@@ -382,15 +318,15 @@
           {
             "id": "vo2",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
           }
         ],
-        "nextStep": "step9"
+        "nextStep": "step8"
       },
       {
-        "id": "step9",
+        "id": "step8",
         "textE": "separate the salmon backbone",
         "textH": "θəlθəláq tə sx̌k̓ʷáləs",
         "actionType": "select",
@@ -398,7 +334,7 @@
           {
             "id": "vo6",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
           }
@@ -407,10 +343,10 @@
         "correctTextH": "HUNQ- separate bone",
         "incorrectTextE": ["combine", "freeze"],
         "incorrectTextH": ["HUNQ- combine", "HUNQ- freeze"],
-        "nextStep": "step10"
+        "nextStep": "step9"
       },
       {
-        "id": "step10",
+        "id": "step9",
         "textE": "put the little bones in the jar",
         "textH": "nə́w̓əx tə st̕ᶿát̕ᶿəm̓ ʔi tə šxʷčemélə",
         "actionType": "drag",
@@ -425,15 +361,15 @@
           {
             "id": "vo11",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
           }
         ],
-        "nextStep": "step11"
+        "nextStep": "step10"
       },
       {
-        "id": "step11",
+        "id": "step10",
         "textE": "add peroxide to the jar",
         "textH": "nə́w̓əx tə peroxide ʔi tə šxʷčemélə",
         "actionType": "drag",
@@ -448,17 +384,17 @@
           {
             "id": "vo11",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 2
           }
         ],
         "feedbackE": "Stir every day for three days.",
         "feedbackH": "kʷə́yx̌t tə mə́k̓ʷ swéyəl ʔi tə łəxʷəłnet",
-        "nextStep": "step12"
+        "nextStep": "step11"
       },
       {
-        "id": "step12",
+        "id": "step11",
         "textE": "Then remove the little bones",
         "textH": "méʔx tə st̕ᶿát̕ᶿəm̓",
         "actionType": "drag",
@@ -473,15 +409,15 @@
           {
             "id": "vo2",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 2
           }
         ],
-        "nextStep": "step13"
+        "nextStep": "step12"
       },
       {
-        "id": "step13",
+        "id": "step12",
         "textE": "scrape between the little bones",
         "textH": "ʔíx̌ət šxʷəxʷíc̓ tə st̕ᶿát̕ᶿəm̓",
         "actionType": "drag",
@@ -496,15 +432,15 @@
           {
             "id": "vo6",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 2
           }
         ],
-        "nextStep": "step14"
+        "nextStep": "step13"
       },
       {
-        "id": "step14",
+        "id": "step13",
         "textE": "Put the little bones in water",
         "textH": "nə́w̓əx tə st̕ᶿát̕ᶿəm̓ ʔi tə qáʔ",
         "actionType": "drag",
@@ -519,17 +455,17 @@
           {
             "id": "vo5",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 1
           }
         ],
         "feedbackE": "This will wash the bones",
         "feedbackH": "HUNQ - this will wash the bones",
-        "nextStep": "step15"
+        "nextStep": "step14"
       },
       {
-        "id": "step15",
+        "id": "step14",
         "textE": "Then remove the little bones",
         "textH": "méʔx tə st̕ᶿát̕ᶿəm̓",
         "actionType": "drag",
@@ -544,17 +480,17 @@
           {
             "id": "vo2",
             "role": "target",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 1
           }
         ],
         "feedbackE": "The bones will dry",
         "feedbackH": "HUNQ - the bones will dry",
-        "nextStep": "step16"
+        "nextStep": "step15"
       },
       {
-        "id": "step16",
+        "id": "step15",
         "textE": "We finished. Look at our beads",
         "textH": "shá∙y ct. k̓ʷécət tə sq",
         "actionType": "special",
@@ -562,7 +498,7 @@
           {
             "id": "vo6",
             "role": "decoration",
-            "position": [0.7, 0.3],
+            "position": [0.7, 0.5],
             "widthPercent": 0.20,
             "depth": 0
           }

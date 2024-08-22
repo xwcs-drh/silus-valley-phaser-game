@@ -2,9 +2,10 @@ export default class LargeTextButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text, callback, width = 190, height = 50) {
     super(scene, Math.floor(x), Math.floor(y));
 
+    console.log(`devicePixelRatio: ${window.devicePixelRatio}`);
     const textStyle = {
         fontFamily: 'Unbounded',
-        fontSize: `${Math.min(width, height) * 0.4}px`, // Adjust the multiplier as needed
+        fontSize: `${Math.min(width, height) * 0.4}px`,
         fill: '#fff',
         strokeThickness: 0.5,
         resolution: window.devicePixelRatio

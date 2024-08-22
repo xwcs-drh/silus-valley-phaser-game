@@ -62,16 +62,16 @@ export default class PopupScene extends Phaser.Scene {
         this.blockerDepth = 120;
         // this.blocker = this.createBlocker();
 
-        const gameWidth = this.sys.game.config.width;
-        const gameHeight = this.sys.game.config.height;
+        this.gameWidth = this.sys.game.config.width;
+        this.gameHeight = this.sys.game.config.height;
 
         // Calculate popup dimensions (80% of game dimensions)
-        const popupWidth = gameWidth * 0.8;
-        const popupHeight = gameHeight * 0.8;
+        this.popupWidth = this.gameWidth * 0.8;
+        this.popupHeight = this.gameHeight * 0.8;
 
         // Calculate popup position (centered)
-        const popupX = (gameWidth - popupWidth) / 2;
-        const popupY = (gameHeight - popupHeight) / 2;
+        this.popupX = (this.gameWidth - this.popupWidth) / 2;
+        this.popupY = (this.gameHeight - this.popupHeight) / 2;
 
         // Add a background overlay for the entire game area
         // const background = this.add.rectangle(0, 0, gameWidth, gameHeight, 0x000000, 1) //(x,y,w,h,c,a)
@@ -79,13 +79,13 @@ export default class PopupScene extends Phaser.Scene {
           // .setInteractive();
 
         // Create a container for the popup content
-        this.popupContainer = this.add.container(popupX, popupY)
-          .setSize(popupWidth, popupHeight);
+        this.popupContainer = this.add.container(this.popupX, this.popupY)
+          .setSize(this.popupWidth, this.popupHeight);
 
         // Add a background for the popup container
         
-        const popupBackground = this.add.image(popupWidth / 2, popupHeight / 2, this.backgroundKey)
-            .setDisplaySize(popupWidth, popupHeight)
+        const popupBackground = this.add.image(this.popupWidth / 2, this.popupHeight / 2, this.backgroundKey)
+            .setDisplaySize(this.popupWidth, this.popupHeight)
             .setOrigin(0.5, 0.5) // Center the background within the popup container
             .setDepth(119)
             .setInteractive();
@@ -94,7 +94,7 @@ export default class PopupScene extends Phaser.Scene {
 
 
         // Close button
-        const closeButton = this.add.text(popupWidth - 40, 10, 'X', { fontSize: '32px', fill: '#000' })
+        const closeButton = this.add.text(this.popupWidth - 40, 10, 'X', { fontSize: '32px', fill: '#000' })
             .setInteractive()
             .on('pointerdown', () => this.closePopup())
             .setDepth(119);
@@ -119,10 +119,10 @@ export default class PopupScene extends Phaser.Scene {
         - centerXAt (bool) = default false, but if the developer wants the content to be centered in the popup window, set to true
     */
     addContentToPopup(xPercent, yPercent, content, centerXAt = false) {
-        const popupWidth = this.popupContainer.width;
-        const popupHeight = this.popupContainer.height;
-        let contentX = popupWidth * xPercent;
-        const contentY = popupHeight * yPercent;
+        // const popupWidth = this.popupContainer.width;
+        // const popupHeight = this.popupContainer.height;
+        let contentX = this.popupWidth * xPercent;
+        const contentY = this.popupHeight * yPercent;
 
         if (centerXAt) {
             contentX -= content.width / 2;
