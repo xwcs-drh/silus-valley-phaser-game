@@ -16,15 +16,17 @@ export default class ManualPopupScene extends PopupScene {
         super.create();
 
 
-        //Style for Setting header text
-        this.h1Style = this.textStyle = {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.popupWidth * 0.025}px`,
-            fill: '#000',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
-        };
+        const popupHeaderStyle = { ...this.game.global.baseStyles.popupHeaderFontStyle, fontSize: `${this.popupWidth * 0.025}px`};
+
+        // //Style for Setting header text
+        // this.h1Style = this.textStyle = {
+        //     fontFamily: 'Unbounded',
+        //     fontSize: `${this.popupWidth * 0.025}px`,
+        //     fill: '#000',
+        //     strokeThickness: 0.5,
+        //     resolution: window.devicePixelRatio,
+        //     wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
+        // };
 
         //Style for Setting label text
         this.h2Style = this.textStyle = {
@@ -39,7 +41,7 @@ export default class ManualPopupScene extends PopupScene {
         // Add specific content for the manual popup
 
         if (this.popupContainer) {
-            const headerText = this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.1, 'Instructions', this.h1Style)
+            const headerText = this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.1, 'Instructions', popupHeaderStyle)
             headerText.setOrigin(0.5);
             // this.addContentToPopup(0, 0, headerText, true); // Positioning text at 5% from the top-left corner
 

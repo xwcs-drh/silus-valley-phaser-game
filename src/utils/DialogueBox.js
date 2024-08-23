@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import FontStyles from '../assets/fonts/FontStyles';
 
 export default class DialogueBox extends Phaser.GameObjects.Container {
   constructor(scene, dialogueManager, x, y, callback, width = 590, height = 100, boxRadius = 20, buttonRadius = 10) {
@@ -32,8 +33,7 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     const background = this.createBackgroundAndBorder(scene, this.width, this.height, boxRadius);
 
     // Create the dialogue text object
-    this.dialogueText = scene.add.text(0, 0, "", textStyle).setOrigin(0.5);
-
+    this.dialogueText = scene.add.text(0, 0, "", {...this.scene.game.baseSceneGenericStyles.dialogueFontStyle, wordWrap: { width: this.width *0.9, useAdvancedWrap: true }}).setOrigin(0.5);
 
     // Calculate the button position relative to the dialogue box
     const buttonOffsetX = this.width / 2 - 10;  // Adjust the button's X position relative to the right edge
