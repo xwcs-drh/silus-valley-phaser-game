@@ -62,7 +62,9 @@ export default class SettingsPopupScene extends PopupScene {
     */
     createLangRadioButtons(x, y) {
         const lang1 = 'English';
-        const lang2 = 'Hən͗q͗əmin͗əm͗';
+        const lang2 = 'hən̓q̓əmin̓əm̓';
+
+        // Hən͗q͗əmin͗əm͗
         const defaultLang = this.playerDataManager.getUserLanguage() === "E" ? lang1 : lang2;
         const radioButtonPair = new LangRadioButtons(this, x, y, lang1, lang2, defaultLang, (language) => {
             this.updateUserLanguage(language);
