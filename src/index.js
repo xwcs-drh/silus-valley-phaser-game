@@ -1,7 +1,11 @@
 //This is the config file for the active version of Silu's Valley, not the draft code.
 //define basic characteristics of the game and import scenes
 
+import "core-js/stable";
+import 'regenerator-runtime/runtime';
+
 import Phaser from 'phaser';
+import TestScene from './scenes/TestScene';
 import BootScene from './scenes/BootScene';
 import StartMenuScene from './scenes/StartMenuScene';
 import OpeningIntroductionScene from './scenes/OpeningIntroductionScene';
@@ -11,6 +15,8 @@ import TraditionalActivitiesMenuScene from './scenes/TraditionalActivitiesMenuSc
 import TraditionalActivityMinigameScene from './scenes/TraditionalActivityMinigameScene';
 import VocabMinigamesMenuScene from './scenes/VocabMinigamesMenuScene';
 import VocabWheelMinigameScene from './scenes/VocabWheelMinigameScene';
+
+
 
 // import gameConfig from './config';
 
@@ -31,16 +37,15 @@ console.log('canvas width:', window.innerWidth);
 console.log('canvas height:', window.innerWidth / aspectRatio);
 // Create an array of all scenes including the UI scenes
 var config = {
+	type: Phaser.AUTO,
+	backgroundColor: 0x000000,
 	// width: newWidth,
 	// height: newHeight,
-	// width: 1016,
-	// height: 508,
-	width: window.innerWidth,
-	height: window.innerWidth/aspectRatio,
+	// width: window.innerWidth,
+	// height: window.innerWidth/aspectRatio,
 
-	resolution: window.devicePixelRatio||2,
+	// resolution: window.devicePixelRatio||2,
 	// resolution: Math.max(window.innerWidth / 2032, window.innerHeight / 1016),
-	backgroundColor: 0x000000,
 	scene: [
 		BootScene, 
 		StartMenuScene,
@@ -51,24 +56,25 @@ var config = {
 		TraditionalActivityMinigameScene,
 		VocabMinigamesMenuScene,
 		VocabWheelMinigameScene,
+		TestScene // test font issues and text rendering here
 	], //list of all scenes used
 	scale: {
+		mode: Phaser.Scale.FIT,
+		parent: 'game-div',
+		width: 1000,
+		height: 500,
+		autoCenter:Phaser.Scale.CENTER_HORIZONTALLY
 		// mode:Phaser.CANVAS
 		// mode:Phaser.Scale.LANDSCAPE,
 	    // mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT, 
 		// mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
-		mode: Phaser.Scale.FIT,
 		// mode: Phaser.Scale.ENVELOP,
 	    // autoCenter: Phaser.Scale.CENTER_BOTH
-		autoCenter:Phaser.Scale.CENTER_HORIZONTALLY
 	 },
-	parent: 'phaser-example',
 };
 
 //pass config in as a parameter of the game
 var game = new Phaser.Game(config);
-
-// adjustCanvasSize();
 
 function adjustCanvasSize() {
     const canvas = game.canvas;
@@ -86,6 +92,6 @@ function adjustCanvasSize() {
 // window.addEventListener('resize', adjustCanvasSize);
 // adjustCanvasSize();
 
-console.log('Phaser game initialized:', game);
-console.log('index.js: Phaser game initialized with scenes:', config.scene.map(s => s.name));
+// console.log('Phaser game initialized:', game);
+// console.log('index.js: Phaser game initialized with scenes:', config.scene.map(s => s.name));
 

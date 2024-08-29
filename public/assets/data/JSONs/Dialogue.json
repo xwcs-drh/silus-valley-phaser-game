@@ -1,0 +1,469 @@
+[{
+  "scene_reference_name": "OpeningIntroductionScene",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "Welcome, grandchild!",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+ 	  },
+    {
+      "order": 2,
+      "textE": " Something about visiting silə",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },    
+    {
+      "order": 3,
+      "textE": "Something about silə teaching granchild",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 4,
+      "textE": "Grandchild will work with cedar",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 5,
+      "textE": "Grandchild will work with fish",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 6,
+      "textE": "Grandchild will work with medicine",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 7,
+      "textE": "Grandchild will learn/practice their hən̓q̓əmin̓əm̓ ",
+      "textH": "...",
+      "conditions": "",
+      "functions": [
+        {
+          "sequence": "after",
+          "functionReference": "showMapButton",
+          "args": [""]
+        }
+      ]
+    }
+  ]
+},
+{
+  "scene_reference_name": "MainMapScene",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "Grandchild will work with cedar in silə's backyard/little forest",
+      "textH": "hulq - Grandchild will work with cedar in silə's backyard/little forest",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["littleForest_area"]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "textE": "Grandchild will get fish from the river",
+      "textH": "Hulq - Grandchild will get fish from the river",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["littleForest_area"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["river_area"]
+        }
+      ]
+    },    
+    {
+      "order": 3,
+      "textE": "Grandchild will work with medicine in silə's backyard/garden/little forest",
+      "textH": "hulq - Grandchild will work with medicine in silə's backyard/garden/little forest",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["river_area"]
+        },{
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["littleForest_area"]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "textE": "Grandchild will get fish from the river",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["littleForest_area"]
+        },{
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["river_area"]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "textE": "you will practice your hən̓q̓əmin̓əm̓ through x/y/z",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["river_area"]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "textE": "now go to little forest",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["littleForest_area"]
+        },
+        {
+          "sequence": "after",
+          "functionReference": "arrowService.pointAtObject",
+          "args": ["littleForest_area"]
+        }
+      ]
+    }   
+  ]
+},
+{
+  "scene_reference_name": "littleForest",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "Welcome to silə's backyard",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": []
+    },
+    {
+      "order": 2,
+      "textE": "in silə's backyard, you can do traditional activities with cedar, fish, and medicine",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "textE": "and practice the vocab that is centered around them",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["workbench"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["signpost"]
+        }
+      ]
+    },    
+    {
+      "order": 4,
+      "textE": "As you finish traditional activities, you get materials for the other activities",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["signpost"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "textE": "Let's play",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["workbench"]
+        }
+      ]
+    }
+  ]
+},
+{
+  "scene_reference_name": "river",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "Welcome to silə's river",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": []
+    },
+    {
+      "order": 2,
+      "textE": "in the river, you can do traditional activities with fish",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "textE": "and practice the vocab that is centered around them",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["workbench"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["signpost"]
+        }
+      ]
+    },    
+    {
+      "order": 4,
+      "textE": "As you finish traditional activities, you get materials for the other activities",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["signpost"]
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.highlightObject",
+          "args": ["workbench"]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "textE": "Let's play",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": ["workbench"]
+        }
+      ]
+    }
+  ]
+},
+{
+  "scene_reference_name": "vocabBaseScene",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "lets practice hən̓q̓əmin̓əm̓",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 2,
+      "textE": "lets practice hən̓q̓əmin̓əm̓",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 3,
+      "textE": "you'll play vocabulary games centered around the game vocab such as plants, tools, fish, etc. ",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": []
+    },    
+    {
+      "order": 4,
+      "textE": "click a category",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["semantic_category_select", 2000]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "textE": "Choose a game",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["game_type_select", 2000]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "textE": "Let's Work",
+      "textH": "...",
+      "conditions": "",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["play_button", 2000]
+        }
+      ]
+    }
+  ]
+},
+{
+  "scene_reference_name": "traditionalActivitiesBaseScene",
+  "dialogues": [
+    {
+      "order": 1,
+      "textE": "This is where you do your traditional activities!",
+      "textH": "...",
+      "conditions": "",
+      "functions": []
+    },
+    {
+      "order": 2,
+      "text": "This is where you can choose an activity",
+      "conditions": "not returningPlayer",
+      "functions": []
+    },
+    {
+      "order": 3,
+      "textE": "Need help? Click here for a walk-through on how to use the workbench!",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["manual", 2000]
+        }
+      ]
+    },    
+    {
+      "order": 4,
+      "textE": "Your completed how-to guides are here",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["recipe_book", 2000]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "textE": "As you finish traditional activities, you get materials for the other activities",
+      "textH": "...",
+      "conditions": "not returningPlayer",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["inventory_basket", 2000]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "textE": "This is where your materials are after you complete an activity",
+      "textH": "...",
+      "conditions": "",
+      "functions": [
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.clearHighlight",
+          "args": []
+        },
+        {
+          "sequence": "during",
+          "functionReference": "highlightService.tempHighlightObject",
+          "args": ["inventory_basket", 2000]
+        }
+      ]
+    }
+  ]
+}]

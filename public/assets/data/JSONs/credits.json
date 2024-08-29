@@ -1,0 +1,28 @@
+[
+  {
+    "category": "Project Managers",
+    "name": [
+      "Abigail Cunningham",
+      "Heather Gunn"
+    ]
+  },
+  { "category": "Artists",
+    "name": [
+      "Lilly Teare Cunningham"
+    ]
+  },
+  { 
+    "category": "Developers",
+    "name": [
+      "Chloe Farr",
+      "Zack Gilkison"
+    ]
+  },
+  { 
+    "category": "Language Consultants",
+    "name": [
+      "Kaitlyn Cunningham",
+      "Victor"
+    ]
+  }
+]

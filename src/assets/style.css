@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Radio-Canada';
+    src: 
+    url('assets/fonts/RadioCanada-VariableFont_wdth\,wght.ttf') format('truetype'),
+    url('assets/fonts/RadioCanada-Italic-VariableFont_wdth\,wght.ttf') format ("truetype");
+  }
+  
+@font-face {
+    font-family: 'BC Sans';
+    src:
+        url('assets/fonts/2023_01_01_BCSans-Regular_2f.ttf') format('truetype')
+}
+body {
+    margin: 20px;
+}

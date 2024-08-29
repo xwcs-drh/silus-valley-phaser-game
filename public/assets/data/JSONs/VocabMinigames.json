@@ -1,0 +1,71 @@
+[{
+  "id": "g1",
+  "nameE": "catchFish_challenge", 		
+  "morphologicalCategory": "noun", 		
+  "semanticCategory": "fish",
+  "gameformat": { 
+      "type": "spawning",
+      "direction": "leftward",
+      "spawnPosition": "bottom_right",
+      "movementSpeed": 10,	
+      "mode": "challenge"
+    },
+  "inBiome": "b2", 				
+  "SceneConstructor_identifier":"vocabGameSpawningScene",	
+  "vocabularyIds": ["v1", "v2", "v3"]
+
+},
+{
+  "id": "g2",
+  "nameE": "pick plants",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plant",
+  "gameformat": {
+      "type": "matchWords",
+      "pairingMode": "visual_to_H"
+   },
+  "inBiome": "b1",
+   "SceneConstructor_identifier":"vocabGameMatchWordsScene",	
+  "vocabularyIds": ["v4", "v5", "v6"]
+},
+{
+  "id": "g3",
+  "nameE": "matchColours",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "colour",
+  "gameformat": {
+      "type": "VocabWheel",
+      "pairingMode": "visual_to_H"
+   },
+  "optionZone": [0.5, 0.2, 0.9, 0.8],
+  "SceneConstructor_identifier":"vocabGameVocabWheelScene",	
+  "backgroundFilename": "yellow_wash_background.jpg",
+  "vocabulary":[{
+    "id": "vo1",
+    "wordE": "red",
+    "wordH": "hunq - red",
+    "draggableImage": "redImage.png",
+    "targetImage": "redImage.png"
+  },
+  {
+    "id": "vo2",
+    "wordE": "blue",
+    "wordH": "hunq - blue",
+    "draggableImage": "blueImage.png",
+    "targetImage": "blueImage.png"
+  },
+  {
+    "id": "vo3",
+    "wordE": "green",
+    "wordH": "hunq - green",
+    "draggableImage": "greenImage.png",
+    "targetImage": "greenImage.png"
+  },
+  {
+    "id": "vo4",
+    "wordE": "yellow",
+    "wordH": "hunq - yellow",
+    "draggableImage": "yellowImage.jpg",
+    "targetImage": "yellowImage.jpg"
+  }]
+}]

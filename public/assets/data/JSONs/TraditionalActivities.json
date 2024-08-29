@@ -1,0 +1,158 @@
+[
+  {
+    "id": "ta1",
+    "nickname": "gardening",
+    "nameE": "let’s garden",
+    "nameH": "...",
+    "description": "brief explanation about gardening",
+    "content": "...",
+    "vocabulary": [
+      "vo1", "vo2", "vo3", "vo4", "vo5", "vo6", "vo7", "vo8", "vo9", "vo10", "vo11", "vo12", "vo25", "vo26", "vo27", "vo28", "vo29", "vo30"
+    ],
+    "biome": "b1",
+    "requiredResources": {
+      "r1": 100,
+      "r3": 300
+    },
+    "awardedResources": {
+      "r1": 1
+    },
+    "thumbnailFilename": "gardeningActivityThumbnail.jpg",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta2",
+    "nickname": "fishing",
+    "nameE": "let's fish",
+    "nameH": "...",
+    "description": "brief explanation about fishing",
+    "content": "...",
+    "vocabulary": ["vo1", "vo2", "vo3"],
+    "biome": "b2",
+    "requiredResources": {"r1": 100},
+    "awardedResources": {
+      "r2": 1
+    },
+    "thumbnailFilename": "fishingActivityThumbnail.jpg",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta3",
+    "nickname": "making tea",
+    "nameE": "let's make tea",
+    "nameH": "...",
+    "description": "brief explanation about making tea",
+    "content": "...",
+    "vocabulary": ["vo1", "vo2", "vo3"],
+    "biome": "b1",
+    "requiredResources": {
+      "r1": 1
+    },
+    "awardedResources": {
+      "r3": 1
+    },
+    "thumbnailFilename": "teaActivityThumbnail.png",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta4",
+    "nickname": "making devils club beads",
+    "nameE": "let's make devils club beads",
+    "nameH": "...",
+    "description": "brief explanation about making devils club beads",
+    "content": "...",
+    "vocabulary": ["vo13", "vo14", "vo15", "vo16", "vo17", "vo18", "vo19", "vo33", "vo34"],
+    "biome": "b1",
+    "requiredResources": {
+      "r1": 1
+    },
+    "awardedResources": {
+      "devils_club_beads": 1
+    },
+    "thumbnailFilename": "teaActivityThumbnail.png",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta5",
+    "nickname": "making salve",
+    "nameE": "let’s make salve",
+    "nameH": "ʔi ɬé θə́yt tə sléx̌ən̓",
+    "description": "brief explanation about making salve",
+    "content": "...",
+    "vocabulary": [
+      "vo13", "vo20", "vo21", "vo22", "vo23", "vo24", "vo25", "vo26", "vo27", "vo28", "vo29", "vo30", "vo31", "vo32"
+    ],
+    "biome": "b1",
+    "requiredResources": {
+      "r1": 1,
+      "r3": 2
+    },
+    "awardedResources": {
+      "r5": 1
+    },
+    "thumbnailFilename": "salveActivityThumbnail.png",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta6",
+    "nickname": "making fish bone beads",
+    "nameE": "let’s make fish bone beads",
+    "nameH": "...",
+    "description": "brief explanation about making fish bone beads",
+    "content": "...",
+    "vocabulary": ["vo1", "vo2", "vo3", "vo34"],
+    "biome": "b1",
+    "requiredResources": {
+      "r2": 1
+    },
+    "awardedResources": {
+      "r6": 1
+    },
+    "thumbnailFilename": "fishBoneBeadsActivityThumbnail.png",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta7",
+    "nickname": "making fish leather",
+    "nameE": "let’s make fish leather",
+    "nameH": "...",
+    "description": "brief explanation about making fish leather",
+    "content": "...",
+    "vocabulary": ["vo1", "vo2", "vo3"],
+    "biome": "b1",
+    "requiredResources": {
+      "r2": 1
+    },
+    "awardedResources": {
+      "r7": 1
+    },
+    "thumbnailFilename": "fishLeatherActivityThumbnail.png",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  },
+  {
+    "id": "ta8",
+    "nickname": "smoking fish",
+    "nameE": "let’s smoke fish",
+    "nameH": "...",
+    "description": "brief explanation about smoking fish",
+    "content": "...",
+    "vocabulary": ["vo1", "vo2", "vo3"],
+    "biome": "b1",
+    "requiredResources": {
+      "r2": 1
+    },
+    "awardedResources": {
+      "r8": 1
+    },
+    "thumbnailFilename": "smokedFishActivityThumbnail.png",
+    "instructionsE": ["instruction1", "instruction2"],
+    "instructionsH": ["instruction1", "instruction2"]
+  }
+]

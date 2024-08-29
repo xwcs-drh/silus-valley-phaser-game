@@ -18,9 +18,12 @@ vocabulary/*.svg
 webpack.config.js
 
 # Ignore package files
-package-lock.json
-package.json
+# package-lock.json
+# package.json
 
 # Ignore temporary files
 *.tmp
 *.log
+
+# ignore macos added file
+.DS_Store
