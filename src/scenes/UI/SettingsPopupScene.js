@@ -28,7 +28,6 @@ export default class SettingsPopupScene extends PopupScene {
             fontSize: `${this.popupWidth * 0.025}px`,
             fill: '#000',
             strokeThickness: 0.5,
-            resolution: window.devicePixelRatio,
             wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
         };
 
@@ -38,7 +37,6 @@ export default class SettingsPopupScene extends PopupScene {
             fontSize: `${this.popupWidth * 0.02}px`,
             fill: '#000',
             strokeThickness: 0.5,
-            resolution: window.devicePixelRatio,
             wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
         };
 
@@ -76,7 +74,7 @@ export default class SettingsPopupScene extends PopupScene {
     updateUserLanguage(language) {
         if (language === 'English') {
             this.playerDataManager.updateUserLanguage('E');
-        } else if (language === 'Hən͗q͗əmin͗əm͗') {
+        } else if (language === 'hən̓q̓əmin̓əm̓') {
             this.playerDataManager.updateUserLanguage('H');
         }
         console.log(`User language updated to: ${language}`);

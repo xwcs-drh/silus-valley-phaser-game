@@ -6,7 +6,6 @@ import SceneManager from '../managers/SceneManager';
 import * as UIScenes from './UI/UIScenes'; // Import all UI scenes from UIScenes.js
 import UserSettingsManager from '../managers/UserSettingsManager';
 import DialogueManager from '../managers/DialogueManager';
-import FontStyles from '../assets/fonts/FontStyles'
 
 export default class BootScene extends Phaser.Scene {
     /*
@@ -14,21 +13,19 @@ export default class BootScene extends Phaser.Scene {
     */
     constructor() {
         super({key: 'BootScene'});
-        console.log('Bootscene: constructor');
-        this.fontsLoaded = false;
+        // console.log('Bootscene: constructor');
         this.managersLoaded = false;
     }
 
     preload() {
-        console.log('Bootscene: preload');
-        
-        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load
+            .json('allScenesData', 'assets/data/JSONs/Scenes.json');
 
-        this.fontStyles = new FontStyles(this);
-        this.fontStyles.load();
+        // this.fontStyles = new FontStyles(this);
+        // this.fontStyles.load();
 
         //Preload and cache JSON data files
-        this.load.json('allScenesData', './assets/data/JSONs/Scenes.json');
+        // this.load.json('allScenesData', 'assets/data/JSONs/Scenes.json');
         this.load.json('allDialogueData', './assets/data/JSONs/Dialogue.json');
         this.load.json('allBiomesData', './assets/data/JSONs/Biomes.json');
         this.load.json('allResourcesData', './assets/data/JSONs/Resources.json');
@@ -37,34 +34,10 @@ export default class BootScene extends Phaser.Scene {
         this.load.json('playerData', './assets/data/JSONs/PlayerData.json'); // Load player data for testing
         this.load.json('allVocabularyData', './assets/data/JSONs/Vocabulary.json');
         
-         // Listen for the 'fonts-loaded' event
-         this.events.on('fonts-loaded', () => {
-            this.fontsLoaded = true;
-            // console.log('Fonts loaded:', this.fontsLoaded, this.game.global.baseSceneGenericStyles); // Check if global styles are set
-            this.game.baseSceneGenericStyles = this.game.global.baseSceneGenericStyles;
-            // console.log('Fonts saved:', this.fontsLoaded, this.game.baseSceneGenericStyles); // Check if global styles are set
-            this.checkIfReady();
-        });
-
-        window.addEventListener('resize', () => {
-            this.fontStyles.updateFontResolution();
-            this.updateTextElementsResolution();
-        });
     }
 
     create() {
-        // Adjust canvas size
-        const { width, height } = this.sys.game.canvas;
-        this.sys.game.config.width = width;
-        this.sys.game.config.height = height;
-        this.scale.resize(width, height);
 
-        // Store canvas dimensions for easy access
-        this.canvasWidth = width;
-        this.canvasHeight = height;
-
-        console.log('boot scene: create');
-        // Initialize global state
         this.game.global = {
             currentBiomeID: null,
             currentSceneKey: null,    
@@ -85,47 +58,18 @@ export default class BootScene extends Phaser.Scene {
         this.initializeManagers();
 
         //Initialize DialogueManager and store it in the global object.
-        // this.loadDialogueManager();
+        this.loadDialogueManager();
 
-        //Initialize the scene manager
-        // this.game.sceneManager = new SceneManager(this.game, this.game.dataManager, "BootScene");
+        // const fontStyles = new FontStyles();
+        // fontStyles.setupGlobalFontStyles(this.game)
 
         this.managersLoaded = true;
-        this.checkIfReady();
+
         
-
-        // this.game.scene.launch("MainUIScene");
+        this.game.sceneManager.changeScene('StartMenuScene')
         //Initialize UIManager and register scenes
-        // this.initializeUI();
-        // Set up a resize listener
 
     }
-    
-    //Start the Main User scene - contains "Start" button, and "Credits", "Manual", "Settings" buttons.
-    checkIfReady() {
-        if (this.fontsLoaded && this.managersLoaded) {
-            // console.log('Fonts loaded:', this.game.baseSceneGenericStyles);
-            this.game.sceneManager.changeScene('StartMenuScene');
-        }
-    }
-
-    updateTextElementsResolution() {
-        // Iterate through all scenes and update text elements' resolution
-        this.scene.manager.scenes.forEach(scene => {
-            scene.children.list.forEach(child => {
-                if (child instanceof Phaser.GameObjects.Text) {
-                    const fontFamily = child.style.fontFamily.split(',')[0].trim(); // Extract the primary font family
-                    const style = this.game.baseSceneGenericStyles.headerFontStyle; // Use a default style for simplicity
-                    if (style) {
-                        child.setStyle({ resolution: style.resolution });
-                    } else {
-                        console.warn(`Font family ${fontFamily} not found in global styles`);
-                    }
-                }
-            });
-        });
-    }
-
     /*
     Loads JSON data into Data Manager.
     JSON data preloaded in BootScene.preload();
@@ -138,7 +82,6 @@ export default class BootScene extends Phaser.Scene {
     loadDataManager(){
         //Initialize DataManager and store it in the global object.
         this.game.dataManager = new DataManager();
-        console.log(this.game.dataManager);
         this.game.dataManager.setAllScenesData(this.cache.json.get('allScenesData'));
         this.game.dataManager.setAllBiomesData(this.cache.json.get('allBiomesData'));
         this.game.dataManager.setAllResourcesData(this.cache.json.get('allResourcesData')); 
@@ -146,6 +89,7 @@ export default class BootScene extends Phaser.Scene {
         this.game.dataManager.setAllDialogueData(this.cache.json.get('allDialogueData')); 
         this.game.dataManager.setAllVocabularyMinigameData(this.cache.json.get('allVocabularyMinigameData')); 
         this.game.dataManager.setAllVocabularyData(this.cache.json.get('allVocabularyData')); 
+
     }
 
     //Declare PlayerDataManager - manages variables related to a specific player's status
@@ -153,7 +97,7 @@ export default class BootScene extends Phaser.Scene {
         this.game.playerDataManager = new PlayerDataManager(this.game.dataManager);
         const playerData = this.cache.json.get('playerData');
         this.game.playerDataManager.loadPlayerData(playerData);
-        console.log(this.game.playerDataManager.getSettings());
+        // console.log(this.game.playerDataManager.getSettings());
     }
 
     /*

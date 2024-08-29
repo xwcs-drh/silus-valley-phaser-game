@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import textStyles from '../ui/TextStyles';
 
 class LangRadioButtons extends Phaser.GameObjects.Container {
     constructor(scene, x, y, lang1, lang2, defaultLang, callback, backgroundKey, width = 220, height = 40) {
@@ -8,8 +9,8 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         this.lang2 = lang2;
         this.defaultLang = defaultLang;
         this.callback = callback;
-        this.width = this.scene.sys.game.config.width*0.2;
-        this.height = this.scene.sys.game.config.height*0.07;
+        this.width = 1000*0.2;
+        this.height = 500*0.07;
         this.buttonBackground = backgroundKey;
 
 
@@ -46,13 +47,7 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         buttonBackground.setDisplaySize(this.width / 2, this.height);
         buttonBackground.setTint(this.unselectedColor);
 
-        const buttonText = this.scene.add.text(0, 0, text, {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width*0.065}px`,
-            fill: '#fff',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio
-        }).setOrigin(0.5);
+        const buttonText = this.scene.add.text(0, 0, text, textStyles.body).setOrigin(0.5);
 
         radioButton.add(buttonBackground);
         radioButton.add(buttonText);
