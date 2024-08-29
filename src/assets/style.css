@@ -1,9 +1,10 @@
 @font-face {
     font-family: 'Radio-Canada';
     src: 
-    url('assets/fonts/RadioCanada-VariableFont_wdth\,wght.ttf') format("truetype"),
+    url('assets/fonts/RadioCanada-VariableFont_wdth\,wght.ttf') format('truetype'),
     url('assets/fonts/RadioCanada-Italic-VariableFont_wdth\,wght.ttf') format ("truetype");
   }
+  
 @font-face {
     font-family: 'BC Sans';
     src:
