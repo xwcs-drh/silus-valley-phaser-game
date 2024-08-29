@@ -13,7 +13,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            assets: path.join(__dirname, '../src/assets')
+            assets: path.join(__dirname, 'src/assets')
         }
     },
     module: {
@@ -31,7 +31,7 @@ module.exports = {
             },
             {
                 test: /\.(gif|png|jpe?g|svg|xml|glsl)$/i,
-                use: "asset/resource"
+                type: "asset/resource"
             },
             {
                 test: /\.css$/i,
