@@ -1,0 +1,56 @@
+[{
+  "id": "b1",
+  "nameE": "Little Forest",
+  "nameH": "...",
+  "unlocked": "true",
+  "scene_constructor_identifier": "biomeHome",
+  "biome_reference_name": "littleForest",
+  "icon_filename":"silu_valley_littleForest.png",
+  "description": "something about the backyard/ little forest biome",
+  "traditionalActivities": ["ta1", "ta3", "ta4", "ta5", "ta6", "ta7", "ta8"]
+},
+{
+  "id": "b2",
+  "nameE": "River",
+  "nameH": "stal̓əw̓",
+  "unlocked": "true",
+  "scene_constructor_identifier": "biomeHome",
+  "icon_filename": "silu_valley_river.png",
+  "biome_reference_name": "river",
+  "description": "something about the river biome",
+  "traditionalActivities": ["ta2"]
+},
+{
+  "id": "b3",
+  "nameE": "Big Forest",
+  "nameH": "...",
+  "unlocked": "false",
+  "scene_constructor_identifier": "biomeHome",
+  "icon_filename": "silu_valley_bigForest.png",
+  "biome_reference_name": "bigForest",
+  "description": "something about the river biome",
+  "traditionalActivities": [""]
+},
+{
+  "id": "b4",
+  "nameE": "Across River",
+  "nameH": "...",
+  "unlocked": "false",
+  "scene_constructor_identifier": "biomeHome",
+  "icon_filename": "silu_valley_acrossRiver.png",
+  "biome_reference_name": "acrossRiver",
+  "description": "something about the across-the-river biome",
+  "traditionalActivities": [""]
+},
+{
+  "id": "b5",
+  "nameE": "Mountains",
+  "nameH": "...",
+  "unlocked": "false",
+  "scene_constructor_identifier": "biomeHome",
+  "icon_filename": "silu_valley_mountains.png",
+  "biome_reference_name": "mountains",
+  "description": "something about the mountains biome",
+  "traditionalActivities": [""]
+}
+]

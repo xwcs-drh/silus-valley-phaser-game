@@ -1,0 +1,340 @@
+[{
+  "id": "vo1",
+  "nameE": "patch",
+  "nameH": "q̓ʷéx̌t",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "world_around_us",
+  "inBiomes": ["b1"],
+  "audioFilename": "patch.wav",	      
+  "imageFilename": "patch.svg"
+},
+{
+  "id": "vo2",
+  "nameE": "land",
+  "nameH": "təməxʷ",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "world_around_us",
+  "inBiomes": ["b1"],
+  "audioFilename": "land.wav",	      
+  "imageFilename": "land.svg"
+},
+{
+  "id": "vo3",
+  "nameE": "water",
+  "nameH": "qaʔ",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "world_around_us",
+  "inBiomes": ["b1", "b2"],
+  "audioFilename": "water.wav",	      
+  "imageFilename": "water.svg"
+},
+{
+  "id": "vo4",
+  "nameE": "sun",
+  "nameH": "syaqʷəm",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "world_around_us",
+  "inBiomes": ["b1"],
+  "audioFilename": "sun.wav",	      
+  "imageFilename": "sun.svg"
+},
+{
+  "id": "vo5",
+  "nameE": "rain",
+  "nameH": "słəməxʷ",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "world_around_us",
+  "inBiomes": ["b1"],
+  "audioFilename": "rain.wav",	      
+  "imageFilename": "rain.svg"
+},
+{
+  "id": "vo6",
+  "nameE": "dig it",
+  "nameH": "θe̓yqʷt",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "gardening",
+  "inBiomes": ["b1"],
+  "audioFilename": "digging.wav",	      
+  "imageFilename": "digging.svg"
+},
+{
+  "id": "vo7",
+  "nameE": "plant it",
+  "nameH": "pə́nət",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "gardening",
+  "inBiomes": ["b1"],
+  "audioFilename": "planting.wav",	      
+  "imageFilename": "planting.svg"
+},
+{
+  "id": "vo8",
+  "nameE": "seed",
+  "nameH": "šxʷt̓ᶿəm̓íwən",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plants",
+  "inBiomes": ["b1"],
+  "audioFilename": "seed.wav",	      
+  "imageFilename": "seed.svg"
+},
+{
+  "id": "vo9",
+  "nameE": "scatter it",
+  "nameH": "ƛ̓ə́px̌t",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "gardening",
+  "inBiomes": ["b1"],
+  "audioFilename": "scatter.wav",	      
+  "imageFilename": "scatter.svg"
+},
+{
+  "id": "vo10",
+  "nameE": "seed something",
+  "nameH": "spən̓əm",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "gardening",
+  "inBiomes": ["b1"],
+  "audioFilename": "seeding.wav",	      
+  "imageFilename": "seeding.svg"
+},
+{
+  "id": "vo11",
+  "nameE": "seed something",
+  "nameH": "spən̓əm",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "gardening",
+  "inBiomes": ["b1"],
+  "audioFilename": "seeding.wav",	      
+  "imageFilename": "seeding.svg"
+},
+{
+  "id": "vo12",
+  "nameE": "devil’s club",
+  "nameH": "qʷáʔpəłp",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plants",
+  "inBiomes": ["b1"],
+  "audioFilename": "devils_club.wav",	      
+  "imageFilename": "devils_club.svg"
+},
+{
+  "id": "vo13",
+  "nameE": "devil’s club beads",
+  "nameH": "qʷáʔpəłp sxʷqʷin̓qʷən̓",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "devils_club_beads.wav",	      
+  "imageFilename": "devils_club_beads.svg"
+},
+{
+  "id": "vo14",
+  "nameE": "sew it",
+  "nameH": "p̓et̕ᶿət",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "sew.wav",	      
+  "imageFilename": "sew.svg"
+},
+{
+  "id": "vo15",
+  "nameE": "sewing needle",
+  "nameH": "p̓ət̕ᶿtən",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "sewing_needle.wav",	      
+  "imageFilename": "sewing_needle.svg"
+},
+{
+  "id": "vo16",
+  "nameE": "wrap",
+  "nameH": "qítət",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "wrap.wav",	      
+  "imageFilename": "wrap.svg"
+},
+{
+  "id": "vo17",
+  "nameE": "necklace",
+  "nameH": "sx̌ʷəq̓ʷɬəɬ",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "necklace.wav",	      
+  "imageFilename": "necklace.svg"
+},
+{
+  "id": "vo18",
+  "nameE": "string",
+  "nameH": "x̌ʷix̌ʷləm̓",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "string.wav",	      
+  "imageFilename": "string.svg"
+},
+{
+  "id": "vo19",
+  "nameE": "tie",
+  "nameH": "q̓ép̓ət",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "tie.wav",	      
+  "imageFilename": "tie.svg"
+},
+{
+  "id": "vo20",
+  "nameE": "salve",
+  "nameH": "sléx̌ən̓",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "medicine",
+  "inBiomes": ["b1"],
+  "audioFilename": "salve.wav",	      
+  "imageFilename": "salve.svg"
+},
+{
+  "id": "vo21",
+  "nameE": "pot",
+  "nameH": "stú·p",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "household",
+  "inBiomes": ["b1"],
+  "audioFilename": "pot.wav",	      
+  "imageFilename": "pot.svg"
+},
+{
+  "id": "vo22",
+  "nameE": "bowl",
+  "nameH": "...",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "household",
+  "inBiomes": ["b1"],
+  "audioFilename": "bowl.wav",	      
+  "imageFilename": "bowl.svg"
+},
+{
+  "id": "vo23",
+  "nameE": "stove",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "household",
+  "inBiomes": ["b1"],
+  "audioFilename": "stove.wav",	      
+  "imageFilename": "stove.svg"
+},
+{
+  "id": "vo24",
+  "nameE": "oil",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "food",
+  "inBiomes": ["b1"],
+  "audioFilename": "oil.wav",	      
+  "imageFilename": "oil.svg"
+},
+{
+  "id": "vo25",
+  "nameE": "burdock root",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plant",
+  "inBiomes": ["b1"],
+  "audioFilename": "burdock_root.wav",	      
+  "imageFilename": "burdock_root.svg"
+},
+{
+  "id": "vo26",
+  "nameE": "red clover",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plant",
+  "inBiomes": ["b1"],
+  "audioFilename": "red_clover.wav",	      
+  "imageFilename": "red_clover.svg"
+},
+{
+  "id": "vo27",
+  "nameE": "frog’s leaf",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plant",
+  "inBiomes": ["b1"],
+  "audioFilename": "frogs_leaf.wav",	      
+  "imageFilename": "frogs_leaf.svg"
+},
+{
+  "id": "vo28",
+  "nameE": "beeswax",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plant",
+  "inBiomes": ["b1"],
+  "audioFilename": "beeswax.wav",	      
+  "imageFilename": "beeswax.svg"
+},
+{
+  "id": "vo29",
+  "nameE": "cranberry butter",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plant",
+  "inBiomes": ["b1"],
+  "audioFilename": "cranberry_butter.wav",	      
+  "imageFilename": "cranberry_butter.svg"
+},
+{
+  "id": "vo30",
+  "nameE": "shea butter",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "plant",
+  "inBiomes": ["b1"],
+  "audioFilename": "shea_butter.wav",	      
+  "imageFilename": "shea_butter.svg"
+},
+{
+  "id": "vo31",
+  "nameE": "lid",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "household",
+  "inBiomes": ["b1"],
+  "audioFilename": "lid.wav",	      
+  "imageFilename": "lid.svg"
+},
+{
+  "id": "vo32",
+  "nameE": "medicine",
+  "nameH": "",
+  "morphologicalCategory": "noun",
+  "semanticCategory": "household",
+  "inBiomes": ["b1"],
+  "audioFilename": "medicine.wav",	      
+  "imageFilename": "medicine.svg"
+},
+{
+  "id": "vo33",
+  "nameE": "knot",
+  "nameH": "sq̓éq̓əp̓",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "knot.wav",	      
+  "imageFilename": "knot.svg"
+},
+{
+  "id": "vo34",
+  "nameE": "measure",
+  "nameH": "x̌ʷíləmt",
+  "morphologicalCategory": "verb",
+  "semanticCategory": "domestic",
+  "inBiomes": ["b1"],
+  "audioFilename": "knot.wav",	      
+  "imageFilename": "knot.svg"
+}]

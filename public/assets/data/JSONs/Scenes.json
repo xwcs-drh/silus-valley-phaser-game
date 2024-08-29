@@ -1,0 +1,90 @@
+[
+  {
+    "constructor_identifier": "BootScene",
+    "reference_name": "BootScene",
+    "description": "This is the scene that loads in data and managers",
+    "background_image": "",
+    "UIMenu": "",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "StartMenuScene",
+    "reference_name": "StartMenuScene",
+    "description": "This is the scene that loads upon start",
+    "background_image": "silu_valley_map.png",
+    "UIMenu": "",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "OpeningIntroductionScene",
+    "reference_name": "OpeningIntroductionScene",
+    "description": "This is the scene that includes the introduction dialogue",
+    "background_image": "silu_valley_map.png",
+    "UIMenu": "",
+    "unlockedTraditionalActivities": ["ta1", "ta3"]
+  },
+  {
+    "constructor_identifier": "MainMapScene",
+    "reference_name": "MainMapScene",
+    "description": "This is the scene that includes the Main map with map introduction",
+    "background_image": "silu_valley_map.png",
+    "UIMenu": "MainUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "BiomeHomeScene",
+    "reference_name": "littleForest",
+    "description": "This is the scene that includes the navigation within the little forest and silus backyard",
+    "background_image": "silu_valley_littleForest.png",
+    "UIMenu": "MainUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "BiomeHomeScene",
+    "reference_name": "river",
+    "description": "This is the scene that includes the navigation within the river",
+    "background_image": "silu_valley_river.png",
+    "UIMenu": "MainUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "VocabBaseScene",
+    "reference_name": "VocabBaseScene",
+    "description": "This is the scene that includes the navigation within the vocabulary minigames",
+    "background_image": "silu_valley_workbench.png",
+    "UIMenu": "MainUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "TraditionalActivitiesMenuScene",
+    "reference_name": "TraditionalActivitiesMenuScene",
+    "description": "This is the scene that includes the navigation within the traditional activities",
+    "background_image": "silu_valley_fun.jpg",
+    "UIMenu": "MainUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "TraditionalActivityMinigameScene",
+    "reference_name": "TraditionalActivityMinigameScene",
+    "description": "This is the scene that includes the navigation within the traditional activities",
+    "background_image": "silu_valley_river.png",
+    "UIMenu": "MainUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "VocabWheelMinigameScene",
+    "reference_name": "VocabWheelMinigameScene",
+    "description": "This is the vocabulary game scene that includes the menu wheel",
+    "background_image": "yellow_wash_background.jpg",
+    "UIMenu": "VocabMinigameUIScene",
+    "unlockedTraditionalActivities": [""]
+  },
+  {
+    "constructor_identifier": "VocabMinigamesMenuScene",
+    "reference_name": "VocabMinigamesMenuScene",
+    "description": "This is the scene that includes the navigation within the vocabulary minigames",
+    "background_image": "yellow_wash_background.jpg",
+    "UIMenu": "VocabMinigameUIScene",
+    "unlockedTraditionalActivities": [""]
+  }
+]
