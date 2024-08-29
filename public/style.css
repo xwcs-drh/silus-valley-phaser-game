@@ -9,6 +9,11 @@
     src:
         url('assets/fonts/2023_01_01_BCSans-Regular_2f.ttf') format('truetype')
 }
+
+.test-font {
+    font-family: 'Radio-Canada'
+}
+
 body {
     margin: 20px;
 }
