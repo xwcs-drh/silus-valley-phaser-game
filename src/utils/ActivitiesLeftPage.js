@@ -14,34 +14,12 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
         this.dataManager = dataManager;
         this.resources = this.dataManager.getAllResources();
 
-        //Style for paragraph text
-        this.h3Style = this.textStyle = {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width * 0.015}px`,
-            fill: '#000',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width, useAdvancedWrap: true } // Set word wrap width
-        };
-        //Style for 2nd level header text
-        this.h2Style = this.textStyle = {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width * 0.015}px`,
-            fill: '#000',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width, useAdvancedWrap: true } // Set word wrap width
-        };
-        
-        //Style for title text
-        this.h1Style = this.textStyle = {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width * 0.02}px`,
-            fill: '#000',
-            strokeThickness: 1,
-            resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width, useAdvancedWrap: true } // Set word wrap width
-        };
+        this.h1Style = {...this.scene.recipeBookStyles.recipeHeader1Style, fontSize: `${this.width * 0.02}px`, wordWrap: { width: this.width*0.35, useAdvancedWrap: true }};
+       
+        this.h2Style = {...this.scene.recipeBookStyles.recipeHeader2Style, fontSize: `${this.width * 0.012}px`, wordWrap: { width: this.width*0.35, useAdvancedWrap: true }};
+
+        this.h3Style = {...this.scene.recipeBookStyles.recipeHeader3Style, fontSize: `${this.width * 0.012}px`, wordWrap: { width: this.width*0.35, useAdvancedWrap: true }};
+    
 
         //add the ActivitiesLeftPage object to the RecipeBookPopupScene
         this.scene.add.existing(this);
@@ -53,9 +31,9 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
 
     initPage() {
         // Create the name text
-        this.nameText = this.scene.add.text(this.x + this.width * 0.45, this.y+ this.height * 0.15, '', this.h1Style).setOrigin(1);
+        this.nameText = this.scene.add.text(this.x + this.width * 0.4, this.y+ this.height * 0.18, '', this.scene.fontStyles.recipeBookStyles.recipeHeader1Style).setOrigin(1);
         // Create the biome text
-        this.biomeText = this.scene.add.text(this.x + this.width * 0.08,this. y+ this.height * 0.4, '', this.h3Style).setOrigin(0);
+        this.biomeText = this.scene.add.text(this.x + this.width * 0.08,this. y+ this.height * 0.4, '', this.scene.fontStyles.recipeBookStyles.recipeHeader3Style).setOrigin(0);
 
         //create the thumbnail image for the activity
         this.thumbnail = this.scene.add.image(this.x*1.2, this.height * 0.15, this.activity.thumbnailFilename)
@@ -120,7 +98,7 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
     Parameters: None
     */
     addRequiredResources() {
-        const requiredResourcesHeader = this.scene.add.text(this.x + this.width * 0.1, this.y + this.height * 0.45, 'Resources Required', this.h2Style);
+        const requiredResourcesHeader = this.scene.add.text(this.x + this.width * 0.08, this.y + this.height * 0.45, 'Resources Required', this.scene.fontStyles.recipeBookStyles.recipeHeader2Style);
         // this.add(requiredResourcesHeader);
 
         const requiredResources = this.activity.requiredResources; //get object of key:value pairs (resourceID:quantity) of resources required for the activity
@@ -148,7 +126,7 @@ export default class ActivitiesLeftPage extends Phaser.GameObjects.Container {
     Parameters: None
     */
     addAwardedResources() {
-        const headerText = this.scene.add.text(this.x + this.width * 0.1, this.y + this.height * 0.65, 'Resources Awarded', this.h2Style);
+        const headerText = this.scene.add.text(this.x + this.width * 0.08, this.y + this.height * 0.6, 'Resources Awarded', this.scene.fontStyles.recipeBookStyles.recipeHeader2Style);
         // this.add(headerText);
         const awardedResources = this.activity.awardedResources;
         if (awardedResources && typeof awardedResources === 'object') {

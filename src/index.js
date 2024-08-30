@@ -38,7 +38,7 @@ var config = {
 	width: window.innerWidth,
 	height: window.innerWidth/aspectRatio,
 
-	// resolution: window.devicePixelRatio||2,
+	resolution: window.devicePixelRatio||2,
 	// resolution: Math.max(window.innerWidth / 2032, window.innerHeight / 1016),
 	backgroundColor: 0x000000,
 	scene: [

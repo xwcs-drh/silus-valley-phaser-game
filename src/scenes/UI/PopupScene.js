@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import FontStyles from '../../assets/fonts/FontStyles';
 
 export default class PopupScene extends Phaser.Scene {
     constructor(key) {
@@ -58,6 +59,8 @@ export default class PopupScene extends Phaser.Scene {
     }
 
     create() {
+        this.fontStyles = new FontStyles(this);
+
         console.log("background key", this.backgroundKey);
         this.blockerDepth = 120;
         // this.blocker = this.createBlocker();

@@ -2,7 +2,6 @@ import BaseScene from './BaseScene';
 console.log("BaseScene defined: ", BaseScene); // Check if BaseScene is defined
 
 import LargeTextButton from '../utils/LargeTextButton';
-import FontStyles from '../assets/fonts/FontStyles';
 
 export default class StartMenuScene extends BaseScene {
     /*
@@ -60,9 +59,7 @@ export default class StartMenuScene extends BaseScene {
     */
     create() {
         super.create();
-        // console.log('StartMenuScene: create');
-        const fontStyles = new FontStyles(this);
-        fontStyles.updateFontResolution(); // Initial call to set the resolution
+        console.log('StartMenuScene: create');
 
         // Calculate responsive font size
         const fontSize = `${Math.min(this.canvasWidth, this.canvasHeight) * 0.1}px`;
@@ -70,13 +67,15 @@ export default class StartMenuScene extends BaseScene {
         if (!this.titleText) {
             // Create title text
             // this.titleText = this.add.text(this.canvasWidth * 0.4, this.canvasHeight * 0.4, 'Sil̓ə’s Valley θe̓yqʷt', { fontSize: fontSize, fontFamily: 'Radio Canada, Arial, sans-serif', fill: '#000080', padding: { top: this.canvasWidth * 0.05, bottom: this.canvasWidth * 0.1 }, resolution:2, stroke: '#000080', strokeThickness: 2});
-            console.log(this.game.global, this.game.baseSceneGenericStyles);
-            console.log(this.game.baseSceneGenericStyles.headerFontStyle);
+            // console.log(this.game.global, this.game.baseSceneGenericStyles);
+            console.log(this.fontStyles.baseSceneGenericStyles);
             
             const titleTextString = 'Sil̓ə’s Valley θe̓yqʷt';
-            this.titleText = fontStyles.getCustomText(this.canvasWidth * 0.4, this.canvasHeight * 0.4, titleTextString, this.game.global.baseSceneGenericStyles.headerFontStyle);
-            this.add.existing(this.titleText);
 
+            this.titleText = this.add.text(this.canvasWidth * 0.4, this.canvasHeight * 0.4, titleTextString, this.fontStyles.baseSceneGenericStyles.headerFontStyle);
+            // this.titleText = this.fontStyles.getCustomText(this.canvasWidth * 0.4, this.canvasHeight * 0.4, titleTextString, {...this.game.fontStyles.baseSceneGenericStyles.headerFontStyle, fontSize: fontSize});
+            this.add.existing(this.titleText);
+            // console.log(this.titleText.x, this.titleText.y);
         }
 
         this.titleTextCreated = false;

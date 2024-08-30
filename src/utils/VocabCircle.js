@@ -63,7 +63,7 @@ export default class VocabCircle extends Phaser.GameObjects.Container {
 
     createText() {
         this.text = this.scene.add.text(0, 0, this.label, {
-            font: '24px Arial',
+            ...this.scene.fontStyles.baseSceneGenericStyles.bodyFontStyle,
             fill: '#000000',
             align: 'center'
         });

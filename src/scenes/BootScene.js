@@ -15,17 +15,17 @@ export default class BootScene extends Phaser.Scene {
     constructor() {
         super({key: 'BootScene'});
         console.log('Bootscene: constructor');
-        this.fontsLoaded = false;
+        // this.fontsLoaded = false;
         this.managersLoaded = false;
     }
 
     preload() {
         console.log('Bootscene: preload');
         
-        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
-        this.fontStyles = new FontStyles(this);
-        this.fontStyles.load();
+        // const fontStyles = new FontStyles(this);
+        // fontStyles.load();
 
         //Preload and cache JSON data files
         this.load.json('allScenesData', './assets/data/JSONs/Scenes.json');
@@ -37,19 +37,21 @@ export default class BootScene extends Phaser.Scene {
         this.load.json('playerData', './assets/data/JSONs/PlayerData.json'); // Load player data for testing
         this.load.json('allVocabularyData', './assets/data/JSONs/Vocabulary.json');
         
-         // Listen for the 'fonts-loaded' event
-         this.events.on('fonts-loaded', () => {
-            this.fontsLoaded = true;
-            // console.log('Fonts loaded:', this.fontsLoaded, this.game.global.baseSceneGenericStyles); // Check if global styles are set
-            this.game.baseSceneGenericStyles = this.game.global.baseSceneGenericStyles;
-            // console.log('Fonts saved:', this.fontsLoaded, this.game.baseSceneGenericStyles); // Check if global styles are set
-            this.checkIfReady();
-        });
+        //  // Listen for the 'fonts-loaded' event
+        //  this.events.on('fonts-loaded', () => {
+        //     this.fontsLoaded = true;
+        //     // console.log('Fonts loaded:', this.fontsLoaded, this.game.global.baseSceneGenericStyles); // Check if global styles are set
+            // this.game.fontStyles = fontStyles;
+            // this.game.baseSceneGenericStyles = this.game.fontStyles.baseSceneGenericStyles;
+            // this.game.baseInventoryStyles = this.game.fontStyles.baseInventoryStyles;
+            // console.log('Fonts saved:', this.game.baseSceneGenericStyles); // Check if global styles are set
+        //     this.checkIfReady();
+        // });
 
-        window.addEventListener('resize', () => {
-            this.fontStyles.updateFontResolution();
-            this.updateTextElementsResolution();
-        });
+        // window.addEventListener('resize', () => {
+        //     fontStyles.updateFontResolution();
+        //     this.updateTextElementsResolution();
+        // });
     }
 
     create() {
@@ -57,7 +59,7 @@ export default class BootScene extends Phaser.Scene {
         const { width, height } = this.sys.game.canvas;
         this.sys.game.config.width = width;
         this.sys.game.config.height = height;
-        this.scale.resize(width, height);
+        // this.scale.resize(width, height);
 
         // Store canvas dimensions for easy access
         this.canvasWidth = width;
@@ -91,40 +93,41 @@ export default class BootScene extends Phaser.Scene {
         // this.game.sceneManager = new SceneManager(this.game, this.game.dataManager, "BootScene");
 
         this.managersLoaded = true;
-        this.checkIfReady();
+        // this.checkIfReady();
         
 
         // this.game.scene.launch("MainUIScene");
         //Initialize UIManager and register scenes
         // this.initializeUI();
         // Set up a resize listener
+        this.game.sceneManager.changeScene('StartMenuScene');
 
     }
     
     //Start the Main User scene - contains "Start" button, and "Credits", "Manual", "Settings" buttons.
-    checkIfReady() {
-        if (this.fontsLoaded && this.managersLoaded) {
-            // console.log('Fonts loaded:', this.game.baseSceneGenericStyles);
-            this.game.sceneManager.changeScene('StartMenuScene');
-        }
-    }
+    // checkIfReady() {
+    //     if (this.fontsLoaded && this.managersLoaded) {
+    //         // console.log('Fonts loaded:', this.game.baseSceneGenericStyles);
+    //         this.game.sceneManager.changeScene('StartMenuScene');
+    //     }
+    // }
 
-    updateTextElementsResolution() {
-        // Iterate through all scenes and update text elements' resolution
-        this.scene.manager.scenes.forEach(scene => {
-            scene.children.list.forEach(child => {
-                if (child instanceof Phaser.GameObjects.Text) {
-                    const fontFamily = child.style.fontFamily.split(',')[0].trim(); // Extract the primary font family
-                    const style = this.game.baseSceneGenericStyles.headerFontStyle; // Use a default style for simplicity
-                    if (style) {
-                        child.setStyle({ resolution: style.resolution });
-                    } else {
-                        console.warn(`Font family ${fontFamily} not found in global styles`);
-                    }
-                }
-            });
-        });
-    }
+    // updateTextElementsResolution() {
+    //     // Iterate through all scenes and update text elements' resolution
+    //     this.scene.manager.scenes.forEach(scene => {
+    //         scene.children.list.forEach(child => {
+    //             if (child instanceof Phaser.GameObjects.Text) {
+    //                 const fontFamily = child.style.fontFamily.split(',')[0].trim(); // Extract the primary font family
+    //                 const style = this.game.baseSceneGenericStyles.headerFontStyle; // Use a default style for simplicity
+    //                 if (style) {
+    //                     child.setStyle({ resolution: style.resolution });
+    //                 } else {
+    //                     console.warn(`Font family ${fontFamily} not found in global styles`);
+    //                 }
+    //             }
+    //         });
+    //     });
+    // }
 
     /*
     Loads JSON data into Data Manager.

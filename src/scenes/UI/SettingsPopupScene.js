@@ -43,13 +43,13 @@ export default class SettingsPopupScene extends PopupScene {
         };
 
         // Create UI elements for each setting
-        this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.1, 'Settings', this.h1Style)
+        this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.1, 'Settings', this.fontStyles.baseSceneGenericStyles.popupHeaderFontStyle)
         .setOrigin(0.5);
 
         // this.createToggleButton(100, 200, 'Audio Enabled', userSettingsManager.audioEnabled, value => {
         //     this.userSettingsManager.updateSettings({ audioEnabled: value });
         // });
-        this.add.text(this.popupX + this.popupWidth * 0.05, this.popupY + this.popupHeight*0.22, 'UI Language', this.h2Style);
+        this.add.text(this.popupX + this.popupWidth * 0.04, this.popupY + this.popupHeight*0.18, 'UI Language', this.fontStyles.baseSceneGenericStyles.popupBodyFontStyle);
 
         this.createLangRadioButtons(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.2);
 

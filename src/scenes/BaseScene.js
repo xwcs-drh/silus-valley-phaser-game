@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import ArrowService from '../utils/ArrowService';
 import HighlightService from '../utils/HighlightService';
-
+import FontStyles from '../assets/fonts/FontStyles';
 // import MainUI from './MainUI'; // Import MainUI (the default export) from MainUI.js
 export default class BaseScene extends Phaser.Scene {
     /*
@@ -16,6 +16,7 @@ export default class BaseScene extends Phaser.Scene {
     constructor(key) {
         super(key);
         this.sceneKey = key;
+
         // console.log("BaseScene: constructor called with key: ", this.sceneKey);
     }
 
@@ -45,6 +46,7 @@ export default class BaseScene extends Phaser.Scene {
         // }
         // console.log(`BaseScene: ui manager? ${this.game.UIManager}`);
         this.UIManager = this.game.UIManager;
+        
     }
 
     /*
@@ -53,6 +55,7 @@ export default class BaseScene extends Phaser.Scene {
     Note: every scene must have a background image filename listed in Scenes.json, and that image must be (correctly named) in src/assets/UI/
     */
     preload() {
+
         // console.log("BaseScene: preloading with sceneData: ", this.sceneData);
         // Background_image is defined in the sceneData for each scene
         // console.log('current scene data: ', this.currentSceneData.background_image);
@@ -78,6 +81,8 @@ export default class BaseScene extends Phaser.Scene {
     Launches the proper UI scene according to the current SceneData (so they run in parallel)
     */
     create() {
+        // this.game.fontStyles.updateFontResolution(); // Initial call to set the resolution
+        this.fontStyles = new FontStyles(this);
         // console.log('BaseScene: create called');
         this.createBackground(); //Create window border, and scene background if a background image is indicated in scenesData.
         this.gameWidth = this.sys.game.config.width;
@@ -85,11 +90,12 @@ export default class BaseScene extends Phaser.Scene {
         this.canvasWidth = this.sys.game.canvas.width;
         this.canvasHeight = this.sys.game.canvas.height;
         // Get Phaser resolution setting
-        this.gameResolution = this.sys.game.config.resolution;
+        // this.gameResolution = this.sys.game.config.resolution;
         // Get device pixel ratio
-        this.devicePixelRatio = window.devicePixelRatio;
+        // this.devicePixelRatio = window.devicePixelRatio;
         // console.log("Base scene current scene data: ",this.currentSceneData);
-        
+        // this.fontStyles = new FontStyles(this.scene);
+
         console.log("base scene - update ui", this.currentSceneData.UIMenu);
         // this.scene.launch(this.currentSceneData.UIMenu);
         this.sceneManager.updateUIScene(this.scene, this.currentSceneData.UIMenu);
@@ -109,39 +115,39 @@ export default class BaseScene extends Phaser.Scene {
         });    
 
         // Add event listener for window resize
-        window.addEventListener('resize', this.handleResize.bind(this));
+        // window.addEventListener('resize', this.handleResize.bind(this));
 
         // Initial call to handleResize to set up elements correctly
-        this.handleResize();
+        // this.handleResize();
 
     }
 
      // Method to handle window resize
-    handleResize() {
-        this.gameWidth = this.sys.game.config.width;
-        this.gameHeight = this.sys.game.config.height;
-        this.canvasWidth = this.sys.game.canvas.width;
-        this.canvasHeight = this.sys.game.canvas.height;
-        this.gameResolution = this.sys.game.config.resolution;
-        this.devicePixelRatio = window.devicePixelRatio;
+    // handleResize() {
+    //     this.gameWidth = this.sys.game.config.width;
+    //     this.gameHeight = this.sys.game.config.height;
+    //     this.canvasWidth = this.sys.game.canvas.width;
+    //     this.canvasHeight = this.sys.game.canvas.height;
+    //     this.gameResolution = this.sys.game.config.resolution;
+    //     this.devicePixelRatio = window.devicePixelRatio;
 
-        // Recursively update resolution of all image and text elements
-        this.updateResolution(this.children.list);
-    }
+    //     // Recursively update resolution of all image and text elements
+    //     this.updateResolution(this.children.list);
+    // }
 
-    // Recursive method to update resolution of all text elements
-    updateResolution(children) {
-        children.forEach(child => {
-            if (child instanceof Phaser.GameObjects.Text) {
-                if (child.setResolution) {
-                    child.setResolution(this.devicePixelRatio);
-                }
-            } else if (child.list) {
-                // If the child has its own children (e.g., a container), recursively update them
-                this.updateResolution(child.list);
-            }
-        });
-    }
+    // // Recursive method to update resolution of all text elements
+    // updateResolution(children) {
+    //     children.forEach(child => {
+    //         if (child instanceof Phaser.GameObjects.Text) {
+    //             if (child.setResolution) {
+    //                 child.setResolution(this.devicePixelRatio);
+    //             }
+    //         } else if (child.list) {
+    //             // If the child has its own children (e.g., a container), recursively update them
+    //             this.updateResolution(child.list);
+    //         }
+    //     });
+    // }
 
     /*
     Set background to fill the game window, centered, with a border

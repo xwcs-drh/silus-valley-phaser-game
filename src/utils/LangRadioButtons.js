@@ -12,12 +12,11 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         this.height = this.scene.sys.game.config.height*0.07;
         this.buttonBackground = backgroundKey;
 
-
+        console.log('creating lang radio buttons');
         // Define colors
         this.unselectedColor = 0x888888; // Gray
         this.selectedColor = 0xffffff; // same color as the button background image
         this.hoverColor = 0xff033e; // Slightly tinted from the button background image
-
 
         // Add the radio button background for lang1
         this.button1X = x;
@@ -33,26 +32,29 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         // Add the container to the scene
         scene.add.existing(this);
 
-        if(this.defaultLang === this.lang1){
-        	this.selectLang1();
-        } else{this.selectLang2();}// Select the first language by default
-    	console.log(`default lang ${this.defaultLang}, lang1: ${this.lang1}, lang2: ${this.lang2}`)
+        // Set the appropriate button to interactive without changing the language
+        this.setInitialSelectedButton();
+        console.log(`default lang ${this.defaultLang}, lang1: ${this.lang1}, lang2: ${this.lang2}`)
     }
 
+    /**
+     * Function to create a radio button for the language selection
+     * @param {*} x 
+     * @param {*} y 
+     * @param {*} text 
+     * @param {*} callback 
+     * @returns 
+     */
     createRadioButton(x, y, text, callback) {
         const radioButton = this.scene.add.container(x, y);
 
         const buttonBackground = this.scene.add.image(0, 0, this.buttonBackground).setOrigin(0.5);
         buttonBackground.setDisplaySize(this.width / 2, this.height);
         buttonBackground.setTint(this.unselectedColor);
+    
 
-        const buttonText = this.scene.add.text(0, 0, text, {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width*0.065}px`,
-            fill: '#fff',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio
-        }).setOrigin(0.5);
+        const buttonFontSize = `${Math.min(buttonBackground.displayWidth, buttonBackground.displayHeight) * 0.4}px`
+        const buttonText = this.scene.add.text(0, 0, text, {...this.scene.fontStyles.baseSceneGenericStyles.buttonFontStyle, fontSize: buttonFontSize, fill: '0xffffff'}).setOrigin(0.5);
 
         radioButton.add(buttonBackground);
         radioButton.add(buttonText);
@@ -74,6 +76,23 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         return radioButton;
     }
 
+    /**
+     * Function to set the initial selected button
+     */
+    setInitialSelectedButton() {
+        if (this.defaultLang === this.lang1) {
+            this.radioButton1.getAt(0).setTint(this.selectedColor); // Selected color
+            this.selectedButton = this.radioButton1;
+        } else {
+            this.radioButton2.getAt(0).setTint(this.selectedColor); // Selected color
+            this.selectedButton = this.radioButton2;
+        }
+    }
+
+    /**
+     * Function to attempt a language change
+     * @param {*} selectedLang 
+     */
     attemptLanguageChange(selectedLang) {
         const scene = this.scene.scene.get('TraditionalActivityMinigameScene');
         if (scene && scene.scene.isActive()) {
@@ -101,6 +120,10 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         }
     }
 
+    /**
+     * Function to change the language
+     * @param {*} selectedLang 
+     */
     changeLanguage(selectedLang) {
         if (selectedLang === this.lang1) {
             this.radioButton1.getAt(0).setTint(this.selectedColor); // Selected color
@@ -117,19 +140,31 @@ class LangRadioButtons extends Phaser.GameObjects.Container {
         }
     }
 
+    /**
+     * Function to select the language 1
+     */
     selectLang1() {
         this.attemptLanguageChange(this.lang1);
     }
 
+    /**
+     * Function to select the language 2
+     */
     selectLang2() {
         this.attemptLanguageChange(this.lang2);
     }
 
+    /**
+     * Function to disable language change
+     */
     disableLanguageChange() {
         this.radioButton1.disableInteractive();
         this.radioButton2.disableInteractive();
     }
 
+    /**
+     * Function to enable language change
+     */
     enableLanguageChange() {
         this.radioButton1.setInteractive();
         this.radioButton2.setInteractive();

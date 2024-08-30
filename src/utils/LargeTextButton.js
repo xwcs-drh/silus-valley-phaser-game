@@ -1,10 +1,8 @@
-import FontStyles from '../assets/fonts/FontStyles';
 
 export default class LargeTextButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text, callback, width = 190, height = 50) {
     super(scene, Math.floor(x), Math.floor(y));
 
-    const fontStyles = new FontStyles(scene);
     
     // const textStyle = {
     //     fontFamily: 'Unbounded',
@@ -20,7 +18,7 @@ export default class LargeTextButton extends Phaser.GameObjects.Container {
     buttonBackground.setDisplaySize(width, height);
 
     // const buttonText = scene.add.text(0, 0, text, textStyle).setOrigin(0.5);
-    const buttonText = scene.add.text(0, 0, text, this.scene.game.baseSceneGenericStyles.buttonFontStyle)
+    const buttonText = scene.add.text(0, 0, text, this.scene.fontStyles.baseSceneGenericStyles.buttonFontStyle)
       .setOrigin(0.5);
 
     this.add(buttonBackground);

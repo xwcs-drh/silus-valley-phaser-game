@@ -50,7 +50,8 @@ export default class RecipeBookPopupScene extends PopupScene {
 
         //Create PopupScene
         super.create();
-
+        this.recipeBookStyles = this.fontStyles.recipeBookStyles;
+        
         //get the user's language... will be concatenated to get text in data objects.
         this.userLanguage = this.playerDataManager.getUserLanguage();
         console.log(this.userLanguage);

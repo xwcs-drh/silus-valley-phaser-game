@@ -81,8 +81,9 @@ export default class VocabMinigamesMenuScene extends BaseScene {
         const generateButtonY = this.canvasHeight * 0.8;
 
         this.generateButton = this.add.text(generateButtonX, generateButtonY, 'Generate stock wheel game', {
-            ...this.menuTextStyle,
-            backgroundColor: '#4a4a4a',
+            ...this.fontStyles.baseSceneGenericStyles.bodyFontStyle,
+            fill: '#ffffff',
+            backgroundColor: '#808080',
             padding: {
                 left: 10,
                 right: 10,
@@ -97,7 +98,7 @@ export default class VocabMinigamesMenuScene extends BaseScene {
             this.generateGame();
         })
         .on('pointerover', () => this.generateButton.setStyle({ fill: '#ff0' }))
-        .on('pointerout', () => this.generateButton.setStyle({ fill: '#fff' }));
+        .on('pointerout', () => this.generateButton.setStyle({ fill: '#ffffff' }));
 
         // console.log('Generate Game button created');
     }
@@ -112,10 +113,10 @@ export default class VocabMinigamesMenuScene extends BaseScene {
         buttonBg.lineStyle(1, 0x000000, 1);
         buttonBg.strokeRect(x, 100, width, height);
 
-        let buttonText = this.add.text(x + width / 2, 100 + height / 2, label, this.menuTextStyle)
+        let buttonText = this.add.text(x+width/2, 100+height/2, label, {...this.fontStyles.baseSceneGenericStyles.bodyFontStyle, fill: '#000000'})
             .setOrigin(0.5)
+            .setVisible(true)
             .setInteractive()
-            .setFixedSize(width, height)
             .on('pointerdown', () => {
                 // console.log(`Menu button for ${label} clicked`);
                 this.toggleMenu(dropdown);
@@ -124,8 +125,9 @@ export default class VocabMinigamesMenuScene extends BaseScene {
                 buttonText.setStyle({ fill: '#808080' });
             })
             .on('pointerout', () => {
-                buttonText.setStyle({ fill: '#000' });
+                buttonText.setStyle({ fill: '#000000' });
             });
+            
         
 
         return { buttonBg, buttonText, label };
@@ -145,9 +147,12 @@ export default class VocabMinigamesMenuScene extends BaseScene {
     createMenuItems(category, options, x, width, height) {
         // console.log(`createMenuItems called for category: ${category}`);
         let menuItems = [];
-        options.forEach((option, index) => {
+        const flattenedOptions = options.flat(); // Flatten the array
+        const uniqueOptions = [...new Set(flattenedOptions)]; // Ensure unique options
+        console.log("uniqueOptions:", uniqueOptions);
+
+        uniqueOptions.forEach((option, index) => {
             // console.log(`Creating menu item for option: ${option}`);
-            
             // Create a graphics object for the menu item background
             let itemBg = this.add.graphics();
             itemBg.fillStyle(0xffffff, 1);
@@ -157,7 +162,7 @@ export default class VocabMinigamesMenuScene extends BaseScene {
             itemBg.setVisible(false);
             
 
-            let itemText = this.add.text(x + width / 2, 200 + index * height + height / 2, option, this.menuTextStyle)
+            let itemText = this.add.text(x + width / 2, 200 + index * height + height / 2, option, {...this.fontStyles.baseSceneGenericStyles.bodyFontStyle, fill: '#000000'})
                 .setOrigin(0.5)
                 .setInteractive()
                 .setVisible(false)
@@ -210,7 +215,7 @@ export default class VocabMinigamesMenuScene extends BaseScene {
         const morphology = this.dropdowns[0].selectedOption;
         const semanticCategory = this.dropdowns[1].selectedOption;
         const gameType = this.dropdowns[2].selectedOption;
-        const gameVocabulary = this.selectWordsPriorityQueue(morphology, semanticCategory);
+        const gameVocabulary = this.selectWordsPriorityQueue(morphology, semanticCategory, gameType);
         // console.log(`SELECTED: morphology: ${morphology} , semanticCategory: ${semanticCategory}, gameType: ${gameType}`);
         // console.log("gameVocabulary priority queue:", gameVocabulary);
 
@@ -234,14 +239,23 @@ export default class VocabMinigamesMenuScene extends BaseScene {
         this.game.sceneManager.changeScene('VocabWheelMinigameScene', {vocabMinigame});
     }
 
-    selectWordsPriorityQueue(morphCategory, semCategory) {
+    selectWordsPriorityQueue(morphCategory, semCategory, gameType) {
+        // Get all vocabulary data from the data manager
         const wordBank = this.dataManager.getAllVocabularyData();
-        console.log(`wordBank: ${wordBank.length}`);
-        const filteredWords = wordBank.filter(word => word.morphologicalCategory === morphCategory && word.semanticCategory === semCategory);
-        console.log(`filteredWords: ${filteredWords.length}`);
-        
+        console.log(`wordBank length: ${wordBank.length}`);
+
+        // Filter words based on morphological category, semantic categories, and minigames
+        const filteredWords = wordBank.filter(word => 
+            word.morphologicalCategory === morphCategory && 
+            word.semanticCategories.includes(semCategory) &&
+            word.minigames.includes(gameType)
+        );
+        console.log(`filteredWords length: ${filteredWords.length}`);
+
+        // Create a priority queue based on the filtered words
         const pq = [];
         filteredWords.forEach(word => {
+            // Define priority based on times incorrect, time since last incorrect, and time since last encountered
             const priority = [
                 word.num_times_incorrect,
                 new Date() - new Date(word.last_date_incorrect),
@@ -249,15 +263,19 @@ export default class VocabMinigamesMenuScene extends BaseScene {
             ];
             pq.push({ priority, word });
         });
+
+        // Sort the priority queue
         pq.sort((a, b) => a.priority[0] - b.priority[0] || a.priority[1] - b.priority[1] || a.priority[2] - b.priority[2]);
-        
+
+        // Select the top 8 words from the priority queue
         const selectedWords = pq.slice(0, 8).map(item => item.word);
-        
+
+        // If less than 8 words are selected, fill the remaining slots with other filtered words
         if (selectedWords.length < 8) {
             const remainingWords = filteredWords.filter(word => !selectedWords.includes(word));
             selectedWords.push(...remainingWords.slice(0, 8 - selectedWords.length));
         }
-        
+
         return selectedWords;
     }
 

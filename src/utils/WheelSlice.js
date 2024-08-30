@@ -100,10 +100,8 @@ export default class WheelSlice extends Phaser.GameObjects.Container {
 
         // Add text to the slice
         this.text = this.scene.add.text(this.x, this.y, this.label, {
-            fill: '#000000',
-            align: 'center',
-            fontSize: `${this.radius * 0.12}px`, // Adjust the multiplier as needed
-            resolution: 2
+            ...this.scene.fontStyles.baseSceneGenericStyles.bodyFontStyle,
+            fontSize: `${this.radius * 0.12}px`
         });
         this.text.setOrigin(0.5);
         this.text.setPosition(this.x, this.y - this.radius/1.6);

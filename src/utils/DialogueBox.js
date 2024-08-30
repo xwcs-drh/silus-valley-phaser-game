@@ -20,20 +20,11 @@ export default class DialogueBox extends Phaser.GameObjects.Container {
     this.buttonDiameter = this.width*0.05;
     this.buttonRadius = this.buttonDiameter*0.1;
 
-    const textStyle = {
-      fontFamily: 'Unbounded',
-      fontSize: `${Math.min(this.width, this.height) * 0.18}px`,
-      fill: '#000',
-      strokeThickness: 0.5,
-      resolution: window.devicePixelRatio,
-      wordWrap: { width: this.width *0.9, useAdvancedWrap: true } // Set word wrap width
-    };
-
     // Create the background and border
     const background = this.createBackgroundAndBorder(scene, this.width, this.height, boxRadius);
-
+    console.log(this.scene);
     // Create the dialogue text object
-    this.dialogueText = scene.add.text(0, 0, "", {...this.scene.game.baseSceneGenericStyles.dialogueFontStyle, wordWrap: { width: this.width *0.9, useAdvancedWrap: true }}).setOrigin(0.5);
+    this.dialogueText = scene.add.text(0, 0, "", {...this.scene.fontStyles.baseSceneGenericStyles.dialogueFontStyle, wordWrap: { width: this.width *0.9, useAdvancedWrap: true }}).setOrigin(0.5);
 
     // Calculate the button position relative to the dialogue box
     const buttonOffsetX = this.width / 2 - 10;  // Adjust the button's X position relative to the right edge

@@ -50,7 +50,7 @@ export default class CreditsPopupScene extends PopupScene {
         let creditsText = '';
         //iterate through each category in the credits data and concatenate the names
         creditsData.forEach(categoryData => {
-            creditsText += categoryData.category + ':\n';
+            creditsText += categoryData.category + ':\n\n';
             categoryData.name.forEach(name => {
                 creditsText += '    ' + name + '\n';
             });
@@ -60,11 +60,11 @@ export default class CreditsPopupScene extends PopupScene {
 
         // Add specific content for the credit popup
         if (this.popupContainer) {
-            this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.08, 'Credits', this.creditHeaderStyle)
+            this.add.text(this.popupX + this.popupWidth * 0.5, this.popupY + this.popupHeight*0.08, 'Credits', this.game.baseSceneGenericStyles.popupHeaderFontStyle)
             .setOrigin(0.5);
             // this.addContentToPopup(Math.min(popupWidth, popupHeight) * 0.2, Math.min(popupWidth, popupHeight) * 0.3, headerText, true); // Positioning text at 5% from the top-left corner
             // Create the multiline text object
-            this.add.text(this.popupX + this.popupWidth * 0.05, this.popupY + this.popupHeight*0.2, creditsText, this.creditTextStyle)
+            this.add.text(this.popupX + this.popupWidth * 0.03, this.popupY + this.popupHeight*0.1, creditsText, {...this.game.baseSceneGenericStyles.popupBodyFontStyle, fontSize: `${this.popupWidth * 0.015}px`, align: 'left'})
             .setOrigin(0);
         } else {
           console.error('Popup container is not initialized');

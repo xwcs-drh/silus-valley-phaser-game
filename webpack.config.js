@@ -5,23 +5,45 @@ const webpack = require('webpack');
 module.exports = {
   entry: './src/index.js',
   output: {
+
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
+  },
+  resolve: {
+    alias: {
+        assets: path.join(__dirname, 'src/assets')
+    }
   },
   mode: 'development',
   devtool: 'source-map', // For debugging purposes
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
+        {
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            use: {
+                loader: "babel-loader"
+            }
         },
-      },
-    ],
-  },
+        {
+            test: [/\.vert$/, /\.frag$/],
+            use: "raw-loader"
+        },
+        {
+            test: /\.(gif|png|jpe?g|svg|xml|glsl)$/i,
+            type: "asset/resource"
+        },
+        {
+            test: /\.css$/i,
+            use: ['style-loader', 'css-loader']
+        },
+        {
+            test: /\.(woff|woff2|eot|ttf|otf)$/i,
+            type: 'asset/resource',
+        }
+    ]
+},
   plugins: [
     new CopyWebpackPlugin({
       patterns: [

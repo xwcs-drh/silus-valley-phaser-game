@@ -80,7 +80,7 @@ class DialogueManager {
     Set the depth to 102 (above game scene elements but below UI and service elements)
     */
     createDialogueBox(){
-        // console.log("create dialogue box");
+        console.log("create dialogue box");
         //declare `processNextEntry()` function callback to be called by the button in 'dialogue box' 
         const boundCallback = this.processNextEntry.bind(this);
         
@@ -101,11 +101,11 @@ class DialogueManager {
     */
     processNextEntry(scene) {
         const entry = "no more text";
-        // console.log("Dialogue Manager - Scene Dialogue at current entry index: ", this.currentDialogueData.dialogues[this.currentEntryIndex]);
+        console.log("Dialogue Manager - Scene Dialogue at current entry index: ", this.currentDialogueData.dialogues[this.currentEntryIndex]);
         // console.log("Dialogue Manager - line should read: ", this.currentDialogueData.dialogues[this.currentEntryIndex].textE);
         // console.log("Dialogue Manager - scene dialogue length: ", this.currentDialogueData.dialogues.length);
         // console.log(` current index: ${this.currentEntryIndex}, dialogue length ${ this.currentDialogueData.dialogues.length}`);
-        if (this.currentEntryIndex < this.currentDialogueData.dialogues.length) {
+        if (this.dialogueBox &&this.currentEntryIndex < this.currentDialogueData.dialogues.length) {
             // console.log('dialogue manager - passing length');
             const entry = this.currentDialogueData.dialogues[this.currentEntryIndex]; //current line of dialogue being shown
             // console.log("Dialogue Manager - entry: ", entry);
@@ -233,13 +233,13 @@ class DialogueManager {
     Update the language of the dialogue text
     */
     updateLanguage(newLang) {
-        // console.log(`DialogueManager: Language changed to ${newLang}`); //outputs properly
+        console.log(`DialogueManager: Language changed to ${newLang}`); //outputs properly
         // Update the displayed text based on the new language
         // console.log("entry" ,this.currentDialogueData.dialogues[this.currentEntryIndex]);
         
         if (this.currentDialogueData && this.currentDialogueData.dialogues.length > 0) {
             // console.log("DialogueManager: Updating dialogue text via listener");
-            this.showDialogueText(this.currentDialogueData.dialogues[this.currentEntryIndex]); //this function doesnt run
+            this.showDialogueText(this.currentDialogueData.dialogues[this.currentEntryIndex-1]); //this function doesnt run
         }
     }
     
@@ -254,7 +254,7 @@ class DialogueManager {
         const dialogueTextKey = `text${this.userLanguage}`;
         // console.log(entry);
         if (this.dialogueBox) {
-            // console.log("Set next text to: ", entry[dialogueTextKey]);
+            console.log("Set next text to: ", entry[dialogueTextKey]);
             this.dialogueBox.setText(entry[dialogueTextKey]);
         } 
     }

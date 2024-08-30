@@ -10,35 +10,11 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         this.activity = activity;
         this.userLanguage = userLanguage;
 
-        //Style for paragraph text
-        this.h3Style = this.textStyle = {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width * 0.013}px`,
-            fill: '#000',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
-        };
+        this.titleFont = {...this.scene.fontStyles.recipeBookStyles.recipeHeader1Style, fontSize: `${this.width * 0.015}px`, wordWrap: { width: this.width*0.35, useAdvancedWrap: true }};
+       
+        this.instructionsFont = {...this.scene.fontStyles.recipeBookStyles.recipeHeader2Style, wordWrap: { width: this.width*0.35, useAdvancedWrap: true }};
+        console.log("font size first: ",this.instructionsFont.fontSize);
 
-        //Style for 2nd level header text
-        this.h2Style = this.textStyle = {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width * 0.015}px`,
-            fill: '#000',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
-        };
-
-        //Style for title text
-        this.h1Style = this.textStyle = {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.width * 0.02}px`,
-            fill: '#000',
-            strokeThickness: 1,
-            resolution: window.devicePixelRatio,
-            wordWrap: { width: this.width*0.35, useAdvancedWrap: true } // Set word wrap width
-        };
         this.scene.add.existing(this);
         this.initPage();
 
@@ -51,7 +27,7 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
         // this.descriptionText = this.scene.add.text(this.x +this.width*0.18,this. y+ this.height * 0.1, "", this.h3Style);
         
         //create the text element for the activityinstructions 
-        this.instructionsHeader = this.scene.add.text(this.x +this.width*0.16,this. y+ this.height * 0.12, 'Instructions', this.h2Style).setOrigin(0);
+        this.instructionsHeader = this.scene.add.text(this.x +this.width*0.16,this. y+ this.height * 0.09, 'Instructions', this.titleFont).setOrigin(0);
         this.instructions = []; 
 
         //Populate the object with the current activity passed into the constructor
@@ -94,16 +70,29 @@ export default class ActivitiesRightPage extends Phaser.GameObjects.Container {
     Print out array of strings from activity.instructions${userLanguage}
     */
     addInstructions(){
+
+         // Calculate the font size based on the number of instructions and available height
+         const maxLines = this.activity.instructions.length;
+         const availableHeight = this.height * 0.8; // Adjust as needed
+         const fontSize = Math.min(this.width * 0.013, availableHeight / maxLines);
+ 
+        this.instructionsFont = {
+             ...this.scene.fontStyles.recipeBookStyles.recipeHeader2Style,
+             fontSize: `${fontSize}px`,
+             wordWrap: { width: this.width * 0.35, useAdvancedWrap: true }
+        };
+        console.log("font size second: ",this.instructionsFont.fontSize);
+
         //set position for first line of instruction
-        let instructionY = this.instructionsHeader.y+this.height * 0.1;
+        let instructionY = this.instructionsHeader.y+this.height*0.05;
         let instructionX = this.instructionsHeader.x;
         console.log(this.activity);
         // for each instruction string, add to instruction text and instruction array, and update y position for next line.
         this.activity.instructions.forEach(instruction => {
-            const instructionText = this.scene.add.text(instructionX, instructionY, instruction[`text${this.userLanguage}`], this.h3Style);
+            const instructionText = this.scene.add.text(instructionX, instructionY, instruction[`text${this.userLanguage}`], this.instructionsFont);
             // this.add(instructionText);
             this.instructions.push(instructionText);
-            instructionY += instructionText.height;
+            instructionY += instructionText.height*0.4;
         });
     }
 

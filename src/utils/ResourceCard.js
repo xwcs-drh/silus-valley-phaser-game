@@ -39,7 +39,7 @@ export default class ResourceCard extends Phaser.GameObjects.Container {
         
     
         // console.log(`this language in resource card: ${this.language}`);
-        const nameText = this.scene.add.text(this.x, this.y, this.resource[`name${this.language}`], this.h3Style).setOrigin(0.5,1);        
+        const nameText = this.scene.add.text(this.x, this.y, this.resource[`name${this.language}`], {...this.scene.fontStyles.baseInventoryStyles.inventoryWordStyle, fontSize: `${this.cardWidth * 0.09}px`}).setOrigin(0.5,1);        
         // const quantityText = this.scene.add.text(this.x, this.y + this.cardHeight * 0.2, `Qty: ${this.quantity}`, this.h3Style).setOrigin(0.5,0);
 
         // this.add([background, nameText, quantityText]);
@@ -47,12 +47,8 @@ export default class ResourceCard extends Phaser.GameObjects.Container {
 
         const circle = this.scene.add.circle(this.cardX + this.cardWidth / 2, this.cardY + this.cardHeight / 2, 12, 0xffffff);
         const circleText = this.scene.add.text(circle.x, circle.y, this.quantity, {
-            fontFamily: 'Unbounded',
-            fontSize: `${this.cardWidth * 0.09}px`,
-            fill: '#000000',
-            strokeThickness: 0.5,
-            resolution: window.devicePixelRatio
-        }).setOrigin(0.5);
+            ...this.scene.fontStyles.baseInventoryStyles.inventoryQuantityStyle,
+            fontSize: `${this.cardWidth * 0.09}px`}).setOrigin(0.5);
 
         this.add([circle, circleText]);
         // if (!this.isAvailable) {
