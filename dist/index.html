@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Sil̕ə's Valley</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+        canvas {
+            display: block;
+            max-width: 100%;
+            max-height: auto;
+        }
+        #alert {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            z-index: 1001;
+        }
+        @-moz-document url-prefix() {
+            canvas {
+                width: 100% !important;
+                height: auto !important;
+                image-rendering: optimizeSpeed;  /* Optimize for speed */
+                image-rendering: -moz-crisp-edges; /* For sharp edges on non-pixel art */
+            }   
+        }
+        
+    </style>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <!-- <p>hən̓q̓əmin̓əm̓ <i>hən̓q̓əmin̓əm̓</i> <span style="font-weight: 500">hən̓q̓əmin̓əm̓</span> <span style="font-stretch: 300">hən̓q̓əmin̓əm̓</span></p>
+    <div id="game-div"></div> -->
+    <div id="alert"></div>
+
+    <script type="text/javascript" src="bundle.js"></script>
+    <script type="text/javascript">
+        function isMobile() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+        }
+
+        function showAlert(message) {
+            const alertDiv = document.getElementById('alert');
+            alertDiv.textContent = message;
+            alertDiv.style.display = 'block';
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 2000);
+        }
+
+        window.addEventListener('orientationchange', function() {
+            if (isMobile() && screen.orientation.type.startsWith('portrait')) {
+                alert('Please rotate your device to landscape mode for the best experience.');
+            }
+        });
+
+        function resizeGame() {
+            const canvas = document.querySelector('canvas');
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const aspectRatio = windowWidth / windowHeight;
+
+            if (aspectRatio > 2) {
+                canvas.style.width = `${windowHeight * 2}px`;
+                canvas.style.height = `${windowHeight}px`;
+            } else if (aspectRatio < 4 / 3) {
+                canvas.style.width = `${windowWidth}px`;
+                canvas.style.height = `${windowWidth * 3 / 4}px`;
+            } else {
+                canvas.style.width = `${windowWidth}px`;
+                canvas.style.height = `${windowHeight}px`;
+            }
+        }
+
+        window.addEventListener('resize', resizeGame);
+        window.addEventListener('load', resizeGame);
+    </script>
+</body>
+</html>

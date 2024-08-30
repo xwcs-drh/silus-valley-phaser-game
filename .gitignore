@@ -2,7 +2,7 @@
 node_modules/
 
 # Ignore dist directory (Webpack output)
-dist/
+# dist/
 
 # Ignore build directory (if used)
 build/
@@ -13,13 +13,6 @@ vocabulary/*.jpeg
 vocabulary/*.png
 vocabulary/*.gif
 vocabulary/*.svg
-
-# Ignore Webpack config files 
-webpack.config.js
-
-# Ignore package files
-package-lock.json
-package.json
 
 # Ignore temporary files
 *.tmp
