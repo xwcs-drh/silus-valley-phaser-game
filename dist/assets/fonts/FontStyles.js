@@ -25,10 +25,10 @@ export default class FontStyles {
 			fontSize: `${Math.min(this.canvasWidth, this.canvasHeight) * fontSizePercent}px`,
 			fill: color,
 			align: align,
-            stroke: color,
+            // stroke: color,
 			strokeThickness: strokeThickness,
 			resolution: window.devicePixelRatio,
-			padding: { top: this.canvasHeight * 0.05 }
+			padding: { top: Math.min(this.canvasWidth, this.canvasHeight) * fontSizePercent * 0.095, bottom: Math.min(this.canvasWidth, this.canvasHeight) * fontSizePercent * 0.02 }
 		};
 		return fontStyle;
 	}
