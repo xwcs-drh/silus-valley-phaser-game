@@ -22,23 +22,23 @@ const originalWidth = 2032;
 const originalHeight = 1016;
 const aspectRatio = originalWidth / originalHeight;
 
-// // Calculate the new height based on the browser's width and the aspect ratio
-const newWidth = window.innerWidth;
-const newHeight = newWidth / aspectRatio;
-console.log('newWidth:', newWidth);
-console.log('newHeight:', newHeight);
-console.log('canvas width:', window.innerWidth);
-console.log('canvas height:', window.innerWidth / aspectRatio);
+// // // Calculate the new height based on the browser's width and the aspect ratio
+// const newWidth = window.innerWidth;
+// const newHeight = newWidth / aspectRatio;
+// console.log('newWidth:', newWidth);
+// console.log('newHeight:', newHeight);
+// console.log('canvas width:', window.innerWidth);
+// console.log('canvas height:', window.innerHeight);
 // Create an array of all scenes including the UI scenes
 var config = {
 	// width: newWidth,
 	// height: newHeight,
-	// width: 1016,
-	// height: 508,
+	// width: 2032,
+	// height: 1016,
 	width: window.innerWidth,
 	height: window.innerWidth/aspectRatio,
 
-	resolution: window.devicePixelRatio||2,
+	// resolution: window.devicePixelRatio||2,
 	// resolution: Math.max(window.innerWidth / 2032, window.innerHeight / 1016),
 	backgroundColor: 0x000000,
 	scene: [
@@ -55,7 +55,7 @@ var config = {
 	scale: {
 		width:2032,
 		height:1016,
-		parent:'game-div',
+		// parent:'game-div',
 		// mode:Phaser.CANVAS
 		// mode:Phaser.Scale.LANDSCAPE,
 	    // mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT, 
@@ -65,7 +65,7 @@ var config = {
 	    // autoCenter: Phaser.Scale.CENTER_BOTH
 		autoCenter:Phaser.Scale.CENTER_HORIZONTALLY
 	 },
-	parent: 'phaser-example',
+	// parent: 'game-div',
 };
 
 //pass config in as a parameter of the game
