@@ -35,23 +35,9 @@ export default class BootScene extends Phaser.Scene {
         this.load.json('allTraditionalActivitiesData', './assets/data/JSONs/tempTraditionalActivities.json');
         this.load.json('allVocabularyMinigameData', './assets/data/JSONs/VocabMinigames.json');
         this.load.json('playerData', './assets/data/JSONs/PlayerData.json'); // Load player data for testing
-        this.load.json('allVocabularyData', './assets/data/JSONs/Vocabulary.json');
+        this.load.json('allVocabularyData', './assets/data/JSONs/testVocabJSON.json'); //load vocabulary data for testing...generate from CSV via VocabularyDataFormatter.py, where CSV comes from google sheets
+        //TODO: add interface to upload vocabulary data to ssh. when the csv is loaded on browser, csv is converted to json and stored in /assets/data/JSONs/
         
-        //  // Listen for the 'fonts-loaded' event
-        //  this.events.on('fonts-loaded', () => {
-        //     this.fontsLoaded = true;
-        //     // console.log('Fonts loaded:', this.fontsLoaded, this.game.global.baseSceneGenericStyles); // Check if global styles are set
-            // this.game.fontStyles = fontStyles;
-            // this.game.baseSceneGenericStyles = this.game.fontStyles.baseSceneGenericStyles;
-            // this.game.baseInventoryStyles = this.game.fontStyles.baseInventoryStyles;
-            // console.log('Fonts saved:', this.game.baseSceneGenericStyles); // Check if global styles are set
-        //     this.checkIfReady();
-        // });
-
-        // window.addEventListener('resize', () => {
-        //     fontStyles.updateFontResolution();
-        //     this.updateTextElementsResolution();
-        // });
     }
 
     create() {
@@ -104,31 +90,7 @@ export default class BootScene extends Phaser.Scene {
 
     }
     
-    //Start the Main User scene - contains "Start" button, and "Credits", "Manual", "Settings" buttons.
-    // checkIfReady() {
-    //     if (this.fontsLoaded && this.managersLoaded) {
-    //         // console.log('Fonts loaded:', this.game.baseSceneGenericStyles);
-    //         this.game.sceneManager.changeScene('StartMenuScene');
-    //     }
-    // }
-
-    // updateTextElementsResolution() {
-    //     // Iterate through all scenes and update text elements' resolution
-    //     this.scene.manager.scenes.forEach(scene => {
-    //         scene.children.list.forEach(child => {
-    //             if (child instanceof Phaser.GameObjects.Text) {
-    //                 const fontFamily = child.style.fontFamily.split(',')[0].trim(); // Extract the primary font family
-    //                 const style = this.game.baseSceneGenericStyles.headerFontStyle; // Use a default style for simplicity
-    //                 if (style) {
-    //                     child.setStyle({ resolution: style.resolution });
-    //                 } else {
-    //                     console.warn(`Font family ${fontFamily} not found in global styles`);
-    //                 }
-    //             }
-    //         });
-    //     });
-    // }
-
+   
     /*
     Loads JSON data into Data Manager.
     JSON data preloaded in BootScene.preload();

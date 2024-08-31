@@ -1,0 +1,967 @@
+[
+    {
+        "id": "vo1",
+        "nameE": "Salmon",
+        "nameH": "scé·łtən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "food",
+            "salmon"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fishing",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo2",
+        "nameE": "Humpback (pink) salmon",
+        "nameH": "hó·n̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "food",
+            "salmon"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fishing",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo3",
+        "nameE": "Chum salmon",
+        "nameH": "k̓ʷál̓əxʷ ~ k̓ʷáʔləxʷ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "food",
+            "salmon"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fishing",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo4",
+        "nameE": "Jack spring salmon",
+        "nameH": "qʷəcíʔqiye",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "food",
+            "salmon"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fishing",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo5",
+        "nameE": "Spring salmon",
+        "nameH": "st̓ᶿáqʷəy̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "food",
+            "salmon"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fishing",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo6",
+        "nameE": "Sockeye salmon",
+        "nameH": "sθə́qəy̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "food",
+            "salmon"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fishing",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo7",
+        "nameE": "Coho salmon",
+        "nameH": "kʷəxʷəθ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "food",
+            "salmon"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fishing",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo8",
+        "nameE": "fish club",
+        "nameH": "slém̓əθ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo9",
+        "nameE": "fish knife",
+        "nameH": "ɬéc̓tən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fish leather",
+            "fish bone beads"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo10",
+        "nameE": "spoon",
+        "nameH": "x̌eĺəw̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "fish leather"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo11",
+        "nameE": "bowl",
+        "nameH": "ƛ̓əp laʔθən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "smoking fish"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo12",
+        "nameE": "cup",
+        "nameH": "ləpat",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "smoking fish"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo13",
+        "nameE": "stick",
+        "nameH": "sc̓ex̌t",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "smoking fish"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo14",
+        "nameE": "pole to hang fish on",
+        "nameH": "q̓éyəxʷəs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [
+            "smoking fish"
+        ],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo15",
+        "nameE": "axe",
+        "nameH": "k̓ʷqʷəmən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo16",
+        "nameE": "rope",
+        "nameH": "x̌ʷil̕əm",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo17",
+        "nameE": "ladder",
+        "nameH": "sk̓ʷiʔtən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "tools"
+        ],
+        "minigames": [
+            "wheel",
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo18",
+        "nameE": "Book",
+        "nameH": "pukʷ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo19",
+        "nameE": "Lamp",
+        "nameH": "həy̓qʷí:n",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "furniture"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo20",
+        "nameE": "Flowers",
+        "nameH": "sp̓éq̓əm",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "plants"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo21",
+        "nameE": "Chair",
+        "nameH": "sxʷc̓en̓əctən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "furniture"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo22",
+        "nameE": "Table",
+        "nameH": "lətém",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "furniture"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo23",
+        "nameE": "Paper",
+        "nameH": "pipə",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo24",
+        "nameE": "Green",
+        "nameH": "cqʷay",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo25",
+        "nameE": "Black",
+        "nameH": "cq̓ix",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo26",
+        "nameE": "Red",
+        "nameH": "ck̓ʷim",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo27",
+        "nameE": "Yellow",
+        "nameH": "lələc̓aləs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo28",
+        "nameE": "Orange",
+        "nameH": "kʷiʔk̓ʷeyəl̕s ~ kʷələlaʔaləs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo29",
+        "nameE": "Blue",
+        "nameH": "t̕ᶿet̕ᶿəxʷəm̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo30",
+        "nameE": "White",
+        "nameH": "p̓əq̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo31",
+        "nameE": "Purple",
+        "nameH": "t̕ətq̓əl̕əs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo32",
+        "nameE": "Pink",
+        "nameH": "qalqələs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo33",
+        "nameE": "Grey",
+        "nameH": "ck̓ʷik̓ʷ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo34",
+        "nameE": "Brown",
+        "nameH": "təmɬaləs OR qʷaqʷəmələs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "colours"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo35",
+        "nameE": "head",
+        "nameH": "sx̌áy̓əs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo36",
+        "nameE": "eye",
+        "nameH": "qə́ləm",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo37",
+        "nameE": "tooth",
+        "nameH": "yə́nəs",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo38",
+        "nameE": "hand",
+        "nameH": "céləx",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo39",
+        "nameE": "foot",
+        "nameH": "sx̌ə́n̓ə",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo40",
+        "nameE": "mouth",
+        "nameH": "θáθən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo41",
+        "nameE": "hair",
+        "nameH": "méqən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo42",
+        "nameE": "ear",
+        "nameH": "q̓ʷí·n̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo43",
+        "nameE": "nose",
+        "nameH": "mə́qsən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "body parts"
+        ],
+        "minigames": [
+            "matching",
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo44",
+        "nameE": "bed",
+        "nameH": "šxʷam̓ət",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "furniture"
+        ],
+        "minigames": [
+            "matching"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo45",
+        "nameE": "rainbow",
+        "nameH": "sθəqəlxenəm",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo46",
+        "nameE": "moon",
+        "nameH": "łqel̕c̓",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo47",
+        "nameE": "star",
+        "nameH": "kʷasən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo48",
+        "nameE": "tree",
+        "nameH": "θqet",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "plants"
+        ],
+        "minigames": [
+            "spawning"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo49",
+        "nameE": "canoe",
+        "nameH": "snəxʷəł",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo50",
+        "nameE": "woman",
+        "nameH": "słeniʔ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo51",
+        "nameE": "child",
+        "nameH": "sƛ̓iƛ̓qəł",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo52",
+        "nameE": "man",
+        "nameH": "swəy̓qaʔ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo53",
+        "nameE": "broom",
+        "nameH": "q̓ʷeʔtən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [
+            "wheel"
+        ],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo54",
+        "nameE": "money",
+        "nameH": "telə",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo55",
+        "nameE": "house",
+        "nameH": "leləm",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo56",
+        "nameE": "bottle",
+        "nameH": "šləmel̓ə",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo57",
+        "nameE": "grass",
+        "nameH": "sax̌wəl",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo58",
+        "nameE": "feather",
+        "nameH": "šƛ̓pel̕qən",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    },
+    {
+        "id": "vo59",
+        "nameE": "mushroom",
+        "nameH": "kʷəmstəliqʷ",
+        "morphologicalCategory": "noun",
+        "semanticCategories": [
+            "world around us",
+            "food",
+            "plants"
+        ],
+        "minigames": [],
+        "traditionalActivities": [],
+        "audioFilename": "",
+        "imageFilename": ""
+    }
+]

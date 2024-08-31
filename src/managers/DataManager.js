@@ -160,7 +160,8 @@ export default class DataManager {
 
     getAllVocabularySemanticCategories(){
         const vocabularyData = this.getAllVocabularyData();
-        const semanticCategories = vocabularyData.map(v => v.semanticCategory)
+        console.log("Data Manager - Vocabulary Data: ", vocabularyData);
+        const semanticCategories = vocabularyData.map(v => v.semanticCategories)
             .filter(this.onlyUnique);
 
         // console.log("Data Manager - All Vocabulary Semantic Categories: ", semanticCategories);

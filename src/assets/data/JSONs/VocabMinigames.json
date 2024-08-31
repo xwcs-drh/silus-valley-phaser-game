@@ -2,17 +2,14 @@
   "id": "g1",
   "nameE": "catchFish_challenge", 		
   "morphologicalCategory": "noun", 		
-  "semanticCategory": "fish",
+  "semanticCategories": ["fish", "plants", "tools"],
   "gameformat": { 
       "type": "spawning",
-      "direction": "leftward",
-      "movementSpeed": 10,	
+      "direction": "upward",
+      "movementSpeed": 10000,	
       "mode": "challenge"
     },
-  "inBiome": "b2", 				
-  "SceneConstructor_identifier":"vocabGameSpawningScene",	
-  "vocabularyIds": ["v1", "v2", "v3"]
-
+  "SceneConstructor_identifier":"VocabSpawningMinigameScene"
 },
 {
   "id": "g2",

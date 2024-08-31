@@ -11,7 +11,7 @@ import TraditionalActivitiesMenuScene from './scenes/TraditionalActivitiesMenuSc
 import TraditionalActivityMinigameScene from './scenes/TraditionalActivityMinigameScene';
 import VocabMinigamesMenuScene from './scenes/VocabMinigamesMenuScene';
 import VocabWheelMinigameScene from './scenes/VocabWheelMinigameScene';
-
+import VocabSpawningMinigameScene from './scenes/VocabSpawningMinigameScene';
 // import gameConfig from './config';
 
 // console.log('Initializing Phaser game...');
@@ -51,6 +51,7 @@ var config = {
 		TraditionalActivityMinigameScene,
 		VocabMinigamesMenuScene,
 		VocabWheelMinigameScene,
+		VocabSpawningMinigameScene,
 	], //list of all scenes used
 	scale: {
 		width:2032,

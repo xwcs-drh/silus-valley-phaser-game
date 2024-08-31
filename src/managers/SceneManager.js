@@ -75,7 +75,8 @@ export default class SceneManager {
             
             this.game.scene.start(newSceneKey, { reference: reference });
             this.currentScene = this.game.scene.getScene(newSceneKey);
-            this.currentScene.input.enabled = true;
+            console.log("current scene: ", this.currentScene);
+            this.currentScene.input.enabled = true; //enable input for the new scene
             if((this.dataManager.getCurrentBiome() == null || this.dataManager.getCurrentBiomeReference() !== reference) && newSceneKey.includes("BiomeHomeScene")){
                 console.log("SceneManager: Setting current biome reference to: ", reference);
                 this.dataManager.setCurrentBiome(reference);

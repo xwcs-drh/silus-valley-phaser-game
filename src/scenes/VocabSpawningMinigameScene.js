@@ -3,7 +3,7 @@ import VocabSprite from '../utils/VocabSprite';
 
 export default class VocabSpawningGameScene extends BaseScene {
     constructor() {
-        super({ key: 'VocabSpawningGameScene' });
+        super({ key: 'VocabSpawningMinigameScene' });
 
         this.gameMode = 'challenge'; // 'practice' or 'challenge'
         this.isTimed = false;
@@ -14,7 +14,10 @@ export default class VocabSpawningGameScene extends BaseScene {
         this.vocabCorrect = []; //used in challenge mode, updates playerData when game ends
         this.vocabIncorrect = []; //used in challenge mode, updates playerData when game ends
         this.vocabSpawned = []; //populated with active sprites
-        this.correctVocabToSelect = null; //only used in challenge mode. This is the vocab item that the player must select to be correct
+        this.correctVocabToSelect = null; //only used in challenge mode. This is the vocab item that the player must select to be correct        
+        this.outOfBoundsCalled = false; // Flag to track if spriteOutOfBounds has been called
+        this.activeTweens = [];
+        this.score = 0;
     }
 
     init(data) {
@@ -23,11 +26,12 @@ export default class VocabSpawningGameScene extends BaseScene {
         // this.isTimed = data.isTimed || false;
         this.dataManager = this.game.dataManager;
         this.minigameData = data.reference.vocabMinigame;
-        this.vocabulary = data.reference.vocabulary;
+        this.vocabulary = data.reference.gameVocabulary;
         // this.vocabulary = minigameData.vocabulary;
         // this.vocabulary = vocabularySelection("noun", "animal");
 
         // console.log("minigame data: ", this.minigameData);
+        // console.log("vocabulary: ", this.vocabulary);
         this.minigameId = this.minigameData.id;
         // console.log("activity id: ", this.activityId);
         if (!this.minigameData) {
@@ -37,21 +41,22 @@ export default class VocabSpawningGameScene extends BaseScene {
 
     preload() {
         super.preload();
-        if (this.minigameData) {
-            const fileName = this.minigameData.backgroundFilename;
-            this.load.image('background', `assets/Images/vocabularyMinigameBackgrounds/${fileName}`);
+        this.load.image('spriteImg', "assets/Images/vocabulary/vo4Image.png");
+        // if (this.minigameData) {
+        //     const fileName = this.minigameData.backgroundFilename;
+        //     this.load.image('background', `assets/Images/vocabularyMinigameBackgrounds/${fileName}`);
             
-            // Load vocabulary images
-            if (this.minigameData.vocabulary) {
-                this.minigameData.vocabulary.forEach(vocabItem => {
-                    if (vocabItem.imageFilename) {
-                        const imageKey = vocabItem.imageFilename.split('.').slice(0, -1).join('.'); // Remove file extension
-                        this.load.image(imageKey, `assets/Images/vocabulary/${vocabItem.imageFilename}`);
-                    }
-                    console.log(`Loaded image for vocabItem: ${vocabItem} ; imageKey: ${imageKey}`);
-                });
-            }
-        }
+        //     // Load vocabulary images
+        //     if (this.minigameData.vocabulary) {
+        //         this.minigameData.vocabulary.forEach(vocabItem => {
+        //             if (vocabItem.imageFilename) {
+        //                 const imageKey = vocabItem.imageFilename.split('.').slice(0, -1).join('.'); // Remove file extension
+        //                 this.load.image(imageKey, `assets/Images/vocabulary/${vocabItem.imageFilename}`);
+        //             }
+        //             console.log(`Loaded image for vocabItem: ${vocabItem} ; imageKey: ${imageKey}`);
+        //         });
+        //     }
+        // }
     }
 
     /**
@@ -61,22 +66,28 @@ export default class VocabSpawningGameScene extends BaseScene {
     */
     create() {
         super.create();
-        this.numVocab = this.minigameData.vocabulary.length;
-        console.log("this.numVocab: ", this.numVocab);
-        
-        this.destroyAllSpawned();
-        // if (this.isTimed) {
+        this.numVocab = 8;
+        // console.log("this.numVocab: ", this.numVocab);
+                // if (this.isTimed) {
         //     this.startTimer();
         // }
         // setupInputEvents(this);
-        this.vocabText = this.add.text(this.canvas.width / 2, this.canvas.height *0.1, 'Hello', { fontSize: '32px', fill: '#000' });
+        this.vocabText = this.add.text(this.canvasWidth / 2, this.canvasHeight *0.2, 'Hello', {...this.fontStyles.baseSceneGenericStyles.bodyFontStyle, fontSize: '20px', fill: '#000000'});
+        if(this.gameMode === 'challenge') {
+            this.scoreText = this.add.text(this.canvasWidth *0.9, this.canvasHeight *0.1, 'Correct: 0', {...this.fontStyles.baseSceneGenericStyles.bodyFontStyle, fontSize: '16px', fill: '#000000'});
+        }
         this.createEndGameButton();
+        this.destroyAllSpawned();
 
         this.startSpawning();
         // Create end game button
         
     }
 
+    /**
+     * Creates the end game button
+     * 
+    */
     createEndGameButton() {
         this.endGameButton = this.add.rectangle(
             this.canvasWidth * 0.1,
@@ -95,7 +106,7 @@ export default class VocabSpawningGameScene extends BaseScene {
             { fontSize: '16px', fill: '#ffffff' }
         );
         buttonText.setOrigin(0.5);
-
+        // this.endGameButton.add(buttonText);
         this.endGameButton.on('pointerdown', () => {
             this.endGame();
         });
@@ -109,6 +120,7 @@ export default class VocabSpawningGameScene extends BaseScene {
         this.vocabSpawned.forEach(vocab => {
             vocab.destroy();
         });
+        this.vocabSpawned = [];
     }
 
     /**
@@ -116,21 +128,23 @@ export default class VocabSpawningGameScene extends BaseScene {
      * 
     */
     startSpawning() {
-        if(this.gameMode === 'challenge') {
-            // Get 3 unique random vocab items
-            const randomVocab = Phaser.Utils.Array.Shuffle(this.minigameData.vocabulary.slice()).slice(0, 3);
-            
+        // console.log("vocab spawned: ", this.vocabSpawned);
+        this.time.delayedCall(1000, () => {
+            if(this.gameMode === 'challenge') {
+                // Get 3 unique random vocab items
+            const randomVocab = Phaser.Utils.Array.Shuffle(this.vocabulary.slice()).slice(0, 3);
+            // console.log("randomVocab: ", randomVocab);
             this.spawnChallengeVocabs(randomVocab);
         }
         else {
             // Spawn all vocabulary items
             // Get a single random vocab item
-            const randomVocab = Phaser.Utils.Array.GetRandom(this.minigameData.vocabulary);
-            const xPosition = Phaser.Math.Between(this.canvasWidth*0.1, this.canvasWidth*0.9);
+            const randomVocab = Phaser.Utils.Array.GetRandom(this.vocabulary);
             // Spawn the random vocab item
-            this.spawnVocabSprite(randomVocab, xPosition);
-            this.displayWordForVocabSprite(randomVocab);
+            this.spawnSingleVocabSprite(randomVocab);
+            this.displayWordForVocabSprite(randomVocab.langA);
         }
+        });
     }
 
     /**
@@ -138,12 +152,18 @@ export default class VocabSpawningGameScene extends BaseScene {
      * @param {*} randomVocabs : the array of 3 vocab items to spawn
     */
     spawnChallengeVocabs(randomVocabs) {
+        // console.log("this.canvasWidth: ", this.canvasWidth," ; this.canvasHeight: ", this.canvasHeight);
         for (let i = 0; i < randomVocabs.length; i++) {
             const spawnPosition = this.getSpawnPosition(i+1);
-            this.spawnVocabSprite(randomVocabs[i], spawnPosition);
+            // console.log("spawnPosition: ", spawnPosition);
+            const vocabSprite = new VocabSprite(this, spawnPosition.x, spawnPosition.y, randomVocabs[i], this.minigameData.gameformat);
+            // console.log("vocabSprite: ", vocabSprite);
+            this.vocabSpawned.push(vocabSprite);
+            // this.spawnVocabSprite(randomVocabs[i], spawnPosition);
         }
-        this.correctVocabToSelect = randomVocabs[0]; //set the correct vocab to select as the first vocab item in array of shuffled 3 vocab items
-        this.displayWordForVocabSprite(this.correctVocabToSelect.nameH); //display the word for the correct vocab to select
+        this.correctVocabToSelect = Phaser.Utils.Array.GetRandom(randomVocabs); 
+        console.log("this.correctVocabToSelect: ", this.correctVocabToSelect);
+        this.displayWordForVocabSprite(this.correctVocabToSelect.nameE); //display the word for the correct vocab to select
     }
 
     /**
@@ -152,7 +172,7 @@ export default class VocabSpawningGameScene extends BaseScene {
     */
     spawnSingleVocabSprite(vocab) {
         const position = this.getSpawnPosition(4); //4 allows pos to be anywhere on canvas
-        const vocabSprite = new VocabSprite(this, position.x, position.y, vocab);
+        const vocabSprite = new VocabSprite(this, position.x, position.y, vocab, this.minigameData.gameformat);
         this.vocabSpawned.push(vocabSprite);
     }
 
@@ -172,19 +192,19 @@ export default class VocabSpawningGameScene extends BaseScene {
         const randPosInBounds = this.getRandPosInBounds(region);
         switch(direction) {
             case "leftward":
-                pos.x = this.canvasWidth * 0.1;
+                pos.x = this.canvasWidth * 0.9;
                 pos.y = randPosInBounds.y;
                 break;
             case "upward":
                 pos.x = randPosInBounds.x;
-                pos.y = canvasHeight * 0.1;
+                pos.y = this.canvasHeight*1.1;
                 break;
             case "downward":
                 pos.x = randPosInBounds.x;
-                pos.y = canvasHeight * 0.9;
+                pos.y = this.canvasHeight * 0.1;
                 break;
             case "rightward":
-                pos.x = this.canvasWidth * 0.9;
+                pos.x = this.canvasWidth * 0.1;
                 pos.y = randPosInBounds.y;
                 break;
             case "grow":
@@ -220,14 +240,14 @@ export default class VocabSpawningGameScene extends BaseScene {
             case 2:
                 bounds.leftX = this.canvasWidth/3;
                 bounds.rightX = (this.canvasWidth/3)*2;
-                bounds.topY = this.canvasWidth/3;
-                bounds.bottomY = (this.canvasWidth/3)*2;
+                bounds.topY = this.canvasHeight/3;
+                bounds.bottomY = (this.canvasHeight/3)*2;
                 break;
             case 3:
                 bounds.leftX = (this.canvasWidth/3)*2;
                 bounds.rightX = this.canvasWidth;
-                bounds.topY = (this.canvasWidth/3)*2;
-                bounds.bottomY = this.canvasWidth;
+                bounds.topY = (this.canvasHeight/3)*2;
+                bounds.bottomY = this.canvasHeight;
                 break;
             case 4:
                 bounds.leftX = 0;
@@ -236,10 +256,11 @@ export default class VocabSpawningGameScene extends BaseScene {
                 bounds.bottomY = this.canvasHeight;
                 break;
         }
-        bounds.leftX = bounds.leftX + (this.canvasWidth * margins);
-        bounds.rightX = bounds.rightX - (this.canvasWidth * margins);
-        bounds.topY = bounds.topY - (this.canvasHeight * margins);
-        bounds.bottomY = bounds.bottomY + (this.canvasHeight * margins);
+        // console.log("BEFORE MARGINS... bounds.leftX: ", bounds.leftX," ; bounds.rightX: ", bounds.rightX," ; bounds.topY: ", bounds.topY," ; bounds.bottomY: ", bounds.bottomY);
+        bounds.leftX +=(this.canvasWidth * margins);
+        bounds.rightX -= (this.canvasWidth * margins);
+        bounds.topY += (this.canvasHeight * margins);
+        bounds.bottomY -= (this.canvasHeight * margins);
     
         return bounds;
     }
@@ -252,8 +273,10 @@ export default class VocabSpawningGameScene extends BaseScene {
     */
     getRandPosInBounds(region) {
         const bounds = this.getBounds(region);
+        // console.log("bounds: ", bounds);
         const x = Phaser.Math.Between(bounds.leftX, bounds.rightX);
         const y = Phaser.Math.Between(bounds.topY, bounds.bottomY);
+        // console.log("x: ", x,", y: ", y);
         return {
             x: x,
             y: y
@@ -261,14 +284,33 @@ export default class VocabSpawningGameScene extends BaseScene {
     }
 
     /**
+     * Terminates all active sprites
+     * stops all active tweens
+     * disables interactive for all vocab sprites
+    */
+    terminateSprites() {
+        this.activeTweens.forEach(tween => tween.stop());
+        this.vocabSpawned.forEach(vocab => {
+            vocab.disableInteractive();
+        });
+    }
+
+    updateScore() {
+        if(this.gameMode === 'challenge') {
+            this.score += 1;
+            this.scoreText.text = `Correct: ${this.score}`;
+        }
+    }
+
+    /**
      * Handles the selection of a vocab sprite in practice mode
      * @param {*} vocabSprite : the vocab sprite that was selected
     */
     selectedInPractice(vocabSprite) {
-        vocabSprite.disableInteractive();
+        this.terminateSprites();
         this.vocabViewed.push(vocabSprite);
-        this.vocabText.text = ""; //clear the spawn word text
         this.time.delayedCall(1000, () => {
+            this.displayWordForVocabSprite("");
             this.destroyAllSpawned();
             this.startSpawning();
         });
@@ -279,12 +321,13 @@ export default class VocabSpawningGameScene extends BaseScene {
      * @param {*} vocabSprite : the vocab sprite that was selected
     */
     selectedInChallenge(vocabSprite) {
-        this.vocabSpawned.forEach(vocab => {
-            vocab.disableInteractive();
-        });
+        this.terminateSprites();
+        console.log("selectedInChallenge: ", vocabSprite.vocabularyData.id, " ; ", this.correctVocabToSelect.id);
+
         // Check if the vocabSprite is in the vocabCorrect array
-        if(vocabSprite.id === this.correctVocabToSelect.id) {
+        if(vocabSprite.vocabularyData.id === this.correctVocabToSelect.id) {
             this.vocabCorrect.push(vocabSprite);
+            this.updateScore();
             //some sort of feedback
         }
         else {
@@ -303,22 +346,41 @@ export default class VocabSpawningGameScene extends BaseScene {
      * Displays the word for the vocab sprite
      * @param {*} vocabSprite : the vocab sprite that was selected
     */
-    displayWordForVocabSprite(vocabSprite) {
-        const word = vocabSprite.vocabData.word;
-        console.log("word: ", word);
-        this.vocabText.text = word;
+    displayWordForVocabSprite(vocabSpriteWord) {
+        console.log("displayWordForVocabSprite: ", vocabSpriteWord);
+        console.log("this.vocabText: ", this.vocabText);
+        this.vocabText.setText(vocabSpriteWord);
+    }
+
+    spriteOutOfBounds(){
+        this.terminateSprites();
+        this.outOfBoundsCalled = true; // Flag to track if spriteOutOfBounds has been called
+        this.displayWordForVocabSprite("");
+        if(this.vocabSpawned.length > 0){
+            this.vocabIncorrect.push(this.correctVocabToSelect);
+        }
+        this.destroyAllSpawned();
+        this.outOfBoundsCalled = false; // Reset the flag
+
+        this.startSpawning();
     }
 
     /**
      * Ends the game
-     * 
+     * destroys all spawned vocab sprites
+     * updates playerData
+     * stops the game and goes back to the vocab minigame scene
     */
     endGame() {
-        this.destroyAllSpawned();
-        //update playerData
-        this.game.scene.stop('VocabSpawningGameScene');
-        this.game.scene('VocabMinigameScene');
-        this.endGameButton.destroy();
-        this.backButton = new BackButton(this, this.canvasWidth, this.canvasHeight, this.game.sceneManager);
+        // Stop all active tweens
+        this.terminateSprites();
+
+        // Destroy all vocabulary sprites
+        this.vocabSpawned.forEach(vocab => vocab.destroy());
+        this.vocabSpawned = [];
+
+        // Stop the game scene
+        this.game.scene.stop('VocabSpawningGameScene'); 
+        // this.endGameButton.destroy();
     }
 }

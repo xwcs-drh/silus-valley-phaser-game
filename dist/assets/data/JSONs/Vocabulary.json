@@ -166,7 +166,7 @@
   "nameE": "necklace",
   "nameH": "sx̌ʷəq̓ʷɬəɬ",
   "morphologicalCategory": "noun",
-  "semanticCategory": "domestic",
+  "semanticCategory": ["domestic"],
   "inBiomes": ["b1"],
   "audioFilename": "necklace.wav",	      
   "imageFilename": "necklace.svg"
@@ -176,7 +176,7 @@
   "nameE": "string",
   "nameH": "x̌ʷix̌ʷləm̓",
   "morphologicalCategory": "noun",
-  "semanticCategory": "domestic",
+  "semanticCategory": ["domestic"],
   "inBiomes": ["b1"],
   "audioFilename": "string.wav",	      
   "imageFilename": "string.svg"
@@ -186,7 +186,7 @@
   "nameE": "tie",
   "nameH": "q̓ép̓ət",
   "morphologicalCategory": "verb",
-  "semanticCategory": "domestic",
+  "semanticCategory": ["domestic"],
   "inBiomes": ["b1"],
   "audioFilename": "tie.wav",	      
   "imageFilename": "tie.svg"
@@ -196,7 +196,7 @@
   "nameE": "salve",
   "nameH": "sléx̌ən̓",
   "morphologicalCategory": "noun",
-  "semanticCategory": "medicine",
+  "semanticCategory": ["medicine"],
   "inBiomes": ["b1"],
   "audioFilename": "salve.wav",	      
   "imageFilename": "salve.svg"
@@ -206,7 +206,7 @@
   "nameE": "pot",
   "nameH": "stú·p",
   "morphologicalCategory": "noun",
-  "semanticCategory": "household",
+  "semanticCategory": ["household"],
   "inBiomes": ["b1"],
   "audioFilename": "pot.wav",	      
   "imageFilename": "pot.svg"
@@ -216,7 +216,7 @@
   "nameE": "bowl",
   "nameH": "...",
   "morphologicalCategory": "noun",
-  "semanticCategory": "household",
+  "semanticCategory": ["household"],
   "inBiomes": ["b1"],
   "audioFilename": "bowl.wav",	      
   "imageFilename": "bowl.svg"
@@ -226,7 +226,7 @@
   "nameE": "stove",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "household",
+  "semanticCategory": ["household"],
   "inBiomes": ["b1"],
   "audioFilename": "stove.wav",	      
   "imageFilename": "stove.svg"
@@ -236,7 +236,7 @@
   "nameE": "oil",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "food",
+  "semanticCategory": ["food"],
   "inBiomes": ["b1"],
   "audioFilename": "oil.wav",	      
   "imageFilename": "oil.svg"
@@ -246,7 +246,7 @@
   "nameE": "burdock root",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "plant",
+  "semanticCategory": ["plant"],
   "inBiomes": ["b1"],
   "audioFilename": "burdock_root.wav",	      
   "imageFilename": "burdock_root.svg"
@@ -256,7 +256,7 @@
   "nameE": "red clover",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "plant",
+  "semanticCategory": ["plant"],
   "inBiomes": ["b1"],
   "audioFilename": "red_clover.wav",	      
   "imageFilename": "red_clover.svg"
@@ -266,7 +266,7 @@
   "nameE": "frog’s leaf",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "plant",
+  "semanticCategory": ["plant"],
   "inBiomes": ["b1"],
   "audioFilename": "frogs_leaf.wav",	      
   "imageFilename": "frogs_leaf.svg"
@@ -276,7 +276,7 @@
   "nameE": "beeswax",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "plant",
+  "semanticCategory": ["plant"],
   "inBiomes": ["b1"],
   "audioFilename": "beeswax.wav",	      
   "imageFilename": "beeswax.svg"
@@ -286,7 +286,7 @@
   "nameE": "cranberry butter",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "plant",
+  "semanticCategory": ["plant"],
   "inBiomes": ["b1"],
   "audioFilename": "cranberry_butter.wav",	      
   "imageFilename": "cranberry_butter.svg"
@@ -296,7 +296,7 @@
   "nameE": "shea butter",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "plant",
+  "semanticCategory": ["plant"],
   "inBiomes": ["b1"],
   "audioFilename": "shea_butter.wav",	      
   "imageFilename": "shea_butter.svg"
@@ -306,7 +306,7 @@
   "nameE": "lid",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "household",
+  "semanticCategory": ["household"],
   "inBiomes": ["b1"],
   "audioFilename": "lid.wav",	      
   "imageFilename": "lid.svg"
@@ -316,7 +316,7 @@
   "nameE": "medicine",
   "nameH": "",
   "morphologicalCategory": "noun",
-  "semanticCategory": "household",
+  "semanticCategory": ["medicine"],
   "inBiomes": ["b1"],
   "audioFilename": "medicine.wav",	      
   "imageFilename": "medicine.svg"
@@ -326,7 +326,7 @@
   "nameE": "knot",
   "nameH": "sq̓éq̓əp̓",
   "morphologicalCategory": "verb",
-  "semanticCategory": "domestic",
+  "semanticCategory": ["domestic"],
   "inBiomes": ["b1"],
   "audioFilename": "knot.wav",	      
   "imageFilename": "knot.svg"
@@ -336,7 +336,7 @@
   "nameE": "measure",
   "nameH": "x̌ʷíləmt",
   "morphologicalCategory": "verb",
-  "semanticCategory": "domestic",
+  "semanticCategory": ["domestic"],
   "inBiomes": ["b1"],
   "audioFilename": "knot.wav",	      
   "imageFilename": "knot.svg"
