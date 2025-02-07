@@ -1,6 +1,4 @@
 import BaseScene from './BaseScene';
-console.log("BaseScene defined: ", BaseScene); // Check if BaseScene is defined
-
 import LargeTextButton from '../utils/LargeTextButton';
 
 export default class StartMenuScene extends BaseScene {
@@ -42,15 +40,6 @@ export default class StartMenuScene extends BaseScene {
 
         this.load.image('blueButtonBackground', './assets/UI/blank_blue_button.jpeg');
 
-        // /*Load Google fonts using WebFont Loader
-        // currently using Noto Sans... would like to find a better font that works with APA
-        // */
-        // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
-        // WebFont.load({
-        //   google: {
-        //     families: ['Fira Sans',  'Radio Canada', 'Montserrat Alternates', 'Varta', 'Signika', 'Cabin', 'Maven Pro']
-        //   }
-        // });
     
     }
 
@@ -65,9 +54,7 @@ export default class StartMenuScene extends BaseScene {
         const fontSize = `${Math.min(this.canvasWidth, this.canvasHeight) * 0.1}px`;
         // Check if the title text has already been created
         if (!this.titleText) {
-            // Create title text
-            // this.titleText = this.add.text(this.canvasWidth * 0.4, this.canvasHeight * 0.4, 'Sil̓ə’s Valley θe̓yqʷt', { fontSize: fontSize, fontFamily: 'Radio Canada, Arial, sans-serif', fill: '#000080', padding: { top: this.canvasWidth * 0.05, bottom: this.canvasWidth * 0.1 }, resolution:2, stroke: '#000080', strokeThickness: 2});
-            // console.log(this.game.global, this.game.baseSceneGenericStyles);
+
             console.log(this.fontStyles.baseSceneGenericStyles);
             
             const titleTextString = 'Sil̓ə’s Valley θe̓yqʷt';

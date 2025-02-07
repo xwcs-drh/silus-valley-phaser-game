@@ -10,3 +10,7 @@
     src:
         url('fonts/2023_01_01_BCSans-Regular_2f.ttf') format('truetype')
 }
+
+#app {
+  width:fit-content
+}

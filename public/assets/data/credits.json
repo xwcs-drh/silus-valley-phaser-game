@@ -1,28 +1,28 @@
 [
   {
-    "category": "Production",
+    "category": "Project Managers",
     "name": [
       "Abigail Cunningham",
       "Heather Gunn"
     ]
   },
-  { "category": "Art",
+  { "category": "Artists",
     "name": [
       "Lilly Teare Cunningham"
     ]
   },
   { 
-    "category": "Development",
+    "category": "Developers",
     "name": [
       "Chloe Farr",
       "Zack Gilkison"
     ]
   },
   { 
-    "category": "Language Consultancy",
+    "category": "Language Consultants",
     "name": [
       "Kaitlyn Cunningham",
-      "Victor Guerin"
+      "Victor"
     ]
   }
 ]

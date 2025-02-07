@@ -16,16 +16,8 @@ export default class BaseScene extends Phaser.Scene {
     constructor(key) {
         super(key);
         this.sceneKey = key;
-
-        // console.log("BaseScene: constructor called with key: ", this.sceneKey);
     }
 
-    /*
-    Prepare data from extending scene
-        - all scene data... this probably isnt necessary to be passed in, since it's global??
-        - reference: secondary identifier for the scene, for when the scene content loads dynamically
-        - selects the Scene Object pertinent to the content that should be displayed... in BaseScene specifically to load the correct background
-    */
     init(data={}) {
         // console.log("BaseScene init data: ", data);
         // console.log("BaseScene init reference: ", data.reference);
@@ -36,15 +28,7 @@ export default class BaseScene extends Phaser.Scene {
         const allScenesData = this.dataManager.getAllScenesData();
 
         this.sceneManager = this.game.sceneManager;
-        // console.log(this.sceneManager); 
         this.currentSceneData = this.sceneManager.getCurrentSceneData();
-        // console.log("Base Scene: current scene data " , this.currentSceneData);
-        // this.currentSceneData = this.allScenesData.find(scene => scene.reference_name === this.reference);
-        // if (!this.currentSceneData) {
-        //     // console.error('No sceneData received in BaseScene.');
-        //     return;
-        // }
-        // console.log(`BaseScene: ui manager? ${this.game.UIManager}`);
         this.UIManager = this.game.UIManager;
         
     }
@@ -121,33 +105,6 @@ export default class BaseScene extends Phaser.Scene {
         // this.handleResize();
 
     }
-
-     // Method to handle window resize
-    // handleResize() {
-    //     this.gameWidth = this.sys.game.config.width;
-    //     this.gameHeight = this.sys.game.config.height;
-    //     this.canvasWidth = this.sys.game.canvas.width;
-    //     this.canvasHeight = this.sys.game.canvas.height;
-    //     this.gameResolution = this.sys.game.config.resolution;
-    //     this.devicePixelRatio = window.devicePixelRatio;
-
-    //     // Recursively update resolution of all image and text elements
-    //     this.updateResolution(this.children.list);
-    // }
-
-    // // Recursive method to update resolution of all text elements
-    // updateResolution(children) {
-    //     children.forEach(child => {
-    //         if (child instanceof Phaser.GameObjects.Text) {
-    //             if (child.setResolution) {
-    //                 child.setResolution(this.devicePixelRatio);
-    //             }
-    //         } else if (child.list) {
-    //             // If the child has its own children (e.g., a container), recursively update them
-    //             this.updateResolution(child.list);
-    //         }
-    //     });
-    // }
 
     /*
     Set background to fill the game window, centered, with a border
