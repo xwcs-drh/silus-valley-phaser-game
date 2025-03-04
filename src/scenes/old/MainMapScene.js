@@ -1,5 +1,5 @@
 import BaseScene from './BaseScene';
-import DialogueManager from '../managers/DialogueManager';
+import DialogueManager from '../../managers/DialogueManager';
 
 export default class MainMapScene extends BaseScene {
     /*

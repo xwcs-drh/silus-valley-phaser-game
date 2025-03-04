@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
-import PlayerDataManager from '../managers/PlayerDataManager';
-import DataManager from '../managers/DataManager';
+import PlayerDataManager from '../../managers/PlayerDataManager';
+import DataManager from '../../managers/DataManager';
 // import UIManager from '../managers/UIManager';
-import SceneManager from '../managers/SceneManager';
+import SceneManager from '../../managers/SceneManager';
 import * as UIScenes from './UI/UIScenes'; // Import all UI scenes from UIScenes.js
-import UserSettingsManager from '../managers/UserSettingsManager';
-import DialogueManager from '../managers/DialogueManager';
+import UserSettingsManager from '../../managers/UserSettingsManager';
+import DialogueManager from '../../managers/DialogueManager';
 import FontStyles from '../assets/fonts/FontStyles'
 
 export default class BootScene extends Phaser.Scene {

@@ -1,5 +1,5 @@
 import BaseScene from './BaseScene';
-import VocabSprite from '../utils/VocabSprite';
+import VocabSprite from '../../utils/VocabSprite';
 
 export default class VocabSpawningGameScene extends BaseScene {
     constructor() {

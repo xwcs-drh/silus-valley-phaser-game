@@ -15,6 +15,14 @@ export const headerStyle: textStyle = {
     color: '#222222'
 }
 
+export const buttonStyle: textStyle = {
+    fontFamily: 'Radio-Canada',
+    fontSize: '24px',
+    color: '#444444',
+    // backgroundColor: '#000000',
+    stroke: '14px'
+}
+
 // export const headerFont: Phaser
                 // headerFontStyle: this.createFontStyle(0.1, '#000080', 'center', 0.5),
                 // bodyFontStyle: this.createFontStyle(0.02, '#000000', 'center', 1),

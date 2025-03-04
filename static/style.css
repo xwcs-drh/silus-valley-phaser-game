@@ -11,7 +11,17 @@
         url('fonts/2023_01_01_BCSans-Regular_2f.ttf') format('truetype')
 }
 
+/* body {
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+} */
+
 #app {
-  width: fit-content;
+  height: fit-content;
+  /* width: 100vw; */
+  /* padding: 0;
+  margin: 0; */
+  /* overflow: none; */
   background-color: #00ff00
 }

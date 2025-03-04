@@ -1,0 +1,47 @@
+{"OpeningIntroduction": {
+  "sequence": [
+    {
+      "textE": "Welcome, grandchild!",
+      "textH": "...",
+      "conditions": "",
+      "callback": []
+ 	  },
+    {
+      "textE": " Something about visiting silə",
+      "textH": "...",
+      "conditions": "",
+      "callback": []
+    },    
+    {
+      "textE": "Something about silə teaching granchild",
+      "textH": "...",
+      "conditions": "",
+      "callback": []
+    },
+    {
+      "textE": "Grandchild will work with cedar",
+      "textH": "...",
+      "conditions": "",
+      "callback": []
+    },
+    {
+      "textE": "Grandchild will work with fish",
+      "textH": "...",
+      "conditions": "",
+      "callback": []
+    },
+    {
+      "textE": "Grandchild will work with medicine",
+      "textH": "...",
+      "conditions": "",
+      "callback": []
+    },
+    {
+      "textE": "Grandchild will learn/practice their hən̓q̓əmin̓əm̓ ",
+      "textH": "...",
+      "conditions": "",
+      "callback": []
+    }
+  ]
+}
+}

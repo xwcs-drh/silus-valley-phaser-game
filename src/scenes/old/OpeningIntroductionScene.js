@@ -1,6 +1,6 @@
 import BaseScene from './BaseScene';
-import DialogueManager from '../managers/DialogueManager';
-import LargeTextButton from '../utils/LargeTextButton';
+import DialogueManager from '../../managers/DialogueManager';
+import LargeTextButton from '../../utils/LargeTextButton';
 
 export default class OpeningIntroductionScene extends BaseScene {
     /*

@@ -1,7 +1,7 @@
 import BaseScene from './BaseScene';
 // import BackButton from '../utils/BackButton';
 // console.log("OpeningIntroductionScene defined: ", BaseScene); // Check if BaseScene is defined
-import DialogueManager from '../managers/DialogueManager';
+import DialogueManager from '../../managers/DialogueManager';
 // console.log("OpeningIntroductionScene defined: ", DialogueManager); // Check if BaseScene is defined
 
 export default class BiomeHomeScene extends BaseScene {

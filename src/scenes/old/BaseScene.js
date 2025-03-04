@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import ArrowService from '../utils/ArrowService';
-import HighlightService from '../utils/HighlightService';
+import ArrowService from '../../utils/ArrowService';
+import HighlightService from '../../utils/HighlightService';
 import FontStyles from '../assets/fonts/FontStyles';
 // import MainUI from './MainUI'; // Import MainUI (the default export) from MainUI.js
 export default class BaseScene extends Phaser.Scene {

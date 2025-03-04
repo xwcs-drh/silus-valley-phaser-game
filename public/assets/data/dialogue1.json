@@ -1,50 +1,43 @@
-[{
+{{
   "scene_reference_name": "OpeningIntroductionScene",
   "dialogues": [
     {
-      "order": 1,
       "textE": "Welcome, grandchild!",
       "textH": "...",
       "conditions": "",
       "functions": []
  	  },
     {
-      "order": 2,
       "textE": " Something about visiting silə",
       "textH": "...",
       "conditions": "",
       "functions": []
     },    
     {
-      "order": 3,
       "textE": "Something about silə teaching granchild",
       "textH": "...",
       "conditions": "",
       "functions": []
     },
     {
-      "order": 4,
       "textE": "Grandchild will work with cedar",
       "textH": "...",
       "conditions": "",
       "functions": []
     },
     {
-      "order": 5,
       "textE": "Grandchild will work with fish",
       "textH": "...",
       "conditions": "",
       "functions": []
     },
     {
-      "order": 6,
       "textE": "Grandchild will work with medicine",
       "textH": "...",
       "conditions": "",
       "functions": []
     },
     {
-      "order": 7,
       "textE": "Grandchild will learn/practice their hən̓q̓əmin̓əm̓ ",
       "textH": "...",
       "conditions": "",

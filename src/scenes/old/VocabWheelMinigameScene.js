@@ -1,6 +1,6 @@
 import BaseScene from './BaseScene';
-import WheelSlice, { setupInputEvents } from '../utils/WheelSlice';
-import VocabCircle from '../utils/VocabCircle';
+import WheelSlice, { setupInputEvents } from '../../utils/WheelSlice';
+import VocabCircle from '../../utils/VocabCircle';
 // import { vocabularySelection } from '../utils/VocabularySelection';
 
 export default class VocabWheelMinigameScene extends BaseScene {

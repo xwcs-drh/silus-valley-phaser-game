@@ -1,6 +1,6 @@
 import BaseScene from './BaseScene';
-import InteractiveObject from '../utils/InteractiveObject';
-import ClockService from '../utils/ClockService';
+import InteractiveObject from '../../utils/InteractiveObject';
+import ClockService from '../../utils/ClockService';
 
 export default class TraditionalActivityMinigameScene extends BaseScene {
     constructor() {

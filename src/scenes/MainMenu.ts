@@ -1,78 +1,64 @@
 import { Scene, GameObjects } from 'phaser';
-import { titleText } from './ui/TextStyles';
-import { Menu, Buttons, TextBox, RoundRectangle, CustomShapes, Sizer } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
+import { WoodFrameButton, WoodFrameTextPanel, WoodFrameTextSequence } from './ui/Panel'
+// import { titleText, buttonStyle } from './ui/TextStyles';
+// import { Menu, Buttons, TextBox, RoundRectangle, CustomShapes, Sizer } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import { UIPlugin } from 'phaser3-rex-plugins/templates/ui/ui-plugin'
+
+function test (): void {
+    console.log("clicked :)")
+}
 
 export class MainMenu extends Scene
 {
     rexUI: UIPlugin;
     background: GameObjects.Image;
     title: GameObjects.Container;
+    credits: GameObjects.Container;
     menu: Menu;
-    rect1: RoundRectangle;
+
 
     constructor ()
     {
         super('MainMenu');
+
+    }
+    preload () {
     }
    
     create ()
     {
+        this.scene.start('Introduction')
         this.background = this.add.image(500, 500, 'background');
-        
-        const title_frame = this.add.nineslice(
-            0, 0, 'frame-texture', 0, this.game.canvas.width * .7, 100, 100, 200, 300
-        )
-        const start = this.add.nineslice(this.game.canvas.width * .2, this.game.canvas.width * .2, )
-        const title_text = this.add.text(0, 0, "Sil̓ə’s Valley\nθe̓yqʷt'", titleText)
 
-        this.title = this.add.container(this.game.canvas.width / 2, 80,
-            [title_frame, title_text])
+        const startButton = new WoodFrameButton(
+            this, 150, 150, 150, 100, "Start", () => this.scene.start('Map'))
 
-        const credits = this.add.rectangle(this.game.canvas.width * .5, 500, 200, 200, 0xeeeeee)
-        credits.setInteractive();
-        credits.on('pointerup', () => {
-            this.scene.run('Credits');
-            this.scene.bringToTop('Credits');
+        const textPanel = new WoodFrameTextPanel(this, 550, 150, 450, 200, "sil̕ə valley")
 
-
-        start.setInteractive();
-        rect.on('pointerup', () =>
-        )
-    })
+        this.add.existing(textPanel)
+        this.add.existing(startButton)
     }
 }
 
-export class Credits extends Scene
+export class Introduction extends Scene
 {
-    text: GameObjects.Text
-
     constructor ()
     {
-        super('Credits');
+        super('Introduction');
     }
 
-    preload() {
-        this.load.json('credits-text', 'assets/data/credits.json')
+    preload () {
     }
-
     create ()
     {
+        const startButton = new WoodFrameButton(
+            this, 150, 400, 150, 100, "Start", () => this.scene.start('Map'));
+        this.add.existing(startButton);
 
-        const rect = this.add.rectangle(0, 0, 400, 400, 0x999999)
-        const credits = this.cache.json.get('credits-text');
-        const creditsContainer = new GameObjects.Container(
-            this, this.game.canvas.width *.8, 600, [rect])
-
-        credits.forEach((category: object, i: int) => {
-            creditsContainer.add(this.add.text(0, i * 20, category['category']))
-    })
-        this.add.existing(creditsContainer)
-
-        rect.setInteractive();
-        rect.on('pointerup', () => {
-            this.scene.stop()
-        })
-
+        const openingTextSequence = new WoodFrameTextSequence(
+            this, 'dialogue', 50, 50, 700, 250
+        )
+        this.add.existing(openingTextSequence)
     }
+
 }

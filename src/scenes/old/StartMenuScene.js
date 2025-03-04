@@ -1,5 +1,5 @@
 import BaseScene from './BaseScene';
-import LargeTextButton from '../utils/LargeTextButton';
+import LargeTextButton from '../../utils/LargeTextButton';
 
 export default class StartMenuScene extends BaseScene {
     /*
@@ -60,9 +60,7 @@ export default class StartMenuScene extends BaseScene {
             const titleTextString = 'Sil̓ə’s Valley θe̓yqʷt';
 
             this.titleText = this.add.text(this.canvasWidth * 0.4, this.canvasHeight * 0.4, titleTextString, this.fontStyles.baseSceneGenericStyles.headerFontStyle);
-            // this.titleText = this.fontStyles.getCustomText(this.canvasWidth * 0.4, this.canvasHeight * 0.4, titleTextString, {...this.game.fontStyles.baseSceneGenericStyles.headerFontStyle, fontSize: fontSize});
             this.add.existing(this.titleText);
-            // console.log(this.titleText.x, this.titleText.y);
         }
 
         this.titleTextCreated = false;

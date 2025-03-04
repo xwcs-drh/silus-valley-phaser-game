@@ -1,12 +1,16 @@
+import '/static/style.css';
 /// <reference types="Phaser" path=”../node_modules/phaser/types/phaser.d.ts”/>
 /// <reference types="Phaser" path=”../node_modules/phaser/types/phaser.d.ts”/>
 import { Boot } from './scenes/Boot';
-import { MainMenu, Credits } from './scenes/MainMenu';
+import { MainMenu, Credits, Introduction } from './scenes/MainMenu';
 import { Preloader } from "./scenes/Preloader";
-import UIPlugin from './phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import { Map } from "./scenes/Map";
+// import { Introduction } from "./scenes/Introduction";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import { PhaserNavMeshPlugin } from "phaser-navmesh";
 
-const originalWidth = 2032;
-const originalHeight = 1016;
+const originalWidth = 800;
+const originalHeight = 600;
 const aspectRatio = originalWidth / originalHeight;
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -20,20 +24,39 @@ const config: Phaser.Types.Core.GameConfig = {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     plugins: {
-        scene: [{
+        scene: [
+            {
             key: 'rexUI',
             plugin: UIPlugin,
             mapping: 'rexUI'
+            },
+        {
+            key: "PhaserNavMeshPlugin",
+            plugin: PhaserNavMeshPlugin,
+            mapping: "navMeshPlugin",
+            start: true
         }]
     },
     scene: [
         Boot,
         Preloader,
         MainMenu,
-        Credits
+        Introduction,
+        Map,
+        // Credits
         // Demo
-    ]
-
+    ],
+    physics: {
+        default: "arcade",
+        arcade: {
+            gravity: {
+                x: 0,
+                y: 0
+            },
+            debug: true
+        }
+    },
+    
 }
 
 export default new Phaser.Game(config);
